@@ -1,0 +1,47 @@
+﻿@model IEnumerable<MeriMudra.Models.City>
+
+@{
+    List<SelectListItem> states = ViewBag.StateList;
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    int sNo = 0;
+}
+
+
+<p>
+    @Html.ActionLink("Add New City", "Create")
+</p>
+@Html.DropDownList("StateId", states, new
+{ onchange = "document.location.href = '/Admin/Cities/Index?id=' + this.options[this.selectedIndex].value;",
+   @style = "display: initial;",
+   @class = "form-control"
+})
+<br />
+<br />
+<table class="table " id="tbl_cityMaster">
+    <tr>
+        <th>
+            S. No.
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        sNo = sNo + 1;
+        <tr>
+            <td>
+                @sNo
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>}
+
+</table>
