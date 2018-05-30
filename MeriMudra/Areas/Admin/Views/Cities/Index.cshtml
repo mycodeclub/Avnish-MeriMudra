@@ -6,18 +6,20 @@
     int sNo = 0;
 }
 
+<h2>Cities List</h2>
 
-<p>
-    @Html.ActionLink("Add New City", "Create")
-</p>
 @Html.DropDownList("StateId", states, new
 { onchange = "document.location.href = '/Admin/Cities/Index?id=' + this.options[this.selectedIndex].value;",
    @style = "display: initial;",
    @class = "form-control"
 })
+&nbsp; &nbsp; &nbsp;
+<input type="text" class="form-control" id="searchBarForCities" placeholder="Search for Cities.." title="Type in a name of city" style="display: initial;">
+&nbsp; &nbsp; &nbsp;
+<input type="button" class="btn btn-default" onclick="document.location.href = '/Admin/Cities/Create'" value="Add New City" />
 <br />
 <br />
-<table class="table " id="tbl_cityMaster">
+<table class="table" id="tbl_cities">
     <tr>
         <th>
             S. No.
@@ -27,7 +29,6 @@
         </th>
         <th></th>
     </tr>
-
     @foreach (var item in Model)
     {
         sNo = sNo + 1;
@@ -42,6 +43,11 @@
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
-        </tr>}
-
+        </tr>
+    }
 </table>
+@section scripts {
+    <script>
+        $(document).ready(function () { SearchInTable('tbl_cities', 'searchBarForCities'); });
+    </script>
+}
