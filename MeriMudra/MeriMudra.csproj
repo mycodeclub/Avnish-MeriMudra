@@ -115,6 +115,11 @@
     <Content Include="Areas\Admin\Views\Cities\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Cities\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Cities\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\BusinessPartnerProgrammes\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\BusinessPartnerProgrammes\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\BusinessPartnerProgrammes\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\BusinessPartnerProgrammes\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\BusinessPartnerProgrammes\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\commonScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -126,8 +131,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BusinessPartnerProgrammesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CitiesController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Controllers\BusinessPartnerProgrammesController.cs" />
     <Compile Include="Controllers\CreditCardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -150,6 +157,13 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\CreditCard\Index.cshtml" />
+    <Content Include="Views\BusinessPartnerProgrammes\Create.cshtml" />
+    <Content Include="Views\BusinessPartnerProgrammes\Delete.cshtml" />
+    <Content Include="Views\BusinessPartnerProgrammes\Details.cshtml" />
+    <Content Include="Views\BusinessPartnerProgrammes\Edit.cshtml" />
+    <Content Include="Views\BusinessPartnerProgrammes\Index.cshtml" />
+    <Content Include="Views\BusinessPartnerProgrammes\IndexOld.cshtml" />
+    <Content Include="Views\BusinessPartnerProgrammes\CreateOld.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
