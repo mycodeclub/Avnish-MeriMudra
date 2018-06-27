@@ -74,7 +74,7 @@
                                         <!-- Text input-->
                                         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
                                             <div class="form-group">
-                                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", placeholder = "City", autocomplete = "false", onkeyup = @"function(){$(this).val().replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/,''")" } })
+                                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control", placeholder = "City", autocomplete = "false", onkeyup = @"function(){$(this).val().replace(/(\d{4})/g, '$1 ').replace(/(^\s+|\s+$)/,''" } })
                                                 @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
                                             </div>
                                         </div>
