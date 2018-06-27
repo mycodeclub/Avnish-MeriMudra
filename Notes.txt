@@ -1,1 +1,56 @@
 Reference : https://www.bankbazaar.com
+
+
+DataBase
+
+[Tbl] BankMaster
+		-BankId
+		-BankName
+ 
+Credit Card Module DB.
+
+ [tbl 1] CreditCards
+			- CardId   [PK]
+			- BankId   [FK] 	|| For bank name [HDFC ]
+			- CardName 		|| Borrow Money Card
+			- CardDiscription 	|| You now don't have to spend more on your Rewards Credit Card to earn extra reward points. Simple way to reward your points.
+ 
+[tbl 2] CardHighLights  || Top reasons to get this Credit Card
+			- CardHighLightsId [PK]
+			- CardId [FK]
+			- Discription
+			
+[tbl 3 ] BenefitsAndFeatursHeadings 
+			- BenefitsAndFeatursHeadingsId [PK]
+			- CardId [FK]
+			- HeadingText
+
+[tbl 4 ] BenefitsAndFeatursPoints
+			- BenefitsAndFeatursPointsId [PK]
+			- BenefitsAndFeatursHeadingsId [FK]
+			- Discription Text
+			
+[tbl 5 ] RedeemRewards 
+			- RedeemRewardsHeadingsId [PK]
+			- CardId [FK]
+			- HeadingText
+
+[tbl 6 ] RedeemRewardsPoints
+			- RedeemRewardsPointsId [PK]
+			- RedeemRewardsHeadingsId [FK]
+			- Discription Text
+						
+NOTE:  We can cover BenefitsAndFeaturs and RedeemRewards data in one table set as it is similar type.
+
+[tbl 7 ] FeesAndCharges
+			- FeesAndChargesHeadingsId [PK]
+			- CardId [FK]
+			- HeadingText
+
+[tbl 8 ] FeesAndChargesPoints
+			- FeesAndChargesPointId [PK]
+			- FeesAndChargesHeadingsId [FK]
+			- Key
+			- Value
+					
+NOTE : Same for "BORROW PRIVILEGES", Or we can do this in one table.
