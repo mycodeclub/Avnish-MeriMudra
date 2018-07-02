@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 
 namespace MeriMudra.Models
 {
@@ -11,7 +7,8 @@ namespace MeriMudra.Models
         public MmDbContext() : base("name=MmDbConnectionString") { }
         public virtual DbSet<City> Citys { get; set; }
         public virtual DbSet<State> States { get; set; }
-
-        public System.Data.Entity.DbSet<MeriMudra.Models.BusinessPartnerProgramme> BusinessPartnerProgrammes { get; set; }
+        public virtual DbSet<BusinessPartnerProgramme> BusinessPartnerProgrammes { get; set; }
+        public virtual DbSet<Bank> Banks { get; set; }
+        public virtual DbSet<CreditCard> CreditCards { get; set; }
     }
 }

@@ -120,6 +120,16 @@
     <Content Include="Areas\Admin\Views\BusinessPartnerProgrammes\Details.cshtml" />
     <Content Include="Areas\Admin\Views\BusinessPartnerProgrammes\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\BusinessPartnerProgrammes\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Banks\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Banks\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Banks\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Banks\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Banks\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CreditCards\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\CreditCards\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CreditCards\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\CreditCards\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CreditCards\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\commonScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -131,8 +141,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\BanksController.cs" />
     <Compile Include="Areas\Admin\Controllers\BusinessPartnerProgrammesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CitiesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CreditCardsController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Controllers\BusinessPartnerProgrammesController.cs" />
     <Compile Include="Controllers\CreditCardController.cs" />
@@ -140,9 +152,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\BusinessPartnerProgramme.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\CreditCard.cs" />
     <Compile Include="Models\MmDbContext.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

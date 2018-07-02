@@ -7,7 +7,7 @@ DataBase
 		-BankId
 		-BankName
  
-Credit Card Module DB.
+============================================== Credit Card Module DB. ==============================
 
  [tbl 1] CreditCards
 			- CardId   [PK]
