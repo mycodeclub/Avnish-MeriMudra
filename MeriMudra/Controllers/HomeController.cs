@@ -13,5 +13,9 @@ namespace MeriMudra.Controllers
         {
             return View();
         }
+        public ActionResult CreditCard()
+        {
+            return View();
+        }
     }
 }
