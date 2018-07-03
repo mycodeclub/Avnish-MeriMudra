@@ -1,5 +1,15 @@
-Reference : https://www.bankbazaar.com
 
+
+
+Reference : https://www.bankbazaar.com
+FTP : merimudra.com
+ID-mmfs
+PASS-3iu0Ko2%
+-------------------------------
+Database name = mmdb
+Database server = 184.168.194.64:1433 (default for MS SQL)
+Database user name = mmdb
+pas = Yc&m3h61
 
 DataBase
 
