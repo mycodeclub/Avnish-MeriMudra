@@ -130,6 +130,7 @@
     <Content Include="Areas\Admin\Views\CreditCards\Details.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\commonScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
