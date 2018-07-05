@@ -1,0 +1,21 @@
+For credit card apply NOW 5 July 2018
+
+Company 
+ - Button on TOP
+ - In Self-Employed
+   -- Add one more text input.
+   -- TR 2017-2018  ( Numeric )
+   
+   Menue is ok but update the sequence
+    1 Company
+    2 Profile:
+       My Name*
+       My Mobile No* || OTP Verification.
+       DOB*
+       City* (Remove city from the menu) || Its autocomplete, freehand text.
+       My Email
+       My Area Pincode
+    3 Other 
+       - Account With (DropDown with a checkbox) - Bank list
+        - My Existing Credit Card and its Max Limit.
+       - My Current or Previous Loan. Radio Button - Yes or No  
