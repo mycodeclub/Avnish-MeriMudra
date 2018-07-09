@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace MeriMudra.Models
 {
-    [Table("CityMaster")]
+    [Table("UserCCApplyDetail")]
     public class UserCCApplyDetail
     {
         [Key]
