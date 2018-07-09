@@ -108,7 +108,92 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\flaticon.css" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\fontello-codes.css" />
+    <Content Include="css\fontello-embedded.css" />
+    <Content Include="css\fontello-ie7-codes.css" />
+    <Content Include="css\fontello-ie7.css" />
+    <Content Include="css\fontello.css" />
+    <Content Include="css\jquery-ui.css" />
+    <Content Include="css\magnific-popup.css" />
+    <Content Include="css\owl.carousel.css" />
+    <Content Include="css\owl.theme.css" />
+    <Content Include="css\simple-slider.css" />
+    <Content Include="css\style.css" />
+    <Content Include="fonts\Flaticon.svg" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\fontello.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="images\car.svg" />
+    <Content Include="images\cards\card-1.png" />
+    <Content Include="images\cards\card-2.png" />
+    <Content Include="images\cards\card-3.png" />
+    <Content Include="images\cards\card-4.png" />
+    <Content Include="images\cards\card-5.png" />
+    <Content Include="images\cards\card-6.png" />
+    <Content Include="images\cd-top-arrow.svg" />
+    <Content Include="images\credit-card.svg" />
+    <Content Include="images\ft-logo.png" />
+    <Content Include="images\growth.svg" />
+    <Content Include="images\loan.svg" />
+    <Content Include="images\logo-white.png" />
+    <Content Include="images\logo.png" />
+    <Content Include="images\map-pin.png" />
+    <Content Include="images\mortgage.svg" />
+    <Content Include="images\partners\bank-1.jpg" />
+    <Content Include="images\partners\bank-10.jpg" />
+    <Content Include="images\partners\bank-11.jpg" />
+    <Content Include="images\partners\bank-12.jpg" />
+    <Content Include="images\partners\bank-13.jpg" />
+    <Content Include="images\partners\bank-2.jpg" />
+    <Content Include="images\partners\bank-3.jpg" />
+    <Content Include="images\partners\bank-4.jpg" />
+    <Content Include="images\partners\bank-5.jpg" />
+    <Content Include="images\partners\bank-6.jpg" />
+    <Content Include="images\partners\bank-7.jpg" />
+    <Content Include="images\partners\bank-8.jpg" />
+    <Content Include="images\partners\bank-9.jpg" />
+    <Content Include="images\piggy-bank.svg" />
+    <Content Include="images\play-icon.png" />
+    <Content Include="images\rich.svg" />
+    <Content Include="images\slider\slider-1.jpg" />
+    <Content Include="images\slider\slider-2.jpg" />
+    <Content Include="images\slider\slider-3.jpg" />
+    <Content Include="js\accordion.js" />
+    <Content Include="js\back-to-top.js" />
+    <Content Include="js\blog-carousel.js" />
+    <Content Include="js\bootstrap.js" />
+    <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\calculator.js" />
+    <Content Include="js\filter-script.js" />
+    <Content Include="js\isotope.pkgd.min.js" />
+    <Content Include="js\jquery-ui.js" />
+    <Content Include="js\jquery.easing.min.js" />
+    <Content Include="js\jquery.isotope.min.js" />
+    <Content Include="js\jquery.magnific-popup.js" />
+    <Content Include="js\jquery.magnific-popup.min.js" />
+    <Content Include="js\jquery.min.js" />
+    <Content Include="js\jquery.sticky.js" />
+    <Content Include="js\loan-elgiblity.js" />
+    <Content Include="js\menumaker.js" />
+    <Content Include="js\menumaker.min.js" />
+    <Content Include="js\modernizr.js" />
+    <Content Include="js\npm.js" />
+    <Content Include="js\owl.carousel.min.js" />
+    <Content Include="js\popup-gallery.js" />
+    <Content Include="js\Products.js" />
+    <Content Include="js\scrolling-nav.js" />
+    <Content Include="js\service-carousel.js" />
+    <Content Include="js\simple-slider.js" />
+    <Content Include="js\slider-carousel.js" />
+    <Content Include="js\sticky-header.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Admin\Views\Cities\Create.cshtml" />
@@ -130,13 +215,53 @@
     <Content Include="Areas\Admin\Views\CreditCards\Details.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\Index.cshtml" />
+    <Content Include="fonts\Flaticon.eot" />
+    <Content Include="fonts\Flaticon.ttf" />
+    <Content Include="fonts\Flaticon.woff" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontello.eot" />
+    <Content Include="fonts\fontello.ttf" />
+    <Content Include="fonts\fontello.woff" />
+    <Content Include="fonts\fontello.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="wizardjs\analytics.js" />
+    <Content Include="wizardjs\bootstrap.min.css" />
+    <Content Include="wizardjs\bootstrap.min.js" />
+    <Content Include="wizardjs\demo.css" />
+    <Content Include="wizardjs\demo.js" />
+    <Content Include="wizardjs\font-awesome.min.css" />
+    <Content Include="wizardjs\gtm.js" />
+    <Content Include="wizardjs\jquery-2.2.4.min.js" />
+    <Content Include="wizardjs\jquery.bootstrap.js" />
+    <Content Include="wizardjs\jquery.validate.min.js" />
+    <Content Include="wizardjs\material-bootstrap-wizard.css" />
+    <Content Include="wizardjs\material-bootstrap-wizard.js" />
+    <Content Include="wizardjs\new_logo.png" />
+    <Content Include="wizardjs\sprite-bank-mob-v1.png" />
+    <Content Include="wizardjs\sprite-city-tab.png" />
+    <Content Include="wizardjs\sprite-city.png" />
+    <Content Include="wizardjs\sprite-ex-cc-mob-v3.png" />
+    <Content Include="wizardjs\thumb-book-room.jpg" />
+    <Content Include="wizardjs\thumb-build-profile.jpg" />
+    <Content Include="wizardjs\thumb-list-place.jpg" />
+    <Content Include="wizardjs\wizard-book.jpg" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\commonScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="wizardjs\css" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -155,9 +280,12 @@
     </Compile>
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\BusinessPartnerProgramme.cs" />
+    <Compile Include="Models\CcDetail.cs" />
+    <Compile Include="Models\CcInfoSectionMaster.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CreditCard.cs" />
+    <Compile Include="Models\CreditCardViewModel\CreditCardViewModel.cs" />
     <Compile Include="Models\MmDbContext.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -179,6 +307,7 @@
     <Content Include="Views\BusinessPartnerProgrammes\Index.cshtml" />
     <Content Include="Views\BusinessPartnerProgrammes\IndexOld.cshtml" />
     <Content Include="Views\BusinessPartnerProgrammes\CreateOld.cshtml" />
+    <Content Include="Views\CreditCard\CreditCardDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -189,6 +318,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="images\other\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
