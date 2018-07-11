@@ -48,7 +48,18 @@ namespace MeriMudra.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,FullName,Mobile,Email,PAN,Aadhar,Company,City")] BusinessPartnerProgramme businessPartnerProgramme)
         {
-            if (ModelState.IsValid)
+            var isDuplicateAdharOrPan = false;
+            if (db.BusinessPartnerProgrammes.Any(b => b.Aadhar.Equals(businessPartnerProgramme.Aadhar)))
+            {
+                ModelState.AddModelError("Aadhar", "Given Aadhar Number is already registered with us. ");
+                isDuplicateAdharOrPan = true;
+            }
+            if (db.BusinessPartnerProgrammes.Any(b => b.PAN.Equals(businessPartnerProgramme.PAN)))
+            {
+                isDuplicateAdharOrPan = true;
+                ModelState.AddModelError("PAN", "Given PAN Number is already registered with us. ");
+            }
+            if (ModelState.IsValid && !isDuplicateAdharOrPan)
             {
                 businessPartnerProgramme.CreatedDate = System.DateTime.Now;
                 db.BusinessPartnerProgrammes.Add(businessPartnerProgramme);

@@ -133,6 +133,28 @@
     <Content Include="Areas\Admin\Template\vendor\chart.js\Chart.bundle.min.js" />
     <Content Include="Areas\Admin\Template\vendor\chart.js\Chart.js" />
     <Content Include="Areas\Admin\Template\vendor\chart.js\Chart.min.js" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\flaticon.css" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\fontello-codes.css" />
+    <Content Include="css\fontello-embedded.css" />
+    <Content Include="css\fontello-ie7-codes.css" />
+    <Content Include="css\fontello-ie7.css" />
+    <Content Include="css\fontello.css" />
+    <Content Include="css\jquery-ui.css" />
+    <Content Include="css\magnific-popup.css" />
+    <Content Include="css\owl.carousel.css" />
+    <Content Include="css\owl.theme.css" />
+    <Content Include="css\simple-slider.css" />
+    <Content Include="css\style.css" />
+    <Content Include="fonts\Flaticon.svg" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\fontello.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Areas\Admin\Template\vendor\datatables\dataTables.bootstrap4.css" />
     <Content Include="Areas\Admin\Template\vendor\datatables\dataTables.bootstrap4.js" />
     <Content Include="Areas\Admin\Template\vendor\datatables\jquery.dataTables.js" />
@@ -290,6 +312,43 @@
     <Content Include="fonts\fontello.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\Flaticon.eot" />
+    <Content Include="fonts\Flaticon.ttf" />
+    <Content Include="fonts\Flaticon.woff" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="fonts\fontello.eot" />
+    <Content Include="fonts\fontello.ttf" />
+    <Content Include="fonts\fontello.woff" />
+    <Content Include="fonts\fontello.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="wizardjs\analytics.js" />
+    <Content Include="wizardjs\bootstrap.min.css" />
+    <Content Include="wizardjs\bootstrap.min.js" />
+    <Content Include="wizardjs\demo.css" />
+    <Content Include="wizardjs\demo.js" />
+    <Content Include="wizardjs\font-awesome.min.css" />
+    <Content Include="wizardjs\gtm.js" />
+    <Content Include="wizardjs\jquery-2.2.4.min.js" />
+    <Content Include="wizardjs\jquery.bootstrap.js" />
+    <Content Include="wizardjs\jquery.validate.min.js" />
+    <Content Include="wizardjs\material-bootstrap-wizard.css" />
+    <Content Include="wizardjs\material-bootstrap-wizard.js" />
+    <Content Include="wizardjs\new_logo.png" />
+    <Content Include="wizardjs\sprite-bank-mob-v1.png" />
+    <Content Include="wizardjs\sprite-city-tab.png" />
+    <Content Include="wizardjs\sprite-city.png" />
+    <Content Include="wizardjs\sprite-ex-cc-mob-v3.png" />
+    <Content Include="wizardjs\thumb-book-room.jpg" />
+    <Content Include="wizardjs\thumb-build-profile.jpg" />
+    <Content Include="wizardjs\thumb-list-place.jpg" />
+    <Content Include="wizardjs\wizard-book.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Areas\Admin\Template\pug\blank.pug" />
@@ -372,7 +431,10 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="wizardjs\css" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -392,9 +454,12 @@
     </Compile>
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\BusinessPartnerProgramme.cs" />
+    <Compile Include="Models\CcDetail.cs" />
+    <Compile Include="Models\CcInfoSectionMaster.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CreditCard.cs" />
+    <Compile Include="Models\CreditCardViewModel\CreditCardViewModel.cs" />
     <Compile Include="Models\MmDbContext.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\UserCCApplyDetail.cs" />
@@ -418,6 +483,7 @@
     <Content Include="Views\BusinessPartnerProgrammes\IndexOld.cshtml" />
     <Content Include="Views\BusinessPartnerProgrammes\CreateOld.cshtml" />
     <Content Include="Views\Home\CreditCard.cshtml" />
+    <Content Include="Views\CreditCard\CreditCardDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -428,6 +494,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="images\other\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

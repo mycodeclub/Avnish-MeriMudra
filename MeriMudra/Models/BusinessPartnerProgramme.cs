@@ -15,11 +15,16 @@ namespace MeriMudra.Models
         public string Mobile { get; set; }
         [Required]
         public string Email { get; set; }
-        [Required]
-        [RegularExpression(@"[A-Z]{5}\d{4}[A-Z]{1}", ErrorMessage = "Please Provide A Valid Pan Number")]
+
+
+        [Required(ErrorMessage = "Pan number is required")]
+        [Index("UQ_BPP_Pan", IsUnique = true)]
         public string PAN { get; set; }
-        [Required]
-        [RegularExpression(@"^\d{4}\s\d{4}\s\d{4}$", ErrorMessage = "Please Provide A Valid Aadhar Number")]
+
+        [Required(ErrorMessage = "Aadhar number is required")]
+        // [RegularExpression("[0-9]{11,11}\\d)|([0-9]{9,9}+v", ErrorMessage = "Number Only")]
+        //[Index("UQ_BPP_Aadhar", IsUnique = true)]
+        [Index(IsUnique = true)]
         public string Aadhar { get; set; }
         [Required]
         public string Company { get; set; }
