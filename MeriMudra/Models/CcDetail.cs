@@ -5,6 +5,7 @@ namespace MeriMudra.Models
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations.Schema;
 
+    [Table("CcDetails")]
     public partial class CcDetail
     {
         public int CcDetailId { get; set; }

@@ -17,11 +17,10 @@ namespace MeriMudra.Controllers
             return View();
         }
 
-        public ActionResult CreditCardDetail(int CardId = 1)
+        public ActionResult CardDetail(int CardId = 1)
         {
             var ccViewModel = new CreditCardViewModel(1);
-            return View();
-
+            return View(ccViewModel);
         }
     }
 }
