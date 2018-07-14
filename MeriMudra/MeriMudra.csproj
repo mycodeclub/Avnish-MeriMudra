@@ -275,6 +275,8 @@
     <Content Include="Areas\Admin\Views\CreditCards\Details.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\Index.cshtml" />
+    <Content Include="wizardjs\bbootstrap-datepicker.js" />
+    <Content Include="wizardjs\bbotstrap-datepicker.css" />
     <Content Include="wizardjs\bootstrap.min.css" />
     <Content Include="wizardjs\bootstrap.min.js" />
     <Content Include="wizardjs\CreditCard.js" />
@@ -283,6 +285,7 @@
     <Content Include="wizardjs\font-awesome.min.css" />
     <Content Include="wizardjs\jquery-2.2.4.min.js" />
     <Content Include="wizardjs\jquery.bootstrap.js" />
+    <Content Include="wizardjs\jquery.form.js" />
     <Content Include="wizardjs\jquery.validate.min.js" />
     <Content Include="wizardjs\jqueryui.css" />
     <Content Include="wizardjs\material-bootstrap-wizard.css" />

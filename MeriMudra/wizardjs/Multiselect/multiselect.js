@@ -18,7 +18,7 @@
     elem.parentElement.remove();
 }
 
-function add_selected_item(elem, e) {
+function add_selected_item1(elem, e) {
     e.stopPropagation();
     var option_text =  elem[elem.selectedIndex].text;
     var option_value =  elem[elem.selectedIndex].value;
@@ -27,7 +27,8 @@ function add_selected_item(elem, e) {
     
     placeholder.style.display = 'none';
     selected_items.innerHTML += `
-        <div class="select7_item">
+        <div class ="select7_item">
+        <input type="hidden" name="AccountWith" value="${option_value}" />
             <div data-option-value="${option_value}" class="select7_content">${option_text}</div>
             <div class="select7_del" onclick="remove_selected_item(this, event);">&#10006;</div>
         </div>`;
@@ -36,7 +37,25 @@ function add_selected_item(elem, e) {
     if (elem.length == 1)
         elem.style.display = 'none';
 }
+function add_selected_item2(elem, e) {
+    e.stopPropagation();
+    var option_text = elem[elem.selectedIndex].text;
+    var option_value = elem[elem.selectedIndex].value;
+    var selected_items = elem.parentElement.querySelector('.select7_items');
+    var placeholder = elem.parentElement.querySelector('.select7_placeholder');
 
+    placeholder.style.display = 'none';
+    selected_items.innerHTML += `
+        <div class ="select7_item">
+        <input type="hidden" name="CreditCardWith" value="${option_value}" />
+            <div data-option-value="${option_value}" class="select7_content">${option_text}</div>
+            <div class="select7_del" onclick="remove_selected_item(this, event);">&#10006;</div>
+        </div>`;
+
+    elem[elem.selectedIndex].remove();
+    if (elem.length == 1)
+        elem.style.display = 'none';
+}
 function get_selected_items(select7_id, type) {
     var selected_items = document.getElementById(select7_id).querySelectorAll('.select7_content');
 
