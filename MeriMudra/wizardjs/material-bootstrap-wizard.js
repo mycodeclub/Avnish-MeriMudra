@@ -77,11 +77,20 @@ $(document).ready(function () {
             if (!$valid) {
                 $validator.focusInvalid();
                 return false;
+            } else {
+                var userid = getCookie("user_id");
+                if (userid != null) {
+                    $("#Id").val(userid);
+                }
+                var promise = formDataToJSON($("#from_data"), 0);
+                debugger;
+                promise.success(function (data) {
+                    return true;
+                });
             }
         },
 
         onInit: function (tab, navigation, index) {
-
             //check number of tabs and fill the entire row
             var $total = navigation.find('li').length;
             $width = 100 / $total;
@@ -101,14 +110,18 @@ $(document).ready(function () {
             $('.moving-tab').css('transition', 'transform 0s');
         },
 
-        onTabClick: function (tab, navigation, index) {
-            var $valid = $('.wizard-card form').valid();
+        //onTabClick: function (tab, navigation, index) {
+        //    var $valid = $('.wizard-card form').valid();
 
-            if (!$valid) {
-                return false;
-            } else {
-                return true;
-            }
+        //    if (!$valid) {
+        //        return false;
+        //    } else {
+        //        return true;
+        //    }
+        //},
+        onTabClick: function (tab, navigation, index) {
+            // alert('on tab click disabled');
+            return false;
         },
 
         onTabShow: function (tab, navigation, index) {
@@ -151,6 +164,10 @@ $(document).ready(function () {
         }
     });
 
+    $('.wizard-card .btn-finish').click(function () {
+        formDataToJSON($("#from_data"), 1);
+        //$('#rootwizard').find("a[href*='tab1']").trigger('click');
+    });
 
     // Prepare the preview for profile picture
     $("#wizard-picture").change(function () {
@@ -167,8 +184,7 @@ $(document).ready(function () {
 
     $('[data-toggle="wizard-checkbox"]').click(function () {
         var none = "";
-        if ($(this).hasClass('Other'))
-        {
+        if ($(this).hasClass('Other')) {
             wizard = $(this).closest('.wizard-data');
             wizard.find('[data-toggle="wizard-checkbox"]').removeClass('active');
             $(wizard).find('[type="checkbox"]').removeAttr('checked');
@@ -204,7 +220,6 @@ $(document).ready(function () {
 
 
 //Function to show image before upload
-
 function readURL(input) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -280,13 +295,70 @@ function debounce(func, wait, immediate) {
         if (immediate && !timeout) func.apply(context, args);
     };
 };
+$.fn.serializeObject = function () {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function () {
+        //if (this.name == "AccountWith" || this.name == "CreditCardWith") { } else { }
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+function formDataToJSON($formElement, isfinish) {
 
-(function (i, s, o, g, r, a, m) {
-    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-        (i[r].q = i[r].q || []).push(arguments)
-    }, i[r].l = 1 * new Date(); a = s.createElement(o),
-    m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    //var formData = new FormData(formElement),
+    //    convertedJSON = {};
 
-ga('create', 'UA-46172202-1', 'auto');
-ga('send', 'pageview');
+    //formData.forEach(function (value, key) {
+    //    convertedJSON[key] = value;
+    //});
+    var convertedJSON = JSON.stringify($formElement.serializeObject())
+    var Paramerter = {
+        convertedJSON: convertedJSON,
+        isfinish: isfinish,
+    }
+    return $.ajax({
+        type: "POST",
+        url: 'savestep',
+        cache: false,
+        //async: false,
+        data: Paramerter,
+        success: function (data) {
+            debugger;
+            if (isfinish == 0)
+                setCookie("user_id", data, 12);
+            else if (isfinish == 1) {
+                eraseCookie("user_id");
+                $("#Id").val(0);
+                window.location.href = "http://merimudra.com/CreditCard";
+            }
+            // $("#htmlListOfProduct").html(data);
+            // alert(data);
+        },
+        error: function () {
+
+        }
+    });
+    //return convertedJSON;
+}
+$(document).on({
+    ajaxStart: function () {
+        $(".btn-next").val("Loading..");
+        $(".btn-next").attr("disabled", true);
+        $(".btn-finish").val("Loading..");
+        $(".btn-finish").attr("disabled", true);
+    },
+    ajaxComplete: function () {
+        $(".btn-next").val("Next");
+        $(".btn-next").removeAttr("disabled");
+        $(".btn-finish").val("Finish");
+        $(".btn-finish").removeAttr("disabled");
+    }
+})
