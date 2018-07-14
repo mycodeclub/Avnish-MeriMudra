@@ -483,7 +483,7 @@
     <Content Include="Views\BusinessPartnerProgrammes\IndexOld.cshtml" />
     <Content Include="Views\BusinessPartnerProgrammes\CreateOld.cshtml" />
     <Content Include="Views\Home\CreditCard.cshtml" />
-    <Content Include="Views\CreditCard\CreditCardDetail.cshtml" />
+    <Content Include="Views\CreditCard\CardDetail.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
