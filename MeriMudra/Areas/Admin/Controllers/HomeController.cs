@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeriMudra.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +10,7 @@ namespace MeriMudra.Areas.Admin.Controllers
     [Authorize]
     public class HomeController : Controller
     {
+        private MmDbContext db = new MmDbContext();
         // GET: Admin/Home
         public ActionResult Index()
         {
@@ -17,7 +19,8 @@ namespace MeriMudra.Areas.Admin.Controllers
 
         public ActionResult Dashboard()
         {
-            return View();
+            var data = db.UserCCApplyDetail.ToList();
+            return View(data);
         }
     }
 }
