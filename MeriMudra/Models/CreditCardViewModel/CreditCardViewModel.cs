@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
@@ -14,7 +15,6 @@ namespace MeriMudra.Models.CreditCardViewModel
 
         public string CardName { get; set; }
         public string BankName { get; set; }
-        public string cardImageUrl { get; set; }
         public string CardDescription { get; set; }
         public string ServiceProvider { get; set; }
         public List<string> ReasonsToGetThisCard { get; set; }
@@ -23,11 +23,20 @@ namespace MeriMudra.Models.CreditCardViewModel
         public List<FeesAndCharge> _FeesAndCharge { get; set; }
         public List<BorrowPrivilege> _BorrowPrivilege { get; set; }
 
+        [DisplayName("Card Image Url")]
+        public string CardImageUrl { get; set; }
+
+        [NotMapped]
+        [DisplayName("Card Image")]
+        [DataType(DataType.Upload)]
+        public HttpPostedFileBase CardImageUpload { get; set; }
+
         public CreditCardViewModel()
         {
             CardName = string.Empty;
             BankName = string.Empty;
             CardDescription = string.Empty;
+            ReasonsToGetThisCard = new List<string>() { "", "", "", "a" };
             _BenefitsAndFeature = new List<BenefitsAndFeature>() { new BenefitsAndFeature() { HeadingText = string.Empty, Points = new List<string>(), } };
             _RedeemReward = new List<RedeemReward>() { new RedeemReward() { HeadingText = string.Empty, Points = new List<string>(), } };
             _FeesAndCharge = new List<FeesAndCharge>() { new FeesAndCharge() { HeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };

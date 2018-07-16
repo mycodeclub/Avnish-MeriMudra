@@ -27,10 +27,5 @@ namespace MeriMudra.Models
 
         [DisplayName("Card Image Url")]
         public string CardImageUrl { get; set; }
-
-        [DisplayName("Card Image")]
-        [NotMapped]
-        [DataType(DataType.Upload)]
-        public HttpPostedFileBase CardImageUpload { get; set; }
     }
 }
