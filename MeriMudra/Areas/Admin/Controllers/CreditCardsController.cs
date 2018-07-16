@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MeriMudra.Models;
+using MeriMudra.Models.CreditCardViewModel;
 
 namespace MeriMudra.Areas.Admin.Controllers
 {
@@ -37,10 +38,12 @@ namespace MeriMudra.Areas.Admin.Controllers
         }
 
         // GET: Admin/CreditCards/Create
-        public ActionResult Create()
+        public ActionResult Create(int id = 0)
         {
+            var Card = new CreditCardViewModel();
+            if (id > 0) Card = new CreditCardViewModel(id);
             ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
-            return View(new CreditCard());
+            return View(Card);
         }
 
         // POST: Admin/CreditCards/Create
@@ -52,7 +55,8 @@ namespace MeriMudra.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.CreditCards.Add(creditCard);
+                if (creditCard.CardId > 0) db.Entry(creditCard).State = EntityState.Modified;
+                else db.CreditCards.Add(creditCard);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

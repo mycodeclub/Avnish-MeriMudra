@@ -16,6 +16,8 @@ namespace MeriMudra.Models
 
         public virtual DbSet<CcDetail> CcDetails { get; set; }
         public virtual DbSet<CcInfoSectionMaster> CcInfoSectionMasters { get; set; }
+        public virtual DbSet<Areas.Admin.Models.User> UserLogin { get; set; }
 
+        public System.Data.Entity.DbSet<MeriMudra.Models.UserCCApplyDetail> UserCCApplyDetails { get; set; }
     }
 }

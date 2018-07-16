@@ -1,4 +1,5 @@
-﻿
+﻿@model MeriMudra.Areas.Admin.Models.User
+
 @{
     ViewBag.Title = "Index";
     Layout = null;
@@ -24,27 +25,23 @@
         <div class="card card-login mx-auto mt-5">
             <div class="card-header">Login</div>
             <div class="card-body">
-                <form>
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
-                        <input class="form-control" id="exampleInputEmail1" type="email" aria-describedby="emailHelp" placeholder="Enter email">
+                        @Html.EditorFor(model => model.LoginName, new { htmlAttributes = new { @class = "form-control", placeholder = "Login Name", autocomplete = "false" } })
+                        @Html.ValidationMessageFor(model => model.LoginName, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
-                        <input class="form-control" id="exampleInputPassword1" type="password" placeholder="Password">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password", @placeholder = "Password", autocomplete = "false" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
                     </div>
-                    <div class="form-group">
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input class="form-check-input" type="checkbox"> Remember Password
-                            </label>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary btn-block" href="~/Admin/BusinessPartnerProgrammes">Login</a>
-                </form>
-                <div class="text-center">
-                    @*<a class="d-block small mt-3" href="register.html">Register an Account</a>*@
-                    <a class="d-block small" href="Login/forgotpassword">Forgot Password?</a>
+                    <input type="submit" value="Login" class="btn btn-primary btn-block" />
+                }  <div class="text-center">
+                    @*<a class="d-block small" href="Login/forgotpassword">Forgot Password?</a>*@
                 </div>
             </div>
         </div>
