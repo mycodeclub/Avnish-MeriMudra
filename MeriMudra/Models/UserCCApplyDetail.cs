@@ -4,26 +4,32 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace MeriMudra.Models
 {
+    [Table("UserCCApplyDetail")]
     public class UserCCApplyDetail
     {
         [Key]
         public int Id { get; set; }
 
         public bool? EmployerType { get; set; }
+        [NotMapped]
         public string employed_radios { get; set; }
         public string CompanyName { get; set; }
         public decimal GrossIncomeOrNetSalary { get; set; }
         public string Name { get; set; }
-        public string DOB { get; set; }
+        public DateTime DOB { get; set; }
         public string CityName { get; set; }
+        [NotMapped]
         public string CityId { get; set; }
+        [NotMapped]
         public string PinCode { get; set; }
         public string MobileNumber { get; set; }
         public string email { get; set; }
         public List<string> AccountWith { get; set; }
         public List<string> CreditCardWith { get; set; }
         public decimal? CreditCardMaxLimit { get; set; }
+        [NotMapped]
         public string CurrentOrPrevLoan { get; set; }
+        [NotMapped]
         public bool? _CurrentOrPrevLoan { get; set; }
         public int OTP { get; set; }
         public bool isMobileNumberVerify { get; set; }
@@ -37,7 +43,7 @@ namespace MeriMudra.Models
             CompanyName = "";
             GrossIncomeOrNetSalary = 0;
             Name = "";
-            DOB = "";
+            DOB = DateTime.Now;
             CityName = "";
             CityId = "";
             PinCode = "";
