@@ -51,18 +51,18 @@ namespace MeriMudra.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CardId,BankId,CardName,CardDescription,CardImageUrl")] CreditCard creditCard)
+        public ActionResult Create([Bind(Include = "CardId,BankId,CardName,CardDescription,CardImageUrl,ReasonsToGetThisCard")] CreditCardViewModel ccVm)
         {
             if (ModelState.IsValid)
             {
-                if (creditCard.CardId > 0) db.Entry(creditCard).State = EntityState.Modified;
-                else db.CreditCards.Add(creditCard);
+                //if (creditCard.CardId > 0) db.Entry(creditCard).State = EntityState.Modified;
+                //else db.CreditCards.Add(creditCard);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name", creditCard.BankId);
-            return View(creditCard);
+            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name", ccVm.creditCard.BankId);
+            return View(ccVm);
         }
 
         // GET: Admin/CreditCards/Edit/5

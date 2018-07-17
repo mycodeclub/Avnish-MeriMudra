@@ -111,6 +111,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Areas\Admin\Scripts\ccVM.js" />
     <Content Include="Areas\Admin\Template\css\sb-admin.css" />
     <Content Include="Areas\Admin\Template\css\sb-admin.min.css" />
     <Content Include="Areas\Admin\Template\js\sb-admin-charts.js" />

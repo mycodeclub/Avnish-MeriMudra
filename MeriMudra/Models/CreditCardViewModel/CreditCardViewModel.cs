@@ -12,15 +12,24 @@ namespace MeriMudra.Models.CreditCardViewModel
     public enum CcInfoSection { CCHighLights, BenefitsAndFeatures, FeesAndCharges, RedeemRewards, BorrowPriviledges };
     public class CreditCardViewModel
     {
+        public CreditCard creditCard { get; set; }
 
-        public string CardName { get; set; }
-        public string BankName { get; set; }
-        public string CardDescription { get; set; }
+        [Required]
         public string ServiceProvider { get; set; }
+
+        [Required]
         public List<string> ReasonsToGetThisCard { get; set; }
+
+        [Required]
         public List<BenefitsAndFeature> _BenefitsAndFeature { get; set; }
+
+        [Required]
         public List<RedeemReward> _RedeemReward { get; set; }
+
+        [Required]
         public List<FeesAndCharge> _FeesAndCharge { get; set; }
+
+        [Required]
         public List<BorrowPrivilege> _BorrowPrivilege { get; set; }
 
         [DisplayName("Card Image Url")]
@@ -33,9 +42,7 @@ namespace MeriMudra.Models.CreditCardViewModel
 
         public CreditCardViewModel()
         {
-            CardName = string.Empty;
-            BankName = string.Empty;
-            CardDescription = string.Empty;
+            creditCard = new CreditCard();
             ReasonsToGetThisCard = new List<string>() { "", "", "", "a" };
             _BenefitsAndFeature = new List<BenefitsAndFeature>() { new BenefitsAndFeature() { HeadingText = string.Empty, Points = new List<string>(), } };
             _RedeemReward = new List<RedeemReward>() { new RedeemReward() { HeadingText = string.Empty, Points = new List<string>(), } };
@@ -46,11 +53,8 @@ namespace MeriMudra.Models.CreditCardViewModel
         public CreditCardViewModel(int CardId)
         {
             MmDbContext db = new MmDbContext();
-            var card = db.CreditCards.Where(cc => cc.CardId == CardId).SingleOrDefault();
+            creditCard = db.CreditCards.Where(cc => cc.CardId == CardId).SingleOrDefault();
             var CcDetail = db.CcDetails.Where(cc => cc.CardId == CardId).OrderBy(cc => cc.CcInfoSectionMasterId).ThenBy(cc => cc.Heading);
-            CardName = card.CardName;
-            BankName = card.Bank.Name;
-            CardDescription = card.CardDescription;
             _BenefitsAndFeature = new List<BenefitsAndFeature>() { };
             _FeesAndCharge = new List<FeesAndCharge>() { };
             _RedeemReward = new List<RedeemReward>() { };
@@ -96,6 +100,10 @@ namespace MeriMudra.Models.CreditCardViewModel
         }
 
 
+        public bool Save()
+        {
+            return true;
+        }
     }
 
 
@@ -106,18 +114,28 @@ namespace MeriMudra.Models.CreditCardViewModel
     }
     public class RedeemReward
     {
+        [Required]
         public string HeadingText { get; set; }
+        [Required]
         public List<string> Points { get; set; }
     }
     public class FeesAndCharge
     {
+        [Required]
         public string HeadingText { get; set; }
+
+        [Required]
         public List<KeyValuePair<string, string>> Points { get; set; }
     }
     public class BorrowPrivilege
     {
+        [Required]
         public string HeadingText { get; set; }
+
+        [Required]
         public string SubHeadingText { get; set; }
+
+        [Required]
         public List<KeyValuePair<string, string>> Points { get; set; }
     }
 }

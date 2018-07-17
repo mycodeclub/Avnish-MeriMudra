@@ -7,7 +7,7 @@
 
 <h2>Create Carde Detail </h2>
 
-@using (Html.BeginForm("Create", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Create", "CreditCards", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
@@ -17,9 +17,9 @@
             <div class="row">
                 <div class="col-sm-12 col-md-3 space">
                     @if (string.IsNullOrEmpty(Model.CardImageUrl))
-                {
-                    Model.CardImageUrl = "/images/cards/card-1.png";
-                }
+                    {
+                        Model.CardImageUrl = "/images/cards/card-1.png";
+                    }
                     <img src="@Model.CardImageUrl" class="pull-center" />
                     @Html.TextBoxFor(model => model.CardImageUpload, new { type = "file", })
                     @Html.ValidationMessageFor(model => model.CardImageUpload, "", new { @class = "text-danger" })
@@ -31,16 +31,16 @@
                         @Html.ValidationMessageFor(model => model, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(model => model.CardName, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.EditorFor(model => model.CardName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CardName, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.creditCard.CardName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.EditorFor(model => model.creditCard.CardName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.creditCard.CardName, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-5">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.CardDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.TextAreaFor(m => m.CardDescription, new { @class = "form-control", @rows = "5" })
-                        @Html.ValidationMessageFor(model => model.CardDescription, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.creditCard.CardDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+                        @Html.TextAreaFor(m => m.creditCard.CardDescription, new { @class = "form-control", @rows = "5" })
+                        @Html.ValidationMessageFor(model => model.creditCard.CardDescription, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -48,14 +48,19 @@
         <div class="card mb-3">
             <div class="card-header">Top reasons to get this Credit Card</div>
             <div class="card-body">
-                <label class="fa fa-plus btn btn-success" onclick="AddNewReasonToGetThisCard()">  Add New  </label>
+                <label class="fa fa-plus btn btn-success" onclick="ccVM.AddNewReasonToGetThisCard()">  Add New  </label>
                 <br />
                 <table id="tblTopReasonsToGetThisCreditCard" class="table table-hover">
-                    <tr>
-                        <td><input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="1"> </td>
-                        <td><input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>
-                        <td><label class="fa fa-close btn btn-danger" onclick="RemoveReasionToGetThisCard(this)">  </label></td>
-                    </tr>
+                    @for (int i = 0; i < Model.ReasonsToGetThisCard.Count; i++)
+                    {
+                        <tr>
+                            <td><label style="width:80px" class="form-control"> @(i + 1)</label></td>
+                            <td>
+                                <input class="form-control text-box single-line" name="ReasonsToGetThisCard" type="text" value="@Model.ReasonsToGetThisCard[i]">
+                            </td>
+                            <td><label class="fa fa-close btn btn-danger" onclick="ccVM.RemoveReasionToGetThisCard(this)">  </label></td>
+                        </tr>
+                    }
                 </table>
 
             </div>
@@ -64,15 +69,17 @@
         <div class="card mb-3">
             <div class="card-header">BENEFITS & FEATURES</div>
             <div class="card-body">
-                <label class="fa fa-plus btn btn-success" onclick="AddNewBENEFITS_FEATURES()">  Add New  </label>
+                <label class="fa fa-plus btn btn-success" onclick="AddNewBENEFITS_FEATURES()">  Add New</label>
                 <br />
                 <table id="tblBENEFITS_FEATURES" class="table table-hover">
                     <tr>
                         <td>
                             <table width="100%">
                                 <tr>
-                                    <td>HEADING</td>
-                                    <td><input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>
+                                    <td> HEADING </td>
+                                    <td>
+                                        <input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value="">
+                                    </td>
                                     <td><label class="fa fa-close btn btn-danger" onclick="RemoveBENEFITS_FEATURES(this)">  </label></td>
                                 </tr>
                                 <tr>
@@ -82,7 +89,7 @@
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><label class="fa fa-plus btn btn-primary" onclick="AddNewBENEFITS_FEATURES_Description(this)">Add More </label></td>
+                                    <td><label class="fa fa-plus btn btn-primary" onclick="AddNewBENEFITS_FEATURES_Description(this)">Add More</label></td>
                                     <td></td>
                                 </tr>
                             </table>
@@ -96,7 +103,7 @@
         <div class="card mb-3">
             <div class="card-header">FEES & CHARGES</div>
             <div class="card-body">
-                <label class="fa fa-plus btn btn-success" onclick="AddFEES_CHARGES()">  Add New  </label>
+                <label class="fa fa-plus btn btn-success" onclick="AddFEES_CHARGES()">  Add New</label>
                 <br />
                 <table id="tblFEES_CHARGES" class="table table-hover">
                     <tr>
@@ -110,22 +117,24 @@
                         <td><input placeholder="description" class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>
                         <td><label class="fa fa-close btn btn-danger" onclick="RemoveReasionToGetThisCard(this)">  </label></td>
                     </tr>
-                </table>                
+                </table>
             </div>
             <div class="card-footer small text-muted"></div>
         </div>
         <div class="card mb-3">
             <div class="card-header">REDEEM REWARDS</div>
             <div class="card-body">
-                <label class="fa fa-plus btn btn-success" onclick="AddNewREDEEM_REWARDS()">  Add New  </label>
+                <label class="fa fa-plus btn btn-success" onclick="AddNewREDEEM_REWARDS()">  Add New</label>
                 <br />
                 <table id="tblREDEEM_REWARDS" class="table table-hover">
                     <tr>
                         <td>
                             <table width="100%">
                                 <tr>
-                                    <td>HEADING</td>
-                                    <td><input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>
+                                    <td> HEADING </td>
+                                    <td>
+                                        <input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value="">
+                                    </td>
                                     <td><label class="fa fa-close btn btn-danger" onclick="RemoveBENEFITS_FEATURES(this)">  </label></td>
                                 </tr>
                                 <tr>
@@ -135,7 +144,7 @@
                                 </tr>
                                 <tr>
                                     <td></td>
-                                    <td><label class="fa fa-plus btn btn-primary" onclick="AddNewREDEEM_REWARDS_Description(this)">Add More </label></td>
+                                    <td><label class="fa fa-plus btn btn-primary" onclick="AddNewREDEEM_REWARDS_Description(this)">Add More</label></td>
                                     <td></td>
                                 </tr>
                             </table>
@@ -149,7 +158,7 @@
         <div class="card mb-3">
             <div class="card-header">BORROW PRIVILEGES</div>
             <div class="card-body">
-                <label class="fa fa-plus btn btn-success" onclick="AddBORROW_PRIVILEGES()">  Add New  </label>
+                <label class="fa fa-plus btn btn-success" onclick="AddBORROW_PRIVILEGES()">  Add New</label>
                 <br />
                 <table id="tblBORROW_PRIVILEGES" class="table table-hover">
                     <tr>
@@ -180,126 +189,121 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#ResumeUpload').change(function (event) {
-            $('#ResumeUrl').attr('src', URL.createObjectURL(event.target.files[0]));
+@section scripts {
+    <script src="~/Areas/Admin/Scripts/ccVM.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#ResumeUpload').change(function (event) {
+                $('#ResumeUrl').attr('src', URL.createObjectURL(event.target.files[0]));
+            });
         });
-    });
+    </script>
+}
 
-    function AddNewReasonToGetThisCard() {
-        var rowCount = Number($('#tblTopReasonsToGetThisCreditCard tr').length) + 1;
-        var tbl = "<tr>";
-        tbl += '<td> <input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="' + rowCount + '"></td >';
-        tbl += "<td><input class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td> <td><label class='fa fa-close btn btn-danger' onclick='RemoveReasionToGetThisCard(this)'></label></td>";
-        tbl += "</tr>";
-        $("#tblTopReasonsToGetThisCreditCard").append(tbl);
-        //  $("#tblTopReasonsToGetThisCreditCard").append("<tr><td> 3. </td ><td><input class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td> <td><label class='fa fa-close btn btn-danger'></label></td> </tr>");
-        //    alert($("#tblTopReasonsToGetThisCreditCard").attr('rows').length);
-    }
-    function RemoveReasionToGetThisCard(obj) {
-        var $tr = $(obj).parent().parent();
-        $tr.remove();
-    }
-    function AddNewBENEFITS_FEATURES() {
-        var tbl = "<tr>";
-        tbl += '<td>';
-        tbl += '<table width="100%">';
+@*<script type="text/javascript">
 
-        tbl += "<tr>";
-        tbl += '<td>HEADING</td>';
-        tbl += '<td><input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
-        tbl += '<td><label class="fa fa-close btn btn-danger" onclick="RemoveBENEFITS_FEATURES(this)">  </label></td>';
-        tbl += '</tr>';
-        tbl += '<tr>';
-        tbl += '<td><input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="1"> </td>';
-        tbl += '<td>   <input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
-        tbl += '<td><label class="fa fa-close btn btn-danger" onclick="RemoveReasionToGetThisCard(this)"> </label></td>';
-        tbl += '</tr>';
-        tbl += '<tr><td></td><td><label class="fa fa-plus btn btn-primary" onclick="AddNewBENEFITS_FEATURES_Description(this)">Add More </label></td><td></td></tr>';
 
-        tbl += '</table>';
-        tbl += '</td>';
-        tbl += '</tr>';
-        $("#tblBENEFITS_FEATURES").append(tbl);
-        //  $("#tblTopReasonsToGetThisCreditCard").append("<tr><td> 3. </td ><td><input class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td> <td><label class='fa fa-close btn btn-danger'></label></td> </tr>");
-        //    alert($("#tblTopReasonsToGetThisCreditCard").attr('rows').length);
-    }
-    function AddNewBENEFITS_FEATURES_Description(obj) {
-        var $tr = $(obj).parent().parent();
-        var rowCount = Number($(obj).parent().parent().parent().parent().parent().find("tr").length) - 1;
-        var tbl = "<tr>";
-        tbl += '<td><input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="' + rowCount + '"> </td>';
-        tbl += '<td>   <input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
-        tbl += '<td><label class="fa fa-close btn btn-danger" onclick="RemoveReasionToGetThisCard(this)"> </label></td>';
-        tbl += '</tr>';
-        $tr.prev().after(tbl);
-        //$("#tblBENEFITS_FEATURES").append(tbl);
-        //  $("#tblTopReasonsToGetThisCreditCard").append("<tr><td> 3. </td ><td><input class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td> <td><label class='fa fa-close btn btn-danger'></label></td> </tr>");
-        //    alert($("#tblTopReasonsToGetThisCreditCard").attr('rows').length);
-    }
-    function RemoveBENEFITS_FEATURES(obj) {
-        var $tr = $(obj).parent().parent().parent().parent().parent();
-        $tr.remove();
-    }
-    function AddFEES_CHARGES() {
-        var rowCount = Number($('#tblFEES_CHARGES tr').length);
-        var tbl = "<tr>";
-        tbl += '<td> <input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="' + rowCount + '"></td >';
-        tbl += "<td><input placeholder='key' class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td>";
-        tbl += '<td><input placeholder="description" class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
-        tbl += "<td><label class='fa fa-close btn btn-danger' onclick='RemoveReasionToGetThisCard(this)'></label></td>";
-        tbl += "</tr>";
-        $("#tblFEES_CHARGES").append(tbl);
-        //  $("#tblTopReasonsToGetThisCreditCard").append("<tr><td> 3. </td ><td><input class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td> <td><label class='fa fa-close btn btn-danger'></label></td> </tr>");
-        //    alert($("#tblTopReasonsToGetThisCreditCard").attr('rows').length);
-    }
 
-    function AddBORROW_PRIVILEGES() {
-        var rowCount = Number($('#tblBORROW_PRIVILEGES tr').length)-1;
-        var tbl = "<tr>";
-        tbl += '<td> <input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="' + rowCount + '"></td >';
-        tbl += "<td><input placeholder='key' class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td>";
-        tbl += '<td><input placeholder="description" class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
-        tbl += "<td><label class='fa fa-close btn btn-danger' onclick='RemoveReasionToGetThisCard(this)'></label></td>";
-        tbl += "</tr>";
-        $("#tblBORROW_PRIVILEGES").append(tbl);
-        //  $("#tblTopReasonsToGetThisCreditCard").append("<tr><td> 3. </td ><td><input class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td> <td><label class='fa fa-close btn btn-danger'></label></td> </tr>");
-        //    alert($("#tblTopReasonsToGetThisCreditCard").attr('rows').length);
-    }
-    function AddNewREDEEM_REWARDS() {
-        var tbl = "<tr>";
-        tbl += '<td>';
-        tbl += '<table width="100%">';
+        function AddNewBENEFITS_FEATURES() {
+            var tbl = "<tr>";
+            tbl += '<td>';
+            tbl += '<table width="100%">';
 
-        tbl += "<tr>";
-        tbl += '<td>HEADING</td>';
-        tbl += '<td><input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
-        tbl += '<td><label class="fa fa-close btn btn-danger" onclick="RemoveBENEFITS_FEATURES(this)">  </label></td>';
-        tbl += '</tr>';
-        tbl += '<tr>';
-        tbl += '<td><input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="1"> </td>';
-        tbl += '<td>   <input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
-        tbl += '<td><label class="fa fa-close btn btn-danger" onclick="RemoveReasionToGetThisCard(this)"> </label></td>';
-        tbl += '</tr>';
-        tbl += '<tr><td></td><td><label class="fa fa-plus btn btn-primary" onclick="AddNewREDEEM_REWARDS_Description(this)">Add More </label></td><td></td></tr>';
+            tbl += "<tr>";
+            tbl += '<td>HEADING</td>';
+            tbl += '<td><input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
+            tbl += '<td><label class="fa fa-close btn btn-danger" onclick="RemoveBENEFITS_FEATURES(this)">  </label></td>';
+            tbl += '</tr>';
+            tbl += '<tr>';
+            tbl += '<td><input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="1"> </td>';
+            tbl += '<td>   <input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
+            tbl += '<td><label class="fa fa-close btn btn-danger" onclick="RemoveReasionToGetThisCard(this)"> </label></td>';
+            tbl += '</tr>';
+            tbl += '<tr><td></td><td><label class="fa fa-plus btn btn-primary" onclick="AddNewBENEFITS_FEATURES_Description(this)">Add More </label></td><td></td></tr>';
 
-        tbl += '</table>';
-        tbl += '</td>';
-        tbl += '</tr>';
-        $("#tblREDEEM_REWARDS").append(tbl);
-    }
-    function AddNewREDEEM_REWARDS_Description(obj) {
-        var $tr = $(obj).parent().parent();
-        var rowCount = Number($(obj).parent().parent().parent().parent().parent().find("tr").length) - 1;
-        var tbl = "<tr>";
-        tbl += '<td><input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="' + rowCount + '"> </td>';
-        tbl += '<td>   <input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
-        tbl += '<td><label class="fa fa-close btn btn-danger" onclick="RemoveReasionToGetThisCard(this)"> </label></td>';
-        tbl += '</tr>';
-        $tr.prev().after(tbl);
-        //$("#tblBENEFITS_FEATURES").append(tbl);
-        //  $("#tblTopReasonsToGetThisCreditCard").append("<tr><td> 3. </td ><td><input class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td> <td><label class='fa fa-close btn btn-danger'></label></td> </tr>");
-        //    alert($("#tblTopReasonsToGetThisCreditCard").attr('rows').length);
-    }
-</script>
+            tbl += '</table>';
+            tbl += '</td>';
+            tbl += '</tr>';
+            $("#tblBENEFITS_FEATURES").append(tbl);
+            //  $("#tblTopReasonsToGetThisCreditCard").append("<tr><td> 3. </td ><td><input class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td> <td><label class='fa fa-close btn btn-danger'></label></td> </tr>");
+            //    alert($("#tblTopReasonsToGetThisCreditCard").attr('rows').length);
+        }
+        function AddNewBENEFITS_FEATURES_Description(obj) {
+            var $tr = $(obj).parent().parent();
+            var rowCount = Number($(obj).parent().parent().parent().parent().parent().find("tr").length) - 1;
+            var tbl = "<tr>";
+            tbl += '<td><input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="' + rowCount + '"> </td>';
+            tbl += '<td>   <input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
+            tbl += '<td><label class="fa fa-close btn btn-danger" onclick="RemoveReasionToGetThisCard(this)"> </label></td>';
+            tbl += '</tr>';
+            $tr.prev().after(tbl);
+            //$("#tblBENEFITS_FEATURES").append(tbl);
+            //  $("#tblTopReasonsToGetThisCreditCard").append("<tr><td> 3. </td ><td><input class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td> <td><label class='fa fa-close btn btn-danger'></label></td> </tr>");
+            //    alert($("#tblTopReasonsToGetThisCreditCard").attr('rows').length);
+        }
+        function RemoveBENEFITS_FEATURES(obj) {
+            var $tr = $(obj).parent().parent().parent().parent().parent();
+            $tr.remove();
+        }
+        function AddFEES_CHARGES() {
+            var rowCount = Number($('#tblFEES_CHARGES tr').length);
+            var tbl = "<tr>";
+            tbl += '<td> <input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="' + rowCount + '"></td >';
+            tbl += "<td><input placeholder='key' class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td>";
+            tbl += '<td><input placeholder="description" class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
+            tbl += "<td><label class='fa fa-close btn btn-danger' onclick='RemoveReasionToGetThisCard(this)'></label></td>";
+            tbl += "</tr>";
+            $("#tblFEES_CHARGES").append(tbl);
+            //  $("#tblTopReasonsToGetThisCreditCard").append("<tr><td> 3. </td ><td><input class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td> <td><label class='fa fa-close btn btn-danger'></label></td> </tr>");
+            //    alert($("#tblTopReasonsToGetThisCreditCard").attr('rows').length);
+        }
+
+        function AddBORROW_PRIVILEGES() {
+            var rowCount = Number($('#tblBORROW_PRIVILEGES tr').length) - 1;
+            var tbl = "<tr>";
+            tbl += '<td> <input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="' + rowCount + '"></td >';
+            tbl += "<td><input placeholder='key' class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td>";
+            tbl += '<td><input placeholder="description" class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
+            tbl += "<td><label class='fa fa-close btn btn-danger' onclick='RemoveReasionToGetThisCard(this)'></label></td>";
+            tbl += "</tr>";
+            $("#tblBORROW_PRIVILEGES").append(tbl);
+            //  $("#tblTopReasonsToGetThisCreditCard").append("<tr><td> 3. </td ><td><input class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td> <td><label class='fa fa-close btn btn-danger'></label></td> </tr>");
+            //    alert($("#tblTopReasonsToGetThisCreditCard").attr('rows').length);
+        }
+        function AddNewREDEEM_REWARDS() {
+            var tbl = "<tr>";
+            tbl += '<td>';
+            tbl += '<table width="100%">';
+
+            tbl += "<tr>";
+            tbl += '<td>HEADING</td>';
+            tbl += '<td><input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
+            tbl += '<td><label class="fa fa-close btn btn-danger" onclick="RemoveBENEFITS_FEATURES(this)">  </label></td>';
+            tbl += '</tr>';
+            tbl += '<tr>';
+            tbl += '<td><input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="1"> </td>';
+            tbl += '<td>   <input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
+            tbl += '<td><label class="fa fa-close btn btn-danger" onclick="RemoveReasionToGetThisCard(this)"> </label></td>';
+            tbl += '</tr>';
+            tbl += '<tr><td></td><td><label class="fa fa-plus btn btn-primary" onclick="AddNewREDEEM_REWARDS_Description(this)">Add More </label></td><td></td></tr>';
+
+            tbl += '</table>';
+            tbl += '</td>';
+            tbl += '</tr>';
+            $("#tblREDEEM_REWARDS").append(tbl);
+        }
+        function AddNewREDEEM_REWARDS_Description(obj) {
+            var $tr = $(obj).parent().parent();
+            var rowCount = Number($(obj).parent().parent().parent().parent().parent().find("tr").length) - 1;
+            var tbl = "<tr>";
+            tbl += '<td><input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="' + rowCount + '"> </td>';
+            tbl += '<td>   <input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>';
+            tbl += '<td><label class="fa fa-close btn btn-danger" onclick="RemoveReasionToGetThisCard(this)"> </label></td>';
+            tbl += '</tr>';
+            $tr.prev().after(tbl);
+            //$("#tblBENEFITS_FEATURES").append(tbl);
+            //  $("#tblTopReasonsToGetThisCreditCard").append("<tr><td> 3. </td ><td><input class='form-control text-box single-line' id='CupcakeQuantities' name='CupcakeQuantities' type='text' value=''></td> <td><label class='fa fa-close btn btn-danger'></label></td> </tr>");
+            //    alert($("#tblTopReasonsToGetThisCreditCard").attr('rows').length);
+        }
+    </script>*@
