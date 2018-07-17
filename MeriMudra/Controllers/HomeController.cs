@@ -21,7 +21,7 @@ namespace MeriMudra.Controllers
         }
         public ActionResult CreditCard()
         {
-            var model = new detailsForApplyCard { Banks = db.Banks.ToList(), CreditCards = db.CreditCards.ToList(), Citys = db.Citys.ToList() };
+            var model = new detailsForApplyCard { Banks = db.Banks.ToList(), CreditCards = db.CreditCards.ToList(), Citys = db.Citys.ToList(),Companys=db.Companys.ToList() };
             return View(model);
         }
         [HttpPost]

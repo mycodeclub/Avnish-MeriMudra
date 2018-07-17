@@ -1,4 +1,4 @@
-﻿@model MeriMudra.Models.detailsForApplyCard   
+﻿@model MeriMudra.Models.detailsForApplyCard
 <!DOCTYPE html>
 <!-- saved from url=(0136)http://merimudra.com/home/creditcard -->
 <html lang="en">
@@ -202,10 +202,10 @@
             </div>
         </a>
         @*<a href="http://merimudra.com" class="made-with-mk">
-            <div class="brand" style="color:green;">
-               MM</div>
-            <div class="made-with">Made with <strong>Meri Mudra</strong></div>
-        </a>*@
+                <div class="brand" style="color:green;">
+                   MM</div>
+                <div class="made-with">Made with <strong>Meri Mudra</strong></div>
+            </a>*@
         <!--   Big container   -->
         <div class="container">
             <div class="row">
@@ -215,7 +215,7 @@
                         <div class="card wizard-card" data-color="green" id="wizard">
                             <form action="http://merimudra.com/home/creditcard" id="from_data" method="" novalidate="novalidate">
                                 <!--        You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
-                               
+
                                 <input type="hidden" name="Id" id="Id" value="0" />
                                 <div class="wizard-header">
                                     <h3 class="wizard-title">
@@ -226,14 +226,14 @@
                                 <div class="wizard-navigation">
                                     <ul class="nav nav-pills">
                                         @*<li class="active"><a href="http://merimudra.com/home/creditcard#City" data-toggle="tab" aria-expanded="true">City</a></li>*@
-                                       
+
                                         @*<li class=""><a href="http://merimudra.com/home/creditcard#income" data-toggle="tab" aria-expanded="false">Income</a></li>*@
                                         <li class=""><a href="#Company" data-toggle="tab" aria-expanded="false">Company</a></li>
                                         <li class=""><a href="#Profile_Detail" data-toggle="tab" aria-expanded="false">Profile</a></li>
                                         <li class=""><a href="#savings_bank_accounts" data-toggle="tab" aria-expanded="false">Accounts</a></li>
                                         @*<li class=""><a href="#" aria-expanded="false">Company</a></li>
-                                        <li class=""><a href="#" aria-expanded="false">Profile</a></li>
-                                        <li class=""><a href="#" aria-expanded="false">Accounts</a></li>*@
+                                            <li class=""><a href="#" aria-expanded="false">Profile</a></li>
+                                            <li class=""><a href="#" aria-expanded="false">Accounts</a></li>*@
                                     </ul>
                                     <div class="moving-tab" style="width: 250px; transform: translate3d(-8px, 0px, 0px); transition: all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1);">Account</div><div class="moving-tab" style="width: 250px; transform: translate3d(-8px, 0px, 0px); transition: all 0.5s cubic-bezier(0.29, 1.42, 0.79, 1);">Account</div>
                                 </div>
@@ -251,13 +251,13 @@
                                                 <label onclick="SClick(2);" for="employed_radios2">Self-employed</label>
                                             </div>
                                             <div class="col-sm-10 col-sm-offset-1" style="text-align:center">
-                                                <input type="text" id="ComapanyName" name="CompanyName" class="form-control" placeholder="Company Name" />
+                                                <input type="text" id="ComapanyName" required="true" name="CompanyName" class="form-control" placeholder="Company Name" />
                                             </div>
 
                                             <div class="col-sm-10 col-sm-offset-1" style="text-align:center">
                                                 <input type="text" id="Income" required onkeypress="return ValidateDecimal(event, this);" name="GrossIncomeOrNetSalary" class="form-control" placeholder="My net monthly salary is" />
                                             </div>
-                                            <div class="col-sm-10 col-sm-offset-1" style="text-align:center">
+                                            <div class="col-sm-10 col-sm-offset-1" style="text-align:center;display:none;" id="ITR">
                                                 ITR @Html.Raw(ITR)
                                             </div>
                                         </div>
@@ -355,7 +355,7 @@
                                                     </select>
                                                     <div class="select7_items"></div>
                                                 </div>
-                                                <h5 class="info-text"  style="margin:10px;">My Existing Credit Card and its Max Limit</h5>
+                                                <h5 class="info-text" style="margin:10px;">My Existing Credit Card and its Max Limit</h5>
                                                 <div id="select7" class="select7_container">
                                                     <div class="select7_arrow">&#9662;</div>
                                                     <div class="select7_placeholder">select your bank</div>
@@ -385,7 +385,7 @@
                                                     My Current or Previous Loan<br />
                                                     <label style="color:rgb(0, 0, 0);">
                                                         Yes
-                                                        <input  type="radio" value="1" name="CurrentOrPrevLoan"><span class="radio-material"></span>
+                                                        <input type="radio" value="1" name="CurrentOrPrevLoan"><span class="radio-material"></span>
                                                     </label>
                                                     <label style="color:rgb(0, 0, 0);">
                                                         No
@@ -401,7 +401,7 @@
                                 </div>
                                 <div class="wizard-footer">
                                     <div class="pull-right">
-                                        <input type="button"  class="btn btn-next btn-fill btn-danger btn-wd" name="next" value="Next" style="">
+                                        <input type="button" class="btn btn-next btn-fill btn-danger btn-wd" name="next" value="Next" style="">
                                         <input type="button" class="btn btn-finish btn-fill btn-danger btn-wd" name="finish" value="Finish" style="display: none;">
                                     </div>
                                     <div class="pull-left">
@@ -409,12 +409,12 @@
 
                                         <div class="footer-checkbox" style="opacity: 1; visibility: visible; position: absolute;">
                                             <div class="col-sm-12">
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" name="optionsCheckboxes"><span class="checkbox-material"></span>
-                                                    </label>
-                                                    Subscribe to our newsletter
-                                                </div>
+                                                @*<div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="optionsCheckboxes"><span class="checkbox-material"></span>
+                                                        </label>
+                                                        Subscribe to our newsletter
+                                                    </div>*@
                                             </div>
                                         </div>
                                     </div>
@@ -433,7 +433,7 @@
         </div>
     </div>
     <!--   Core JS Files   -->
-    
+
     <script src="~/wizardjs/jquery-2.2.4.min.js" type="text/javascript"></script>
     <script src="~/wizardjs/bootstrap.min.js" type="text/javascript"></script>
     <script src="~/wizardjs/jquery.bootstrap.js" type="text/javascript"></script>
@@ -442,14 +442,14 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="~/wizardjs/jquery.validate.min.js" type="text/javascript"></script>
     <script src="~/wizardjs/jquery.form.js"></script>
-    <script src="~/wizardjs/Multiselect/multiselect.js"></script>    
+    <script src="~/wizardjs/Multiselect/multiselect.js"></script>
     <script src="~/wizardjs/CreditCard.js"></script>
 
     <script src="~/wizardjs/bbootstrap-datepicker.js"></script>
     <script>
-     
+
         function SClick(s) {
-            var type=true;
+            var type = true;
             if (s == 1) {
 
                 $("#savings_bank_accounts #infoText").html("My salary is deposited to");
@@ -458,6 +458,9 @@
                 $("#ComapanyName").removeAttr("readonly");
                 $("#ComapanyName").attr("placeholder", "Company Name");
                 $("#Income").attr("placeholder", "My net monthly salary is");
+                $("#ITR").hide();
+                $("#ComapanyName").attr("required", "true");
+                
             } else {
                 type = false;
                 $("#savings_bank_accounts #infoText").html("I have savings bank accounts with");
@@ -467,6 +470,8 @@
                 $("#Income").attr("placeholder", "My gross annual income is");
                 $("#ComapanyName").val("");
                 $("#ComapanyName").attr("readonly", true);
+                $("#ComapanyName").removeAttr("required");
+                $("#ITR").show();
             }
             $("#hdnRadio").val(type);
             //  alert(s);
@@ -475,22 +480,36 @@
     <script>
 
         $(function () {
-            debugger;
-             //var availableTags1 = JSON.parse('@Html.Raw(Model.Citys)');
             var model = '@Html.Raw(Json.Encode(from u in  Model.Citys select new {value=u.Name,id=u.Id }))';
-            @*var model = '@Html.Raw(Json.Encode(from u in  Model.Citys.Select(l=>new { l.Name as "value",l.Id })))';*@
             var availableTags = JSON.parse(model);
-           // alert(availableTags);
+            // alert(availableTags);
             $("#my_city").autocomplete({
-                source: availableTags,
-                minLength: 3,
-                select: function( event, ui ) {
-                    var result_selected = ui.item.id;
-                    $("#hdnCityId").val(result_selected);
-                //alert(result_selected );
-                return true;
-            }
+                minLength: 2,
+                source: function (request, response) {
+                    var matches = $.map(availableTags, function (acItem) {
+                        if (acItem.value.toUpperCase().indexOf(request.term.toUpperCase()) === 0) {
+                            return acItem;
+                        }
+                    });
+                    response(matches);
+                }
             });
+        });
+        $(function () {
+            var model = '@Html.Raw(Json.Encode(from u in  Model.Companys select new {value=u.CompanyName,id=u.CompanyId}))';
+            var acList = JSON.parse(model);
+            $('#ComapanyName').autocomplete({
+                minLength: 2,
+                source: function (request, response) {
+                    var matches = $.map(acList, function (acItem) {  
+                        if (acItem.value.toUpperCase().indexOf(request.term.toUpperCase()) === 0) {
+                            return acItem;
+                        }
+                    });
+                    response(matches);
+                }
+            });
+
         });
         $(document).ready(function () {
             $("#dateOfBirth").datepicker({
