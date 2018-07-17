@@ -14,9 +14,9 @@ namespace MeriMudra.Models
         [NotMapped]
         public string employed_radios { get; set; }
         public string CompanyName { get; set; }
-        public decimal GrossIncomeOrNetSalary { get; set; }
+        public decimal? GrossIncomeOrNetSalary { get; set; }
         public string Name { get; set; }
-        public DateTime DOB { get; set; }
+        public DateTime? DOB { get; set; }
         public string CityName { get; set; }
         [NotMapped]
         public string CityId { get; set; }
@@ -67,5 +67,6 @@ namespace MeriMudra.Models
         public List<Bank> Banks { get; set; }
         public List<CreditCard> CreditCards { get; set; }
         public List<City> Citys { get; set; }
+        public List<Company> Companys { get; set; }
     }
 }
