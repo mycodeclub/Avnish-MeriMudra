@@ -43,9 +43,10 @@ namespace MeriMudra.Models.CreditCardViewModel
         public CreditCardViewModel()
         {
             creditCard = new CreditCard();
-            ReasonsToGetThisCard = new List<string>() { "", "", "", "a" };
+            ReasonsToGetThisCard = new List<string>() { string.Empty };
             _BenefitsAndFeature = new List<BenefitsAndFeature>() { new BenefitsAndFeature() { HeadingText = string.Empty, Points = new List<string>(), } };
-            _RedeemReward = new List<RedeemReward>() { new RedeemReward() { HeadingText = string.Empty, Points = new List<string>(), } };
+            _RedeemReward = new List<RedeemReward>() { new RedeemReward() { HeadingText = string.Empty, Points = new List<string>(), }
+};
             _FeesAndCharge = new List<FeesAndCharge>() { new FeesAndCharge() { HeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
             _BorrowPrivilege = new List<BorrowPrivilege>() { new BorrowPrivilege() { HeadingText = string.Empty, SubHeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
         }
@@ -59,7 +60,12 @@ namespace MeriMudra.Models.CreditCardViewModel
             _FeesAndCharge = new List<FeesAndCharge>() { };
             _RedeemReward = new List<RedeemReward>() { };
             _BorrowPrivilege = new List<BorrowPrivilege>() { };
+            ReasonsToGetThisCard = new List<string>() { };
 
+            foreach (var r in CcDetail.Where(ccd => ccd.CcInfoSectionMaster.CcInfoSectionMasterId == 1))
+            {
+                ReasonsToGetThisCard.Add(r.Point);
+            }
             foreach (var bf in CcDetail.Where(ccd => ccd.CcInfoSectionMaster.CcInfoSectionMasterId == 2))
             {
                 if (_BenefitsAndFeature.Count == 0 || _BenefitsAndFeature.Last().HeadingText != bf.Heading)

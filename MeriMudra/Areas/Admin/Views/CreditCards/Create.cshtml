@@ -67,36 +67,52 @@
             <div class="card-footer small text-muted"></div>
         </div>
         <div class="card mb-3">
-            <div class="card-header">BENEFITS & FEATURES</div>
+            <div class="card-header">
+                BENEFITS & FEATURES                 <label class="fa fa-plus btn btn-success float-right" onclick="AddNewBENEFITS_FEATURES()">  Add New</label>
+            </div>
             <div class="card-body">
-                <label class="fa fa-plus btn btn-success" onclick="AddNewBENEFITS_FEATURES()">  Add New</label>
                 <br />
-                <table id="tblBENEFITS_FEATURES" class="table table-hover">
-                    <tr>
-                        <td>
-                            <table width="100%">
-                                <tr>
-                                    <td> HEADING </td>
-                                    <td>
-                                        <input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value="">
-                                    </td>
-                                    <td><label class="fa fa-close btn btn-danger" onclick="RemoveBENEFITS_FEATURES(this)">  </label></td>
-                                </tr>
-                                <tr>
-                                    <td><input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="1"> </td>
-                                    <td><input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>
-                                    <td><label class="fa fa-close btn btn-danger" onclick="RemoveReasionToGetThisCard(this)"> </label></td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td><label class="fa fa-plus btn btn-primary" onclick="AddNewBENEFITS_FEATURES_Description(this)">Add More</label></td>
-                                    <td></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
 
-                </table>
+                @for (int i = 0; i < Model._BenefitsAndFeature.Count; i++)
+                {
+                    <table id="tblBENEFITS_FEATURES" class="table">
+                        <tr>
+                            <td>
+                                <table width="100%" class="table table-hover">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th width="10%">
+                                                Heading  @(i + 1)
+                                            </th>
+                                            <th width="80%"><input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value="@Model._BenefitsAndFeature[i].HeadingText"></th>
+                                            <th width="10%">
+                                                <label class="fa fa-close btn btn-danger" onclick="RemoveBENEFITS_FEATURES(this)">  </label>
+                                                <label class="fa fa-plus btn btn-success" onclick="AddNewBENEFITS_FEATURES_Description(this)"></label>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    @for (int j = 0; j < Model._BenefitsAndFeature[i].Points.Count; j++)// (var p in bf.Points)
+                                    {
+                                        <tr>
+                                            <td class="float-right"><input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="@(j+1)"> </td>
+                                            <td><input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value="@Model._BenefitsAndFeature[i].Points[j]"></td>
+                                            <td><label class="fa fa-minus-circle btn btn-danger" onclick="RemoveReasionToGetThisCard(this)"> </label></td>
+                                        </tr>
+                                    }
+
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                }
+
             </div>
             <div class="card-footer small text-muted"></div>
         </div>

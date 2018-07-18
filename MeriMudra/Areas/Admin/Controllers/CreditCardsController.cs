@@ -38,10 +38,11 @@ namespace MeriMudra.Areas.Admin.Controllers
         }
 
         // GET: Admin/CreditCards/Create
-        public ActionResult Create(int id = 0)
+        public ActionResult Create(int id = 1)
         {
-            var Card = new CreditCardViewModel();
+            CreditCardViewModel Card;
             if (id > 0) Card = new CreditCardViewModel(id);
+            else Card = new CreditCardViewModel();
             ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
             return View(Card);
         }
