@@ -64,73 +64,74 @@
                 </table>
             </div>
             <div class="card-footer small text-muted"></div>
-        </div>
+        </div>   <!-- Top reasons to get this Credit Card-->
         <div class="card mb-3">
-            <div class="card-header">
-                BENEFITS & FEATURES <label class="fa fa-plus btn btn-success float-right" onclick="ccVM.AddBenefitsAndFeatures()">  Add New</label>
-            </div>
+            <div class="card-header"> BENEFITS & FEATURES <label class="fa fa-plus btn btn-success float-right" onclick="ccVM.AddBenefitsAndFeatures()"> Add New</label> </div>
             <div id="BenefitsAndFeaturesSection" class="card-body">
                 <br />
                 @for (int i = 0; i < Model._BenefitsAndFeature.Count; i++)
                 {
-                    <table class="table Heading">
-                        <tr>
-                            <td>
-                                <table width="100%" class="table table-hover">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th width="10%"> Heading  @(i + 1) </th>
-                                            <th width="80%"><input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value="@Model._BenefitsAndFeature[i].HeadingText"></th>
-                                            <th width="10%">
-                                                <label class="fa fa-trash btn btn-danger" onclick="ccVM.RemoveHeading(this)">  </label>
-                                                <label class="fa fa-plus btn btn-success" onclick="ccVM.AddPointToBenefitsAndFeatures(this)"></label>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @for (int j = 0; j < Model._BenefitsAndFeature[i].Points.Count; j++)
-                                        {
-                                            <tr>
-                                                <td><label style="width:80px" class="form-control"> @(j + 1)</label></td>
-                                                <td><input class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value="@Model._BenefitsAndFeature[i].Points[j]"></td>
-                                                <td><label class="fa fa-minus-circle btn btn-danger" onclick="ccVM. RemovePoint(this)"> </label></td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-
+                    <table width="100%" class="table table-hover Heading">
+                        <thead class="thead-light">
+                            <tr>
+                                <th width="10%"> Heading  @(i + 1) </th>
+                                <th width="80%"><input class="form-control text-box single-line" name="benefitsAndFeatureHeadding@(i + 1)" type="text" value="@Model._BenefitsAndFeature[i].HeadingText"></th>
+                                <th width="10%">
+                                    <label class="fa fa-trash btn btn-danger" onclick="ccVM.RemoveHeading(this)">  </label>
+                                    <label class="fa fa-plus btn btn-success" onclick="ccVM.AddPointToBenefitsAndFeatures(this)"></label>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int j = 0; j < Model._BenefitsAndFeature[i].Points.Count; j++)
+                            {
+                                <tr>
+                                    <td><label style="width:80px" class="form-control"> @(j + 1)</label></td>
+                                    <td><input class="form-control text-box single-line" name="benefitsAndFeaturePoint@(i + 1)" type="text" value="@Model._BenefitsAndFeature[i].Points[j]"></td>
+                                    <td><label class="fa fa-minus-circle btn btn-danger" onclick="ccVM. RemovePoint(this)"> </label></td>
+                                </tr>
+                            }
+                        </tbody>
                     </table>
                 }
 
             </div>
             <div class="card-footer small text-muted"></div>
-        </div>
-
+        </div>   <!--BENEFITS & FEATURES-->
         <div class="card mb-3">
-            <div class="card-header">
-                FEES & CHARGES <label class="fa fa-plus btn btn-success float-right" onclick="AddNewBENEFITS_FEATURES()">  Add New</label>
-            </div>
-            <div class="card-body">
-                <label class="fa fa-plus btn btn-success" onclick="AddFEES_CHARGES()">  Add New</label>
+            <div class="card-header"> FEES & CHARGES <label class="fa fa-plus btn btn-success float-right" onclick="ccVM.AddFeesAndCharges()"> Add New</label> </div>
+            <div id="FeesAndChargesSection" class="card-body">
                 <br />
-                <table id="tblFEES_CHARGES" class="table table-hover">
-                    <tr>
-                        <td>main heading</td>
-                        <td colspan="2"><input placeholder="Flexibility Fee and Charges" class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><input style="width:80px" class="form-control text-box single-line" id="SequenceNumber" name="SequenceNumber" type="text" value="1"> </td>
-                        <td><input placeholder="key" class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>
-                        <td><input placeholder="description" class="form-control text-box single-line" id="CupcakeQuantities" name="CupcakeQuantities" type="text" value=""></td>
-                        <td><label class="fa fa-close btn btn-danger" onclick="ccVM. RemovePoint(this)">  </label></td>
-                    </tr>
-                </table>
+                @for (int i = 0; i < Model._FeesAndCharge.Count; i++)
+                {
+                    <table width="100%" class="table table-hover Heading">
+                        <thead class="thead-light">
+                            <tr>
+                                <th width="10%"> Heading  @(i + 1) </th>
+                                <th width="80%" colspan="2"><input class="form-control text-box single-line" type="text" name="feesAndChargeHeading@(i+1)" value="@Model._FeesAndCharge[i].HeadingText"></th>
+                                <th width="10%">
+                                    <label class="fa fa-trash btn btn-danger" onclick="ccVM.RemoveHeading(this)">  </label>
+                                    <label class="fa fa-plus btn btn-success" onclick="ccVM.AddPointToFeesAndCharges(this)"></label>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int j = 0; j < Model._FeesAndCharge[i].Points.Count; j++)
+                            {
+                                <tr>
+                                    <td><label style="width:80px" class="form-control"> @(j + 1)</label></td>
+                                    <td width="20%"> <input placeholder="key" class="form-control text-box single-line" name="feesAndChargeKey@(i+1)" type="text" value="@Model._FeesAndCharge[i].Points[j].Key"></td>
+                                    <td> <input placeholder="description" class="form-control text-box single-line" name="feesAndChargeValue@(i+1)" type="text" value="@Model._FeesAndCharge[i].Points[j].Value"></td>
+                                    <td> <label class="fa fa-minus-circle btn btn-danger" onclick="ccVM.RemovePoint(this)"> </label> </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
             </div>
             <div class="card-footer small text-muted"></div>
-        </div>
+        </div>   <!-- FEES & CHARGES -->
         <div class="card mb-3">
             <div class="card-header">REDEEM REWARDS</div>
             <div class="card-body">
@@ -164,7 +165,7 @@
                 </table>
             </div>
             <div class="card-footer small text-muted"></div>
-        </div>
+        </div>   <!-- REDEEM REWARDS-->
         <div class="card mb-3">
             <div class="card-header">BORROW PRIVILEGES</div>
             <div class="card-body">
@@ -190,7 +191,7 @@
                 </table>
             </div>
             <div class="card-footer small text-muted"></div>
-        </div>
+        </div>   <!-- BORROW PRIVILEGES-->
     </div>
     <input type="submit" value="save" />
 }
@@ -212,8 +213,6 @@
 }
 
 @*<script type="text/javascript">
-
-
 
         function AddNewBENEFITS_FEATURES() {
             var tbl = "<tr>";
