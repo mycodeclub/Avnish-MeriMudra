@@ -9,8 +9,16 @@
         $("#tblTopReasonsToGetThisCreditCard").append(row);
     },
 
-    RemoveReasionToGetThisCard: function (obj) {
-        var $tr = $(obj).parent().parent();
-        $tr.remove();
+    RemovePoint: function (obj) {
+        html = $(obj).parent().parent().parent();
+        var count = 1;
+        $(html).find("tr td:first-child").each(function (i, l) {
+            if ($(obj).parent().parent().find("td:first-child").find("label").text() != $(l).find("label").text()) {
+                $(l).find("label").text(count++);
+            }
+        });
+        $(obj).parent().parent().remove();
     }
 }
+
+var html;
