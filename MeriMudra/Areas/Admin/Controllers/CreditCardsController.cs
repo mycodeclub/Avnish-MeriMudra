@@ -14,7 +14,7 @@ namespace MeriMudra.Areas.Admin.Controllers
     public class CreditCardsController : Controller
     {
         private MmDbContext db = new MmDbContext();
-
+        private string validImageFormets = @"bmp, jpg, jpeg, gif, png";
         // GET: Admin/CreditCards
         public ActionResult Index()
         {
@@ -23,18 +23,15 @@ namespace MeriMudra.Areas.Admin.Controllers
         }
 
         // GET: Admin/CreditCards/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id = 0)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CreditCard creditCard = db.CreditCards.Find(id);
-            if (creditCard == null)
-            {
-                return HttpNotFound();
-            }
-            return View(creditCard);
+            CreditCardViewModel Card;
+            if (id > 0) Card = new CreditCardViewModel(id);
+            else Card = new CreditCardViewModel();
+            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
+            return View(Card);
+
+
         }
 
         // GET: Admin/CreditCards/Create
@@ -44,7 +41,7 @@ namespace MeriMudra.Areas.Admin.Controllers
             if (id > 0) Card = new CreditCardViewModel(id);
             else Card = new CreditCardViewModel();
             ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
-            return View(Card);
+            return View("CreateOld", Card);
         }
 
         // POST: Admin/CreditCards/Create
@@ -133,6 +130,68 @@ namespace MeriMudra.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        //----------------------------------------------------------------------
+
+        public ActionResult SaveCcBasic(int id)
+        {
+            CreditCardViewModel ccVm;
+            if (id > 0) ccVm = new CreditCardViewModel(id);
+            else ccVm = new CreditCardViewModel();
+            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
+            return View(ccVm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveCcBasic([Bind(Include = "BankId,CardName,CardDescription,CardImageUrl,ReasonsToGetThisCard,CardImageUpload")] CreditCardViewModel ccVm, FormCollection fc)
+        {
+            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
+            if (ModelState.IsValid)
+            {
+                var value = fc["creditCard.CardId"];
+                if (!string.IsNullOrEmpty(ccVm.CardImageUrl) || (ccVm.CardImageUpload != null && ccVm.CardImageUpload.ContentLength > 0))
+                {
+                    if ((ccVm.CardImageUpload != null || ccVm.CardImageUpload.ContentLength > 0) && validImageFormets.Contains(ccVm.CardImageUpload.FileName.Split('.').Last()))
+                    {
+                        ccVm.CardImageUrl = SaveImageAndGetUrl(ccVm.CardImageUpload);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("CardImageUpload", "Upload Card Image in a valid image format, allowed formats are : " + validImageFormets);
+                        return View(ccVm);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("CardImageUpload", "This field is required");
+                    return View(ccVm);
+                }
+                if (ccVm.creditCard.CardId > 0)
+                {
+                    db.CreditCards.Add(ccVm.creditCard);
+                    db.SaveChanges();
+                }
+                if (ccVm.creditCard.CardId > 0)
+                    db.Entry(ccVm.creditCard).State = EntityState.Modified;
+                else db.CreditCards.Add(ccVm.creditCard);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name", ccVm.creditCard.BankId);
+            return View(ccVm);
+        }
+
+        private string SaveImageAndGetUrl(HttpPostedFileBase cardImage)
+        {
+            {
+                var fileName = DateTime.UtcNow.ToString().Replace(" ", string.Empty).Replace(":", string.Empty).Replace("/", string.Empty) + cardImage.FileName.Replace(" ", string.Empty);
+                var imgUrl = @"\images\cards\" + fileName;
+                //                cardImage.SaveAs(Server.MapPath("~/images/cards" + fileName));
+                cardImage.SaveAs(Server.MapPath(imgUrl));
+                return imgUrl;// @"\images\" + fileName;
+            }
         }
     }
 }

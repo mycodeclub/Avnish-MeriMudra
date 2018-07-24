@@ -3,18 +3,26 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace MeriMudra.Models.CreditCardViewModel
 {
 
     public enum CcInfoSection { CCHighLights, BenefitsAndFeatures, FeesAndCharges, RedeemRewards, BorrowPriviledges };
+
     public class CreditCardViewModel
     {
+        private MmDbContext db = new MmDbContext();
         public CreditCard creditCard { get; set; }
 
-        [Required]
+        public int BankId { get; set; }
+
+        public SelectList BanksSelectList { get; set; }// new SelectList(db.Banks, "BankId", "Name");
+
+
         public string ServiceProvider { get; set; }
 
         [Required]
@@ -39,21 +47,21 @@ namespace MeriMudra.Models.CreditCardViewModel
         [DisplayName("Card Image")]
         [DataType(DataType.Upload)]
         public HttpPostedFileBase CardImageUpload { get; set; }
-
         public CreditCardViewModel()
         {
-            creditCard = new CreditCard();
-            ReasonsToGetThisCard = new List<string>() { string.Empty };
-            _BenefitsAndFeature = new List<BenefitsAndFeature>() { new BenefitsAndFeature() { HeadingText = string.Empty, Points = new List<string>(), } };
-            _RedeemReward = new List<RedeemReward>() { new RedeemReward() { HeadingText = string.Empty, Points = new List<string>(), }
-};
-            _FeesAndCharge = new List<FeesAndCharge>() { new FeesAndCharge() { HeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
-            _BorrowPrivilege = new List<BorrowPrivilege>() { new BorrowPrivilege() { HeadingText = string.Empty, SubHeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
+            //    MmDbContext db = new MmDbContext();
+            //    creditCard = new CreditCard();
+            //    ReasonsToGetThisCard = new List<string>() { string.Empty };
+            //    BanksSelectList = new SelectList(db.Banks, "BankId", "Name");
+            //    _BenefitsAndFeature = new List<BenefitsAndFeature>() { new BenefitsAndFeature() { HeadingText = string.Empty, Points = new List<string>(), } };
+            //    _RedeemReward = new List<RedeemReward>() { new RedeemReward() { HeadingText = string.Empty, Points = new List<string>(), } };
+            //    _FeesAndCharge = new List<FeesAndCharge>() { new FeesAndCharge() { HeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
+            //    _BorrowPrivilege = new List<BorrowPrivilege>() { new BorrowPrivilege() { HeadingText = string.Empty, SubHeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
         }
-
         public CreditCardViewModel(int CardId)
         {
             MmDbContext db = new MmDbContext();
+            BanksSelectList = new SelectList(db.Banks, "BankId", "Name");
             creditCard = db.CreditCards.Where(cc => cc.CardId == CardId).SingleOrDefault();
             var CcDetail = db.CcDetails.Where(cc => cc.CardId == CardId).OrderBy(cc => cc.CcInfoSectionMasterId).ThenBy(cc => cc.Heading);
             _BenefitsAndFeature = new List<BenefitsAndFeature>() { };
@@ -105,14 +113,55 @@ namespace MeriMudra.Models.CreditCardViewModel
             }
         }
 
+        //public bool Save(CreditCardViewModel ccVm, FormCollection fc)
+        //{
+        //    var value = fc["creditCard.CardId"];
+        //    string validImageFormets = @"bmp, jpg, jpeg, gif, png";
+        //    if (!string.IsNullOrEmpty(ccVm.CardImageUrl) || (ccVm.CardImageUpload != null && ccVm.CardImageUpload.ContentLength > 0))
+        //    {
+        //        if ((ccVm.CardImageUpload != null || ccVm.CardImageUpload.ContentLength > 0) && validImageFormets.Contains(ccVm.CardImageUpload.FileName.Split('.').Last()))
+        //        {
+        //            ccVm.CardImageUrl = SaveImageAndGetUrl(ccVm.CardImageUpload);
+        //        }
+        //        else
+        //        {
+        //            ModelState.AddModelError("CardImageUpload", "Upload Card Image in a valid image format, allowed formats are : " + validImageFormets);
+        //            return View(ccVm);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError("CardImageUpload", "This field is required");
+        //        return View(ccVm);
+        //    }
+        //    if (ccVm.creditCard.CardId > 0)
+        //    {
+        //        db.CreditCards.Add(ccVm.creditCard);
+        //        db.SaveChanges();
+        //    }
+        //    if (ccVm.creditCard.CardId > 0)
+        //        db.Entry(ccVm.creditCard).State = EntityState.Modified;
+        //    else db.CreditCards.Add(ccVm.creditCard);
+        //    db.SaveChanges();
+        //    if (ccVm.creditCard.CardId == 0)
+        //    {
 
-        public bool Save()
-        {
-            return true;
-        }
+        //    }
+        //    return true;
+        //}
+
+
+        //private string SaveImageAndGetUrl(HttpPostedFileBase cardImage)
+        //{
+        //    {
+        //        var fileName = DateTime.UtcNow.ToString().Replace(" ", string.Empty).Replace(":", string.Empty).Replace("/", string.Empty) + cardImage.FileName.Replace(" ", string.Empty);
+        //        var imgUrl = @"\images\cards\" + fileName;
+        //        //                cardImage.SaveAs(Server.MapPath("~/images/cards" + fileName));
+        //        cardImage.SaveAs(Server.MapPath(imgUrl));
+        //        return imgUrl;// @"\images\" + fileName;
+        //    }
+        //}
     }
-
-
     public class BenefitsAndFeature
     {
         public string HeadingText { get; set; }
@@ -144,4 +193,6 @@ namespace MeriMudra.Models.CreditCardViewModel
         [Required]
         public List<KeyValuePair<string, string>> Points { get; set; }
     }
+
+
 }

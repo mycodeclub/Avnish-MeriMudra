@@ -4,7 +4,7 @@
         var row = "<tr>";
         row += '        <td> <label style="width:80px" class="form-control">' + rowCount + '</td >';
         row += "        <td><input class='form-control text-box single-line' name='ReasonsToGetThisCard' type='text' value=''></td>"
-        row += "        <td><label class='fa fa-close btn btn-danger' onclick='ccVM.RemovePoint(this)'></label></td>";
+        row += "        <td><label class='fa fa-minus-circle btn btn-danger' onclick='ccVM.RemovePoint(this)'></label></td>";
         row += "   </tr>";
         $("#tblTopReasonsToGetThisCreditCard").append(row);
     },
