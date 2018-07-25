@@ -16,60 +16,59 @@ namespace MeriMudra.Models.CreditCardViewModel
     public class CreditCardViewModel
     {
         private MmDbContext db = new MmDbContext();
-        public CreditCard creditCard { get; set; }
+
+
 
         public int BankId { get; set; }
-
+        public int CardId { get; set; }
+        public string CardName { get; set; }
+        public string CardDescription { get; set; }
+        public string CardImageUrl { get; set; }
+        public string BankName { get; set; }
+        public string BankLogoUrl { get; set; }
         public SelectList BanksSelectList { get; set; }// new SelectList(db.Banks, "BankId", "Name");
-
-
         public string ServiceProvider { get; set; }
-
         [Required]
         public List<string> ReasonsToGetThisCard { get; set; }
-
         [Required]
         public List<BenefitsAndFeature> _BenefitsAndFeature { get; set; }
-
         [Required]
         public List<RedeemReward> _RedeemReward { get; set; }
-
         [Required]
         public List<FeesAndCharge> _FeesAndCharge { get; set; }
-
         [Required]
         public List<BorrowPrivilege> _BorrowPrivilege { get; set; }
-
-        [DisplayName("Card Image Url")]
-        public string CardImageUrl { get; set; }
-
-        [NotMapped]
         [DisplayName("Card Image")]
         [DataType(DataType.Upload)]
         public HttpPostedFileBase CardImageUpload { get; set; }
         public CreditCardViewModel()
         {
-            //    MmDbContext db = new MmDbContext();
-            //    creditCard = new CreditCard();
-            //    ReasonsToGetThisCard = new List<string>() { string.Empty };
-            //    BanksSelectList = new SelectList(db.Banks, "BankId", "Name");
-            //    _BenefitsAndFeature = new List<BenefitsAndFeature>() { new BenefitsAndFeature() { HeadingText = string.Empty, Points = new List<string>(), } };
-            //    _RedeemReward = new List<RedeemReward>() { new RedeemReward() { HeadingText = string.Empty, Points = new List<string>(), } };
-            //    _FeesAndCharge = new List<FeesAndCharge>() { new FeesAndCharge() { HeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
-            //    _BorrowPrivilege = new List<BorrowPrivilege>() { new BorrowPrivilege() { HeadingText = string.Empty, SubHeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
+            MmDbContext db = new MmDbContext();
+            //            creditCard = new CreditCard();
+            ReasonsToGetThisCard = new List<string>() { string.Empty };
+            BanksSelectList = new SelectList(db.Banks, "BankId", "Name");
+            _BenefitsAndFeature = new List<BenefitsAndFeature>() { new BenefitsAndFeature() { HeadingText = string.Empty, Points = new List<string>(), } };
+            _RedeemReward = new List<RedeemReward>() { new RedeemReward() { HeadingText = string.Empty, Points = new List<string>(), } };
+            _FeesAndCharge = new List<FeesAndCharge>() { new FeesAndCharge() { HeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
+            _BorrowPrivilege = new List<BorrowPrivilege>() { new BorrowPrivilege() { HeadingText = string.Empty, SubHeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
         }
         public CreditCardViewModel(int CardId)
         {
             MmDbContext db = new MmDbContext();
             BanksSelectList = new SelectList(db.Banks, "BankId", "Name");
-            creditCard = db.CreditCards.Where(cc => cc.CardId == CardId).SingleOrDefault();
+            var cCard = db.CreditCards.Where(cc => cc.CardId == CardId).SingleOrDefault();
+            BankId = cCard.BankId;
+            this.CardId = cCard.CardId;
+            CardName = cCard.CardName;
+            CardDescription = cCard.CardDescription;
+            CardImageUrl = cCard.CardImageUrl;
+            BankName = cCard.Bank.Name;
             var CcDetail = db.CcDetails.Where(cc => cc.CardId == CardId).OrderBy(cc => cc.CcInfoSectionMasterId).ThenBy(cc => cc.Heading);
             _BenefitsAndFeature = new List<BenefitsAndFeature>() { };
             _FeesAndCharge = new List<FeesAndCharge>() { };
             _RedeemReward = new List<RedeemReward>() { };
             _BorrowPrivilege = new List<BorrowPrivilege>() { };
             ReasonsToGetThisCard = new List<string>() { };
-
             foreach (var r in CcDetail.Where(ccd => ccd.CcInfoSectionMaster.CcInfoSectionMasterId == 1))
             {
                 ReasonsToGetThisCard.Add(r.Point);
@@ -113,42 +112,54 @@ namespace MeriMudra.Models.CreditCardViewModel
             }
         }
 
-        //public bool Save(CreditCardViewModel ccVm, FormCollection fc)
-        //{
-        //    var value = fc["creditCard.CardId"];
-        //    string validImageFormets = @"bmp, jpg, jpeg, gif, png";
-        //    if (!string.IsNullOrEmpty(ccVm.CardImageUrl) || (ccVm.CardImageUpload != null && ccVm.CardImageUpload.ContentLength > 0))
-        //    {
-        //        if ((ccVm.CardImageUpload != null || ccVm.CardImageUpload.ContentLength > 0) && validImageFormets.Contains(ccVm.CardImageUpload.FileName.Split('.').Last()))
-        //        {
-        //            ccVm.CardImageUrl = SaveImageAndGetUrl(ccVm.CardImageUpload);
-        //        }
-        //        else
-        //        {
-        //            ModelState.AddModelError("CardImageUpload", "Upload Card Image in a valid image format, allowed formats are : " + validImageFormets);
-        //            return View(ccVm);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        ModelState.AddModelError("CardImageUpload", "This field is required");
-        //        return View(ccVm);
-        //    }
-        //    if (ccVm.creditCard.CardId > 0)
-        //    {
-        //        db.CreditCards.Add(ccVm.creditCard);
-        //        db.SaveChanges();
-        //    }
-        //    if (ccVm.creditCard.CardId > 0)
-        //        db.Entry(ccVm.creditCard).State = EntityState.Modified;
-        //    else db.CreditCards.Add(ccVm.creditCard);
-        //    db.SaveChanges();
-        //    if (ccVm.creditCard.CardId == 0)
-        //    {
+        // public bool Save(this CreditCardViewModel ccVm, FormCollection fc)
+        public bool Save()
+        {
+            CreditCard cc = new CreditCard();
+            // cc = db.CreditCards.Where(c => c.CardId == CardId).FirstOrDefault();
+            cc.CardName = CardName;
+            cc.CardImageUrl = CardImageUrl;
+            cc.CardDescription = CardDescription;
+            cc.CardId = CardId;
+            cc.BankId = BankId;
+            if (CardId > 0) { db.Entry(cc).State = EntityState.Modified; }
+            else { db.CreditCards.Add(cc); }
+            db.SaveChanges();
 
-        //    }
-        //    return true;
-        //}
+            //var value = fc["creditCard.CardId"];
+            //string validImageFormets = @"bmp, jpg, jpeg, gif, png";
+            //if (!string.IsNullOrEmpty(ccVm.CardImageUrl) || (ccVm.CardImageUpload != null && ccVm.CardImageUpload.ContentLength > 0))
+            //{
+            //    if ((ccVm.CardImageUpload != null || ccVm.CardImageUpload.ContentLength > 0) && validImageFormets.Contains(ccVm.CardImageUpload.FileName.Split('.').Last()))
+            //    {
+            //        ccVm.CardImageUrl = SaveImageAndGetUrl(ccVm.CardImageUpload);
+            //    }
+            //    else
+            //    {
+            //        ModelState.AddModelError("CardImageUpload", "Upload Card Image in a valid image format, allowed formats are : " + validImageFormets);
+            //        return View(ccVm);
+            //    }
+            //}
+            //else
+            //{
+            //    ModelState.AddModelError("CardImageUpload", "This field is required");
+            //    return View(ccVm);
+            //}
+            //if (ccVm.creditCard.CardId > 0)
+            //{
+            //    db.CreditCards.Add(ccVm.creditCard);
+            //    db.SaveChanges();
+            //}
+            //if (ccVm.creditCard.CardId > 0)
+            //    db.Entry(ccVm.creditCard).State = EntityState.Modified;
+            //else db.CreditCards.Add(ccVm.creditCard);
+            //db.SaveChanges();
+            //if (ccVm.creditCard.CardId == 0)
+            //{
+
+            //}
+            return true;
+        }
 
 
         //private string SaveImageAndGetUrl(HttpPostedFileBase cardImage)

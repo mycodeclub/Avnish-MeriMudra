@@ -60,7 +60,7 @@ namespace MeriMudra.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name", ccVm.creditCard.BankId);
+            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name", ccVm.BankId);
             return View(ccVm);
         }
 
@@ -145,41 +145,35 @@ namespace MeriMudra.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SaveCcBasic([Bind(Include = "BankId,CardName,CardDescription,CardImageUrl,ReasonsToGetThisCard,CardImageUpload")] CreditCardViewModel ccVm, FormCollection fc)
+        public ActionResult SaveCcBasic([Bind(Include = "CardId,BankId,CardName,CardDescription,CardImageUrl,ReasonsToGetThisCard,CardImageUpload")] CreditCardViewModel ccVm, FormCollection fc)
         {
             ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
             if (ModelState.IsValid)
             {
-                var value = fc["creditCard.CardId"];
                 if (!string.IsNullOrEmpty(ccVm.CardImageUrl) || (ccVm.CardImageUpload != null && ccVm.CardImageUpload.ContentLength > 0))
                 {
-                    if ((ccVm.CardImageUpload != null || ccVm.CardImageUpload.ContentLength > 0) && validImageFormets.Contains(ccVm.CardImageUpload.FileName.Split('.').Last()))
+                    if ((ccVm.CardImageUpload != null && ccVm.CardImageUpload.ContentLength > 0))
                     {
-                        ccVm.CardImageUrl = SaveImageAndGetUrl(ccVm.CardImageUpload);
+                        if (!validImageFormets.Contains(ccVm.CardImageUpload?.FileName.Split('.').Last()))
+                        {
+                            ModelState.AddModelError("CardImageUpload", "Upload Card Image in a valid image format, allowed formats are : " + validImageFormets);
+                            return View(ccVm);
+                        }
+                        else
+                        {
+                            ccVm.CardImageUrl = SaveImageAndGetUrl(ccVm.CardImageUpload);
+                        }
                     }
-                    else
-                    {
-                        ModelState.AddModelError("CardImageUpload", "Upload Card Image in a valid image format, allowed formats are : " + validImageFormets);
-                        return View(ccVm);
-                    }
+                    if (ccVm.Save())
+                        return RedirectToAction("Index");
                 }
                 else
                 {
                     ModelState.AddModelError("CardImageUpload", "This field is required");
                     return View(ccVm);
                 }
-                if (ccVm.creditCard.CardId > 0)
-                {
-                    db.CreditCards.Add(ccVm.creditCard);
-                    db.SaveChanges();
-                }
-                if (ccVm.creditCard.CardId > 0)
-                    db.Entry(ccVm.creditCard).State = EntityState.Modified;
-                else db.CreditCards.Add(ccVm.creditCard);
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
-            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name", ccVm.creditCard.BankId);
+            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name", ccVm.BankId);
             return View(ccVm);
         }
 

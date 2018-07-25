@@ -6,26 +6,26 @@
             {
                 Model.CardImageUrl = "/images/cards/card-1.png";
             }
-            <img src="@Model.CardImageUrl" class="pull-center" />
+            <img src="@Model.CardImageUrl" style="height:180px;width:280px;" class="pull-center img-responsive" alt="card Image" />
         </div>
         <div class="col-sm-12 col-md-9">
             <div class="form-group">
 
-                <label class="fa fa-edit btn btn-outline-secondary float-right" onclick="location.href='/Admin/CreditCards/SaveCcBasic/@Model.creditCard.CardId'"> Edit </label>
-                @if (Model.creditCard.CardId > 0)
+                <label class="fa fa-edit btn btn-outline-secondary float-right" onclick="location.href='/Admin/CreditCards/SaveCcBasic/@Model.CardId'"> Edit </label>
+                @if (Model.CardId > 0)
                 {
-                    Html.ActionLink("View", "Details", new { id = Model.creditCard.CardId, @class = "fa fa-edit btn btn-outline-secondary float-right" });
+                    Html.ActionLink("View", "Details", new { id = Model.CardId, @class = "fa fa-edit btn btn-outline-secondary float-right" });
                 }
                 <label> <b>Card Provider Bank: </b> </label>
-                <label>@Model.creditCard.Bank.Name</label>
+                <label>@Model.BankName</label>
             </div>
             <div class="form-group">
                 <label> <b>Card Name: </b> </label>
-                <label>@Model.creditCard.CardName</label>
+                <label>@Model.CardName</label>
             </div>
             <div class="form-group">
                 <label><b>Card Description: </b></label>
-                <label> @Model.creditCard.CardDescription </label>
+                <label> @Model.CardDescription </label>
             </div>
         </div>
     </div>

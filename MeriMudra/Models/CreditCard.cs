@@ -1,8 +1,6 @@
-﻿
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Web;
 
 namespace MeriMudra.Models
 {
@@ -17,6 +15,7 @@ namespace MeriMudra.Models
 
         [DisplayName("Bank")]
         [ForeignKey("BankId")]
+
         public virtual Bank Bank { get; set; }
 
         [DisplayName("Card Name")]

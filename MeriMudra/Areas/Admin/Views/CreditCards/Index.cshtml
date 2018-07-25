@@ -40,7 +40,7 @@
                 @Html.DisplayFor(modelItem => item.CardDescription)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CardImageUrl)
+                <img src="@item.CardImageUrl" id="CardImageUrl" name="CardImageUrl" class="pull-center img-responsive circle" height="60px" width="100px">
             </td>
             <td>
                 @Html.ActionLink("View", "Details", new { id = item.CardId }) |
