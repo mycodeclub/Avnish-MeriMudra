@@ -21,14 +21,19 @@
                     { Model.CardImageUrl = "/images/cards/card-1.png"; }
                     else
                     {@Html.TextBoxFor(model => model.CardImageUrl, new { type = "hidden" })}
-                    <img src="@Model.CardImageUrl" id="CardImage" class="pull-center img-responsive" style="height:180px;width:280px;" />
+                    <img src="@Model.CardImageUrl" id="CardImage" class="pull-center img-responsive circle" style="max-height:180px;max-width:280px" />
                     @Html.TextBoxFor(model => model.CardImageUpload, new { type = "file", @style = "padding-top: 5px;", onchange = "UpdateImage(this)" })
                     @Html.ValidationMessageFor(model => model.CardImageUpload, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-sm-12 col-md-3">
                     <div class="form-group">
                         <label> card Provider Bank </label>
-                        @Html.DropDownList("BankId", Model.BanksSelectList, htmlAttributes: new { @class = "form-control" })
+                        <select data-val="true" data-val-number="The field BankId must be a number." class="form-control" data-val-required="The BankId field is required." id="BankId" name="BankId">
+                            @foreach (var item in Model.BanksSelectList)
+                            {
+                                <option value="@item.Value" selected="@item.Selected">@item.Text</option>
+                            }
+                        </select>
                         @Html.ValidationMessageFor(model => model, "", new { @class = "text-danger" })
                     </div>
                     <div class="form-group">

@@ -16,9 +16,6 @@ namespace MeriMudra.Models.CreditCardViewModel
     public class CreditCardViewModel
     {
         private MmDbContext db = new MmDbContext();
-
-
-
         public int BankId { get; set; }
         public int CardId { get; set; }
         public string CardName { get; set; }
@@ -26,7 +23,7 @@ namespace MeriMudra.Models.CreditCardViewModel
         public string CardImageUrl { get; set; }
         public string BankName { get; set; }
         public string BankLogoUrl { get; set; }
-        public SelectList BanksSelectList { get; set; }// new SelectList(db.Banks, "BankId", "Name");
+        public List<SelectListItem> BanksSelectList { get; set; }// new SelectList(db.Banks, "BankId", "Name");
         public string ServiceProvider { get; set; }
         [Required]
         public List<string> ReasonsToGetThisCard { get; set; }
@@ -44,9 +41,12 @@ namespace MeriMudra.Models.CreditCardViewModel
         public CreditCardViewModel()
         {
             MmDbContext db = new MmDbContext();
-            //            creditCard = new CreditCard();
             ReasonsToGetThisCard = new List<string>() { string.Empty };
-            BanksSelectList = new SelectList(db.Banks, "BankId", "Name");
+            BanksSelectList = db.Banks.Select(x => new SelectListItem
+            {
+                Value = x.BankId.ToString(),
+                Text = x.Name,
+            }).ToList();
             _BenefitsAndFeature = new List<BenefitsAndFeature>() { new BenefitsAndFeature() { HeadingText = string.Empty, Points = new List<string>(), } };
             _RedeemReward = new List<RedeemReward>() { new RedeemReward() { HeadingText = string.Empty, Points = new List<string>(), } };
             _FeesAndCharge = new List<FeesAndCharge>() { new FeesAndCharge() { HeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
@@ -55,12 +55,25 @@ namespace MeriMudra.Models.CreditCardViewModel
         public CreditCardViewModel(int CardId)
         {
             MmDbContext db = new MmDbContext();
-            BanksSelectList = new SelectList(db.Banks, "BankId", "Name");
+            //            BanksSelectList = new SelectList(db.Banks, "BankId", "Name");
+
+            //       BanksSelectList = new SelectList(db.Banks, "BankId", "Name", db.Banks.Where(b => b.BankId == BankId));
+            //   BanksSelectList = new SelectList(db.Banks, "BankId", "Name", db.Banks.Where(b => b.BankId == BankId));
             var cCard = db.CreditCards.Where(cc => cc.CardId == CardId).SingleOrDefault();
+
             BankId = cCard.BankId;
             this.CardId = cCard.CardId;
+            BanksSelectList = db.Banks.Select(x => new SelectListItem
+            {
+                Value = x.BankId.ToString(),
+                Text = x.Name,
+                Selected = (x.BankId == BankId) ? true : false,
+            }).ToList();
+            //     BanksSelectList = new SelectList(BanksSelectList, "Id", "Name", BankId);
+
             CardName = cCard.CardName;
             CardDescription = cCard.CardDescription;
+
             CardImageUrl = cCard.CardImageUrl;
             BankName = cCard.Bank.Name;
             var CcDetail = db.CcDetails.Where(cc => cc.CardId == CardId).OrderBy(cc => cc.CcInfoSectionMasterId).ThenBy(cc => cc.Heading);
@@ -116,7 +129,6 @@ namespace MeriMudra.Models.CreditCardViewModel
         public bool Save()
         {
             CreditCard cc = new CreditCard();
-            // cc = db.CreditCards.Where(c => c.CardId == CardId).FirstOrDefault();
             cc.CardName = CardName;
             cc.CardImageUrl = CardImageUrl;
             cc.CardDescription = CardDescription;
@@ -125,7 +137,27 @@ namespace MeriMudra.Models.CreditCardViewModel
             if (CardId > 0) { db.Entry(cc).State = EntityState.Modified; }
             else { db.CreditCards.Add(cc); }
             db.SaveChanges();
+            //-----------Top reasons to get this Credit Card
 
+            var x = ReasonsToGetThisCard;
+            var xx = db.CcDetails.Where(ccd => ccd.CardId == CardId && ccd.CcInfoSectionMasterId == 1);
+
+            db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == CardId && ccd.CcInfoSectionMasterId == 1).ToList());
+            db.SaveChanges();
+
+
+            ReasonsToGetThisCard.ForEach(r =>
+            {
+                MmDbContext mdb = new MmDbContext();
+                // mdb.Entry(db.CcDetails.Add(new CcDetail() { Point = r, CcInfoSectionMasterId = 1, CardId = CardId, Heading = "Top Reasion To Get The Card" })).State = EntityState.Added;
+                var ccdetail = new CcDetail() { Point = r, CcInfoSectionMasterId = 1, Heading = "Top Reasion To Get The Card", CardId = CardId };
+                mdb.CcDetails.Add(ccdetail);
+                //        db.CcDetails.Add(new CcDetail() { Point = r, CcInfoSectionMasterId = 1, Heading = "Top Reasion To Get The Card" });
+                mdb.SaveChanges();
+            });
+
+            //.AddRange(ReasonsToGetThisCard);
+            var xxx = x;
             //var value = fc["creditCard.CardId"];
             //string validImageFormets = @"bmp, jpg, jpeg, gif, png";
             //if (!string.IsNullOrEmpty(ccVm.CardImageUrl) || (ccVm.CardImageUpload != null && ccVm.CardImageUpload.ContentLength > 0))

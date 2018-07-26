@@ -3,11 +3,14 @@ namespace MeriMudra.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     [Table("CcDetails")]
     public partial class CcDetail
     {
+        [Key]
+        [Column("CcDetailId")]
         public int CcDetailId { get; set; }
         public Nullable<int> CardId { get; set; }
         public Nullable<int> CcInfoSectionMasterId { get; set; }
