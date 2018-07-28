@@ -8,6 +8,8 @@ namespace MeriMudra.Models
     public class CreditCard
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int CardId { get; set; }
 
         [DisplayName("Bank")]

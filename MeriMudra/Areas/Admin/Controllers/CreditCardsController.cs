@@ -164,8 +164,10 @@ namespace MeriMudra.Areas.Admin.Controllers
                             ccVm.CardImageUrl = SaveImageAndGetUrl(ccVm.CardImageUpload);
                         }
                     }
-                    if (ccVm.Save())
-                        return RedirectToAction("Index");
+                    if (ccVm.SaveBasic())
+                        return RedirectToAction("Details", new { id = ccVm.CardId });
+                    return RedirectToAction("Details", "creditcards", ccVm.CardId);
+                    //                   return RedirectToAction("Details", ccVm.CardId);
                 }
                 else
                 {
