@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace MeriMudra.Models
@@ -14,6 +15,7 @@ namespace MeriMudra.Models
         [NotMapped]
         public string employed_radios { get; set; }
         public string CompanyName { get; set; }
+        [DisplayName("Gross Income / Net Salary")]
         public decimal? GrossIncomeOrNetSalary { get; set; }
         public string Name { get; set; }
         public DateTime? DOB { get; set; }
@@ -38,7 +40,7 @@ namespace MeriMudra.Models
         public UserCCApplyDetail()
         {
             Id = 0;
-            EmployerType =true;
+            EmployerType = true;
             employed_radios = "";
             CompanyName = "";
             GrossIncomeOrNetSalary = 0;

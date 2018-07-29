@@ -435,6 +435,11 @@
     <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Login.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Dashboard.cshtml" />
+    <Content Include="Areas\Admin\Views\UserCCApplyDetails\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\UserCCApplyDetails\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\UserCCApplyDetails\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\UserCCApplyDetails\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\UserCCApplyDetails\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\commonScript.js" />
@@ -456,6 +461,7 @@
     <Compile Include="Areas\Admin\Controllers\CreditCardsController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserCCApplyDetailsController.cs" />
     <Compile Include="Areas\Admin\Models\User.cs" />
     <Compile Include="Controllers\BusinessPartnerProgrammesController.cs" />
     <Compile Include="Controllers\CreditCardController.cs" />

@@ -56,30 +56,30 @@
                                 <td>@item.MobileNumber</td>
                             </tr>
                         }
-
+                       
                     </tbody>
                 </table>
             </div>
         </div>
         <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
     </div>
-
+    
 </div>
 <!-- /.container-fluid-->
 
 <script>
     @{
-        var active = 0;
-        var inActive  = 100;
-        var total = 0;
-        if (Model.Count() > 0)
-        {
-            var activeCount = (from m in Model where m.isUserActive select m.isUserActive).Count();
-            var inactiveCount = (from m in Model where !m.isUserActive select m.isUserActive).Count();
-            total = activeCount + inactiveCount;
-            active = (activeCount * 100) / (total);
-            inActive = (inactiveCount * 100) / (total);
-        }     }
+        int activeCount = (from m in Model where m.isUserActive select m.isUserActive).Count();
+        int inactiveCount= (from m in Model where !m.isUserActive select m.isUserActive).Count();
+        int total = activeCount + inactiveCount;
+        int a = (activeCount * 100) / (total);
+        int b = (inactiveCount * 100) / (total);
+    }
+   // alert(@inactiveCount+"_"+@activeCount);
+    //var array =
+    // alert(array);
+    //var _labels = JSON.parse(array);
+    //alert(_labels);
     setTimeout(function () {
         var ctx = document.getElementById("myPieChart");
         var myPieChart = new Chart(ctx, {
@@ -88,7 +88,7 @@
                 labels: ["Active %", "Inactive %"],//["Blue", "Red", "Yellow", "Green"],
                 datasets: [{
                     //data: [12.21, 15.58, 11.25, 8.32],
-                    data: [@active, @inActive],
+                    data: [@a, @b],
                     backgroundColor: ['#007bff', '#dc3545'],
                     //backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
                 }],
