@@ -1,13 +1,10 @@
-﻿using MeriMudra.Class;
-using MeriMudra.Models;
+﻿using MeriMudra.Models;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MeriMudra.Controllers
@@ -23,11 +20,11 @@ namespace MeriMudra.Controllers
         public ActionResult CreditCard()
         {
             //sendsms.run("9140764725", "run");
-            var model = new detailsForApplyCard { Banks = db.Banks.ToList(), CreditCards = db.CreditCards.ToList(), Citys = db.Citys.ToList(),Companys=db.Companys.ToList() };
+            var model = new detailsForApplyCard { Banks = db.Banks.ToList(), CreditCards = db.CreditCards.ToList(), Citys = db.Citys.ToList(), Companys = db.Companys.ToList() };
             return View(model);
         }
         [HttpPost]
-        public int savestep(object convertedJSON,int isfinish=0)
+        public int savestep(object convertedJSON, int isfinish = 0)
         {
             var a = (string[])convertedJSON;
             //string []a1 = (string[])convertedJSON;
@@ -67,15 +64,15 @@ namespace MeriMudra.Controllers
                     command.Parameters.AddWithValue("@OTP", userdata.OTP);
                     command.Parameters.AddWithValue("@email", userdata.email);
                     string accountWith = string.Join(",", userdata.AccountWith);
-                    accountWith = accountWith.Length > 4 ? accountWith.Substring(4,accountWith.Length-4) : "";
+                    accountWith = accountWith.Length > 4 ? accountWith.Substring(4, accountWith.Length - 4) : "";
                     string CreditCardWith = string.Join(",", userdata.CreditCardWith);
-                    CreditCardWith = CreditCardWith.Length > 4 ? CreditCardWith.Substring(4, CreditCardWith.Length-4) : "";
+                    CreditCardWith = CreditCardWith.Length > 4 ? CreditCardWith.Substring(4, CreditCardWith.Length - 4) : "";
                     command.Parameters.AddWithValue("@AccountWith", accountWith);
                     command.Parameters.AddWithValue("@CreditCardWith", CreditCardWith);
                     command.Parameters.AddWithValue("@CreditCardMaxLimit", userdata.CreditCardMaxLimit);
-                    command.Parameters.AddWithValue("@CurrentOrPrevLoan", userdata._CurrentOrPrevLoan);                   
+                    command.Parameters.AddWithValue("@CurrentOrPrevLoan", userdata._CurrentOrPrevLoan);
                     command.Parameters.AddWithValue("@EmployerType", userdata.EmployerType);
-                    if(isfinish==1)
+                    if (isfinish == 1)
                         command.Parameters.AddWithValue("@isUserActive", true);
                     else
                         command.Parameters.AddWithValue("@isUserActive", false);
