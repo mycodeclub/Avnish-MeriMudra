@@ -1,5 +1,4 @@
-﻿using MeriMudra.Class;
-using MeriMudra.Models;
+﻿using MeriMudra.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,29 +11,24 @@ using System.Web.Mvc;
 
 namespace MeriMudra.Controllers
 {
-    public class HomeController : Controller
+    public class LoanController : Controller
     {
-        // GET: Home
+        // GET: Loan
         private MmDbContext db = new MmDbContext();
         public ActionResult Index()
         {
-            return View();
-        }
-        public ActionResult CreditCard()
-        {
-            //sendsms.run("9140764725", "run");
-            var model = new detailsForApplyCard { Banks = db.Banks.ToList(), CreditCards = db.CreditCards.ToList(), Citys = db.Citys.ToList(),Companys=db.Companys.ToList() };
+            var model = new detailsForApplyCard { Banks = db.Banks.ToList(), CreditCards = db.CreditCards.ToList(), Citys = db.Citys.ToList(), Companys = db.Companys.ToList() };
             return View(model);
         }
         [HttpPost]
-        public int savestep(object convertedJSON,int isfinish=0)
+        public int savestep(object convertedJSON, int isfinish = 0)
         {
             var a = (string[])convertedJSON;
             //string []a1 = (string[])convertedJSON;
-            var userdata = new UserCCApplyDetail();
+            var userdata = new UserLoanApplyDetail();
             foreach (var item in a)
             {
-                userdata = JsonConvert.DeserializeObject<UserCCApplyDetail>(item);
+                userdata = JsonConvert.DeserializeObject<UserLoanApplyDetail>(item);
 
             }
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["MmDbConnectionString"].ConnectionString))
@@ -53,7 +47,7 @@ namespace MeriMudra.Controllers
                     else if (userdata.CurrentOrPrevLoan == "0")
                         userdata._CurrentOrPrevLoan = false;
                     command.Parameters.Clear();
-                    command.CommandText = "Insert_UserCCApplyDetail";
+                    command.CommandText = "Insert_UserLoanApplyDetail";
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@Id", userdata.Id);
                     command.Parameters.AddWithValue("@CompanyName", userdata.CompanyName);
@@ -67,15 +61,16 @@ namespace MeriMudra.Controllers
                     command.Parameters.AddWithValue("@OTP", userdata.OTP);
                     command.Parameters.AddWithValue("@email", userdata.email);
                     string accountWith = string.Join(",", userdata.AccountWith);
-                    accountWith = accountWith.Length > 4 ? accountWith.Substring(4,accountWith.Length-4) : "";
+                    accountWith = accountWith.Length > 4 ? accountWith.Substring(4, accountWith.Length - 4) : "";
                     string CreditCardWith = string.Join(",", userdata.CreditCardWith);
-                    CreditCardWith = CreditCardWith.Length > 4 ? CreditCardWith.Substring(4, CreditCardWith.Length-4) : "";
+                    CreditCardWith = CreditCardWith.Length > 4 ? CreditCardWith.Substring(4, CreditCardWith.Length - 4) : "";
                     command.Parameters.AddWithValue("@AccountWith", accountWith);
                     command.Parameters.AddWithValue("@CreditCardWith", CreditCardWith);
                     command.Parameters.AddWithValue("@CreditCardMaxLimit", userdata.CreditCardMaxLimit);
-                    command.Parameters.AddWithValue("@CurrentOrPrevLoan", userdata._CurrentOrPrevLoan);                   
+                    command.Parameters.AddWithValue("@CurrentOrPrevLoan", userdata._CurrentOrPrevLoan);
                     command.Parameters.AddWithValue("@EmployerType", userdata.EmployerType);
-                    if(isfinish==1)
+                    command.Parameters.AddWithValue("@Intended_loan_amount", userdata.Intended_loan_amount);
+                    if (isfinish == 1)
                         command.Parameters.AddWithValue("@isUserActive", true);
                     else
                         command.Parameters.AddWithValue("@isUserActive", false);
