@@ -140,7 +140,8 @@ namespace MeriMudra.Models.CreditCardViewModel
                 db.CcDetails.Add(ccdetail);
             });
             db.SaveChanges();
-            return (CardId == 0) ? db.CreditCards.LastOrDefault().CardId : CardId;
+            if (CardId == 0) CardId = db.CreditCards.Max(ccc => (int)ccc.CardId);
+            return CardId;
         }
 
         public void SaveBenefitsAndFeature()
