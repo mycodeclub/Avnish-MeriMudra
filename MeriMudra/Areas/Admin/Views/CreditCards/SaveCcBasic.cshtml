@@ -5,7 +5,8 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create Carde Detail </h2>
+<button class="btn btn-outline-info fa fa-backward pull-right" onclick="location.href = '/Admin/CreditCards/Index';"> Back to credit card list</button>
+<button class="btn btn-outline-info fa fa-backward" onclick="location.href = '/Admin/CreditCards/Details/1';"> Back to @Model.CardName credit card Details</button>
 
 @using (Html.BeginForm("SaveCcBasic", "CreditCards", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -14,39 +15,44 @@
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-12 col-md-3 space">
-                    @if (string.IsNullOrEmpty(Model.CardImageUrl))
-                    { Model.CardImageUrl = "/images/cards/card-1.png"; }
-                    else
-                    {@Html.TextBoxFor(model => model.CardImageUrl, new { type = "hidden" })}
-                    <img src="@Model.CardImageUrl" id="CardImage" class="pull-center img-responsive circle" style="max-height:180px;max-width:280px" />
-                    @Html.TextBoxFor(model => model.CardImageUpload, new { type = "file", @style = "padding-top: 5px;", onchange = "UpdateImage(this)" })
-                    @Html.ValidationMessageFor(model => model.CardImageUpload, "", new { @class = "text-danger" })
-                </div>
-                <div class="col-sm-12 col-md-3">
-                    <div class="form-group">
-                        <label> card Provider Bank </label>
-                        <select data-val="true" data-val-number="The field BankId must be a number." class="form-control" data-val-required="The BankId field is required." id="BankId" name="BankId">
-                            @foreach (var item in Model.BanksSelectList)
-                            {
-                                <option value="@item.Value" selected="@item.Selected">@item.Text</option>
-                            }
-                        </select>
-                        @Html.ValidationMessageFor(model => model, "", new { @class = "text-danger" })
+        <div class="card mb-3">
+            <div class="card-header">
+                Credit Card Basic Information
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 space">
+                        @if (string.IsNullOrEmpty(Model.CardImageUrl))
+                        { Model.CardImageUrl = "/images/cards/card-1.png"; }
+                        else
+                        {@Html.TextBoxFor(model => model.CardImageUrl, new { type = "hidden" })}
+                        <img src="@Model.CardImageUrl" id="CardImage" class="pull-center img-responsive circle" style="max-height:180px;max-width:280px" />
+                        @Html.TextBoxFor(model => model.CardImageUpload, new { type = "file", @style = "padding-top: 5px;", onchange = "UpdateImage(this)" })
+                        @Html.ValidationMessageFor(model => model.CardImageUpload, "", new { @class = "text-danger" })
                     </div>
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.CardName, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.EditorFor(model => model.CardName, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.CardName, "", new { @class = "text-danger" })
+                    <div class="col-sm-12 col-md-3">
+                        <div class="form-group">
+                            <label> Card Provider Bank </label>
+                            <select data-val="true" data-val-number="The field BankId must be a number." class="form-control" data-val-required="The BankId field is required." id="BankId" name="BankId">
+                                @foreach (var item in Model.BanksSelectList)
+                                {
+                                    <option value="@item.Value" selected="@item.Selected">@item.Text</option>
+                                }
+                            </select>
+                            @Html.ValidationMessageFor(model => model, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CardName, htmlAttributes: new { @class = "control-label" })
+                            @Html.EditorFor(model => model.CardName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CardName, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-5">
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.CardDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-                        @Html.TextAreaFor(m => m.CardDescription, new { @class = "form-control", @rows = "5" })
-                        @Html.ValidationMessageFor(model => model.CardDescription, "", new { @class = "text-danger" })
+                    <div class="col-sm-12 col-md-5">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CardDescription, htmlAttributes: new { @class = "control-label" })
+                            @Html.TextAreaFor(m => m.CardDescription, new { @class = "form-control", @rows = "5" })
+                            @Html.ValidationMessageFor(model => model.CardDescription, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,33 +72,23 @@
                             <td>
                                 <input class="form-control text-box single-line" name="ReasonsToGetThisCard" type="text" value="@Model.ReasonsToGetThisCard[i]">
                             </td>
-                            <td><label class="fa fa-minus-circle btn btn-danger" onclick="ccVM. RemovePoint(this)">  </label></td>
+                            <td><label class="fa fa-minus-circle btn btn-danger" onclick="ccVM.RemovePoint(this)">  </label></td>
                         </tr>
                     }
                 </table>
             </div>
             <div class="card-footer small text-muted">
-                <input class="btn btn-success pull-center" type="submit" value="save" />
+                <center>
+                    <input class="btn btn-lg btn-success pull-center" type="submit" value="save" />
+                </center>
             </div>
         </div>   <!-- Top reasons to get this Credit Card-->
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
 @section scripts {
     <script src="~/Areas/Admin/Scripts/ccVM.js"></script>
     <script type="text/javascript">
-        //$(document).ready(function () {
-        //    $('#CardImageUpload').change(function (event) {
-        //        $('#CardImageUrl').attr('src', URL.createObjectURL(event.target.files[0]));
-        //    });
-        //});
-
-        function UpdateImage(obj) {
-            $('#CardImage').attr('src', URL.createObjectURL(event.target.files[0]));
-        }
+        function UpdateImage(obj) { $('#CardImage').attr('src', URL.createObjectURL(event.target.files[0])); }
     </script>
 }

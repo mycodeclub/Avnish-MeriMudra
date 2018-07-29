@@ -164,7 +164,8 @@ namespace MeriMudra.Areas.Admin.Controllers
                             ccVm.CardImageUrl = SaveImageAndGetUrl(ccVm.CardImageUpload);
                         }
                     }
-                    if (ccVm.SaveBasic())
+                    ccVm.CardId = ccVm.SaveBasic();
+                    if (ccVm.CardId > 0)
                         return RedirectToAction("Details", new { id = ccVm.CardId });
                     return RedirectToAction("Details", "creditcards", ccVm.CardId);
                     //                   return RedirectToAction("Details", ccVm.CardId);
@@ -178,6 +179,54 @@ namespace MeriMudra.Areas.Admin.Controllers
             ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name", ccVm.BankId);
             return View(ccVm);
         }
+
+        public ActionResult SaveCcBenefitsAndFeature(int id)
+        {
+            CreditCardViewModel ccVm;
+            if (id > 0) ccVm = new CreditCardViewModel(id);
+            else ccVm = new CreditCardViewModel();
+            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
+            return View(ccVm);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        //  public ActionResult SaveCcBenefitsAndFeature(int id)
+        public ActionResult SaveCcBenefitsAndFeature([Bind(Include = "CardId,BankId,CardName,CardDescription,CardImageUrl,ReasonsToGetThisCard,CardImageUpload")] CreditCardViewModel ccVm, FormCollection fc)
+        {
+            //CreditCardViewModel ccVm;
+            //if (id > 0) ccVm = new CreditCardViewModel(id);
+            //else ccVm = new CreditCardViewModel();
+            //ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
+            return View(ccVm);
+        }
+        public ActionResult SaveCcFeesAndCharges(int id)
+        {
+            CreditCardViewModel ccVm;
+            if (id > 0) ccVm = new CreditCardViewModel(id);
+            else ccVm = new CreditCardViewModel();
+            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
+            return View(ccVm);
+        }
+
+        public ActionResult SaveCcRedeemReward(int id)
+        {
+            CreditCardViewModel ccVm;
+            if (id > 0) ccVm = new CreditCardViewModel(id);
+            else ccVm = new CreditCardViewModel();
+            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
+            return View(ccVm);
+        }
+
+        public ActionResult SaveCcBorrowPrivilege(int id)
+        {
+            CreditCardViewModel ccVm;
+            if (id > 0) ccVm = new CreditCardViewModel(id);
+            else ccVm = new CreditCardViewModel();
+            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
+            return View(ccVm);
+        }
+
+
 
         private string SaveImageAndGetUrl(HttpPostedFileBase cardImage)
         {

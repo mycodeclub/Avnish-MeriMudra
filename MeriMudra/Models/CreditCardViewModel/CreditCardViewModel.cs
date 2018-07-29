@@ -18,7 +18,9 @@ namespace MeriMudra.Models.CreditCardViewModel
         private MmDbContext db = new MmDbContext();
         public int BankId { get; set; }
         public int CardId { get; set; }
+        [DisplayName("Credit Card Name")]
         public string CardName { get; set; }
+        [DisplayName("Card Description")]
         public string CardDescription { get; set; }
         public string CardImageUrl { get; set; }
         public string BankName { get; set; }
@@ -55,12 +57,7 @@ namespace MeriMudra.Models.CreditCardViewModel
         public CreditCardViewModel(int CardId)
         {
             MmDbContext db = new MmDbContext();
-            //            BanksSelectList = new SelectList(db.Banks, "BankId", "Name");
-
-            //       BanksSelectList = new SelectList(db.Banks, "BankId", "Name", db.Banks.Where(b => b.BankId == BankId));
-            //   BanksSelectList = new SelectList(db.Banks, "BankId", "Name", db.Banks.Where(b => b.BankId == BankId));
             var cCard = db.CreditCards.Where(cc => cc.CardId == CardId).SingleOrDefault();
-
             BankId = cCard.BankId;
             this.CardId = cCard.CardId;
             BanksSelectList = db.Banks.Select(x => new SelectListItem
@@ -69,11 +66,8 @@ namespace MeriMudra.Models.CreditCardViewModel
                 Text = x.Name,
                 Selected = (x.BankId == BankId) ? true : false,
             }).ToList();
-            //     BanksSelectList = new SelectList(BanksSelectList, "Id", "Name", BankId);
-
             CardName = cCard.CardName;
             CardDescription = cCard.CardDescription;
-
             CardImageUrl = cCard.CardImageUrl;
             BankName = cCard.Bank.Name;
             var CcDetail = db.CcDetails.Where(cc => cc.CardId == CardId).OrderBy(cc => cc.CcInfoSectionMasterId).ThenBy(cc => cc.Heading);
@@ -124,9 +118,8 @@ namespace MeriMudra.Models.CreditCardViewModel
                 else _BorrowPrivilege.LastOrDefault().Points.Add(new KeyValuePair<string, string>(bf.Key_, bf.Value));
             }
         }
-        public bool SaveBasic()
+        public int SaveBasic()
         {
-            bool savedSuccessfully = true;
             #region Save / Update Credit Card 
             CreditCard cc = new CreditCard
             {
@@ -147,11 +140,19 @@ namespace MeriMudra.Models.CreditCardViewModel
                 db.CcDetails.Add(ccdetail);
             });
             db.SaveChanges();
-            return savedSuccessfully;
+            return (CardId == 0) ? db.CreditCards.LastOrDefault().CardId : CardId;
+        }
+
+        public void SaveBenefitsAndFeature()
+        {
+            foreach (var item in _BenefitsAndFeature)
+                db.CcDetails.Add(new CcDetail() { });
         }
     }
     public class BenefitsAndFeature
     {
+        public int CardId { get; set; }
+        public int CcDetailId { get; set; }
         public string HeadingText { get; set; }
         public List<string> Points { get; set; }
     }
