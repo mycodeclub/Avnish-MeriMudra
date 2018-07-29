@@ -440,6 +440,14 @@
     <Content Include="Areas\Admin\Views\UserCCApplyDetails\Details.cshtml" />
     <Content Include="Areas\Admin\Views\UserCCApplyDetails\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\UserCCApplyDetails\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CreditCards\CreateOld.cshtml" />
+    <Content Include="Areas\Admin\Views\CreditCards\CcBasicPartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\CreditCards\SaveCcBasic.cshtml" />
+    <Content Include="Areas\Admin\Views\CreditCards\SaveCcBenefitsAndFeature.cshtml" />
+    <Content Include="Areas\Admin\Views\CreditCards\CcDetailPartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\CreditCards\SaveCcFeesAndCharges.cshtml" />
+    <Content Include="Areas\Admin\Views\CreditCards\SaveCcRedeemReward.cshtml" />
+    <Content Include="Areas\Admin\Views\CreditCards\SaveCcBorrowPrivilege.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\commonScript.js" />

@@ -1,0 +1,120 @@
+﻿@model MeriMudra.Models.CreditCardViewModel.CreditCardViewModel
+
+<div class="st-tabs">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" style="width:25%">
+            <a class="nav-link active" id="tab-1" data-toggle="tab" href="#service1" role="tab" aria-controls="tab-1" aria-selected="true">Benefits & Features</a>
+        </li>
+        <li class="nav-item" style="width:25%">
+            <a class="nav-link" id="tab-2" data-toggle="tab" href="#service2" role="tab" aria-controls="tab-2" aria-selected="false">Fees & Charges</a>
+        </li>
+        <li class="nav-item" style="width:25%">
+            <a class="nav-link" id="tab-3" data-toggle="tab" href="#service3" role="tab" aria-controls="tab-3" aria-selected="false">Redeem Rewards</a>
+        </li>
+        <li class="nav-item" style="width:25%">
+            <a class="nav-link" id="tab-4" data-toggle="tab" href="#service4" role="tab" aria-controls="tab-4" aria-selected="false">Borrow Privileges</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="service1" role="tabpanel" aria-labelledby="tab-1">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <label class="fa fa-edit btn btn-outline-secondary float-right" onclick="location.href='/Admin/CreditCards/SaveCcBenefitsAndFeature/@Model.CardId'"> Edit </label>
+                    <ol>
+                        @for (int i = 0; i < Model._BenefitsAndFeature.Count; i++)
+                        {
+                            <li>
+                                <b> @Model._BenefitsAndFeature[i].HeadingText</b>
+                                <ul>
+                                    @for (int j = 0; j < Model._BenefitsAndFeature[i].Points.Count; j++)
+
+                                    {
+                                        <li>@Model._BenefitsAndFeature[i].Points[j]</li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ol>
+                </div>
+            </div>   <!--BENEFITS & FEATURES-->
+        </div>
+        <div class="tab-pane fade" id="service2" role="tabpanel" aria-labelledby="tab-2">
+            <div class="card mb-3">
+                <div id="FeesAndChargesSection" class="card-body">
+                    <label class="fa fa-edit btn btn-outline-secondary float-right" onclick="location.href='/Admin/CreditCards/SaveCcFeesAndCharges/@Model.CardId'"> Edit </label>
+                    <ol>
+                        @for (int i = 0; i < Model._FeesAndCharge.Count; i++)
+                        {
+                            <li>
+                                <h4> @Model._FeesAndCharge[i].HeadingText</h4>
+                                <table style="margin-left:50px;">
+                                    @for (int j = 0; j < Model._FeesAndCharge[i].Points.Count; j++)
+                                    {
+                                        <tr>
+                                            <td width="20%"><b>@Model._FeesAndCharge[i].Points[j].Key: </b></td>
+                                            <td width="80%">@Model._FeesAndCharge[i].Points[j].Value</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </li>
+                        }
+                    </ol>
+                </div>
+
+            </div> <!-- FEES & CHARGES -->
+        </div>
+        <div class="tab-pane fade" id="service3" role="tabpanel" aria-labelledby="tab-3">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <label class="fa fa-edit btn btn-outline-secondary float-right" onclick="location.href='/Admin/CreditCards/SaveCcRedeemReward/@Model.CardId'"> Edit </label>
+                    <ol>
+                        @for (int i = 0; i < Model._RedeemReward.Count; i++)
+                        {
+                            <li>
+                                <b> @Model._RedeemReward[i].HeadingText</b>
+                                <ul>
+                                    @*@if (!string.IsNullOrEmpty(@Model._RedeemReward[i].SubHeadingText))
+                                        {
+                                            <li>@Model._RedeemReward[i].SubHeadingText</li>
+                                        }*@
+                                    @for (int j = 0; j < Model._RedeemReward[i].Points.Count; j++)
+
+                                    {
+                                        <li>@Model._RedeemReward[i].Points[j]</li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ol>
+                </div>
+
+            </div> <!-- REDEEM REWARDS-->
+        </div>
+        <div class="tab-pane fade" id="service4" role="tabpanel" aria-labelledby="tab-4">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <label class="fa fa-edit btn btn-outline-secondary float-right" onclick="location.href='/Admin/CreditCards/SaveCcBorrowPrivilege/@Model.CardId'"> Edit </label>
+                    <ol>
+                        @for (int i = 0; i < Model._BorrowPrivilege.Count; i++)
+                        {
+                            <li>
+                                <h4> @Model._BorrowPrivilege[i].HeadingText</h4>
+                                <table style="margin-left:50px;">
+                                    @for (int j = 0; j < Model._BorrowPrivilege[i].Points.Count; j++)
+                                    {
+                                        <tr>
+                                            <td width="20%"><b>@Model._BorrowPrivilege[i].Points[j].Key: </b></td>
+                                            <td width="80%">@Model._BorrowPrivilege[i].Points[j].Value</td>
+                                        </tr>
+                                    }
+                                </table>
+                            </li>
+                        }
+                    </ol>
+                </div>
+
+            </div> <!-- BORROW PRIVILEGES-->
+        </div>
+    </div>
+</div>
+

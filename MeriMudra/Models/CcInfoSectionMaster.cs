@@ -13,6 +13,7 @@ namespace MeriMudra.Models
         //{
         //    this.CcDetails = new HashSet<CcDetail>();
         //}
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
         public int CcInfoSectionMasterId { get; set; }
         public string CcMasterPoint { get; set; }

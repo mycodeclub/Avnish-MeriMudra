@@ -1,0 +1,55 @@
+﻿@model MeriMudra.Models.CreditCardViewModel.CreditCardViewModel
+@{
+    ViewBag.Title = "BENEFITS & FEATURES";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<button class="btn btn-outline-info fa fa-backward pull-right" onclick="location.href = '/Admin/CreditCards/Index';"> Back to credit card list</button>
+<button class="btn btn-outline-info fa fa-backward" onclick="location.href = '/Admin/CreditCards/Details/1';"> Back to @Model.CardName credit card Details</button>
+@Html.Partial("CcBasicPartialView", Model)
+@using (Html.BeginForm("SaveCcBasic", "CreditCards", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="form-horizontal">
+        <br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="card mb-3">
+            <div class="card-header"> BENEFITS & FEATURES <label class="fa fa-plus btn btn-success float-right" onclick="ccVM.AddBenefitsAndFeatures()"> Add New</label> </div>
+            <div id="BenefitsAndFeaturesSection" class="card-body">
+                <br />
+                @for (int i = 0; i < Model._BenefitsAndFeature.Count; i++)
+                {
+                    <table width="100%" class="table table-hover Heading">
+                        <thead class="thead-light">
+                            <tr>
+                                <th width="10%"> Heading  @(i + 1) </th>
+                                <th width="80%"><input class="form-control text-box single-line" name="benefitsAndFeatureHeadding@(i + 1)" type="text" value="@Model._BenefitsAndFeature[i].HeadingText"></th>
+                                <th width="10%">
+                                    <label class="fa fa-trash btn btn-danger" onclick="ccVM.RemoveHeading(this)">  </label>
+                                    <label class="fa fa-plus btn btn-success" onclick="ccVM.AddPointToBenefitsAndFeatures(this)"></label>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int j = 0; j < Model._BenefitsAndFeature[i].Points.Count; j++)
+                            {
+                                <tr>
+                                    <td><label style="width:80px" class="form-control"> @(j + 1)</label></td>
+                                    <td><input class="form-control text-box single-line" name="benefitsAndFeaturePoint@(i + 1)" type="text" value="@Model._BenefitsAndFeature[i].Points[j]"></td>
+                                    <td><label class="fa fa-minus-circle btn btn-danger" onclick="ccVM.RemovePoint(this)"> </label></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            </div>
+            <div class="card-footer small text-muted">
+                <center>
+                    <input class="btn btn-lg btn-success pull-center" type="submit" value="save" />
+                </center>
+            </div>
+        </div>   <!--BENEFITS & FEATURES-->
+    </div>
+}
+@section scripts {
+    <script src="~/Areas/Admin/Scripts/ccVM.js"></script>
+}
