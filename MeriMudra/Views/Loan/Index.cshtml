@@ -219,7 +219,7 @@
                                 <input type="hidden" name="Id" id="Id" value="0" />
                                 <div class="wizard-header">
                                     <h3 class="wizard-title">
-                                        Apply For Credit Card
+                                        Apply For Loan
                                     </h3>
                                     <h5>This information will let us know more about you.</h5>
                                 </div>
@@ -299,7 +299,7 @@
                                                     </span>
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label">Pin code</label>
-                                                        <input required name="PinCode" maxlength="6" onkeypress="return isNumber(event);" type="text" autocomplete="off" class="form-control">
+                                                        <input required name="PinCode" onkeypress="return ValidateDecimal(event, this);" type="text" autocomplete="off" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
@@ -309,7 +309,7 @@
                                                     </span>
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label">My Mobile No</label>
-                                                        <input required maxlength="10" name="MobileNumber" autocomplete="off" type="text" onkeypress="return isNumber(event);" class="form-control">
+                                                        <input required name="MobileNumber" autocomplete="off" type="number" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
                                                     <span class="input-group-addon">
@@ -328,6 +328,14 @@
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label">My email</label>
                                                         <input required name="email" type="email" autocomplete="off" class="form-control">
+                                                        <span class="material-input"></span>
+                                                    </div>
+                                                    <span class="input-group-addon">
+                                                        <i style="font-size: 1.3em;" class="fa fa-money"></i>
+                                                    </span>
+                                                    <div class="form-group label-floating is-empty">
+                                                        <label class="control-label">Intended loan amount</label>
+                                                        <input required name="Intended_loan_amount" onkeypress="return ValidateDecimal(event, this);" type="text" autocomplete="off" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
@@ -438,7 +446,7 @@
     <script src="~/wizardjs/bootstrap.min.js" type="text/javascript"></script>
     <script src="~/wizardjs/jquery.bootstrap.js" type="text/javascript"></script>
     <script src="~/wizardjs/demo.js" type="text/javascript"></script>
-    <script src="~/wizardjs/material-bootstrap-wizard.js" type="text/javascript"></script>
+    <script src="~/wizardjs/material-bootstrap-wizard_Loan.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="~/wizardjs/jquery.validate.min.js" type="text/javascript"></script>
     <script src="~/wizardjs/jquery.form.js"></script>
@@ -460,7 +468,7 @@
                 $("#Income").attr("placeholder", "My net monthly salary is");
                 $("#ITR").hide();
                 $("#ComapanyName").attr("required", "true");
-                
+
             } else {
                 type = false;
                 $("#savings_bank_accounts #infoText").html("I have savings bank accounts with");
@@ -501,7 +509,7 @@
             $('#ComapanyName').autocomplete({
                 minLength: 2,
                 source: function (request, response) {
-                    var matches = $.map(acList, function (acItem) {  
+                    var matches = $.map(acList, function (acItem) {
                         if (acItem.value.toUpperCase().indexOf(request.term.toUpperCase()) === 0) {
                             return acItem;
                         }
