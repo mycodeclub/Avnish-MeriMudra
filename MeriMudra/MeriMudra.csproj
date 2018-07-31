@@ -276,32 +276,6 @@
     <Content Include="Areas\Admin\Views\CreditCards\Details.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\Index.cshtml" />
-    <Content Include="wizardjs\bbootstrap-datepicker.js" />
-    <Content Include="wizardjs\bbotstrap-datepicker.css" />
-    <Content Include="wizardjs\bootstrap.min.css" />
-    <Content Include="wizardjs\bootstrap.min.js" />
-    <Content Include="wizardjs\CreditCard.js" />
-    <Content Include="wizardjs\demo.css" />
-    <Content Include="wizardjs\demo.js" />
-    <Content Include="wizardjs\font-awesome.min.css" />
-    <Content Include="wizardjs\jquery-2.2.4.min.js" />
-    <Content Include="wizardjs\jquery.bootstrap.js" />
-    <Content Include="wizardjs\jquery.form.js" />
-    <Content Include="wizardjs\jquery.validate.min.js" />
-    <Content Include="wizardjs\jqueryui.css" />
-    <Content Include="wizardjs\material-bootstrap-wizard.css" />
-    <Content Include="wizardjs\material-bootstrap-wizard.js" />
-    <Content Include="wizardjs\Multiselect\multiselect.css" />
-    <Content Include="wizardjs\Multiselect\multiselect.js" />
-    <Content Include="wizardjs\new_logo.png" />
-    <Content Include="wizardjs\sprite-bank-mob-v1.png" />
-    <Content Include="wizardjs\sprite-city-tab.png" />
-    <Content Include="wizardjs\sprite-city.png" />
-    <Content Include="wizardjs\sprite-ex-cc-mob-v3.png" />
-    <Content Include="wizardjs\thumb-book-room.jpg" />
-    <Content Include="wizardjs\thumb-build-profile.jpg" />
-    <Content Include="wizardjs\thumb-list-place.jpg" />
-    <Content Include="wizardjs\wizard-book.jpg" />
     <Content Include="fonts\Flaticon.eot" />
     <Content Include="fonts\Flaticon.ttf" />
     <Content Include="fonts\Flaticon.woff" />
@@ -332,27 +306,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="wizardjs\analytics.js" />
-    <Content Include="wizardjs\bootstrap.min.css" />
-    <Content Include="wizardjs\bootstrap.min.js" />
-    <Content Include="wizardjs\demo.css" />
-    <Content Include="wizardjs\demo.js" />
-    <Content Include="wizardjs\font-awesome.min.css" />
-    <Content Include="wizardjs\gtm.js" />
-    <Content Include="wizardjs\jquery-2.2.4.min.js" />
-    <Content Include="wizardjs\jquery.bootstrap.js" />
-    <Content Include="wizardjs\jquery.validate.min.js" />
-    <Content Include="wizardjs\material-bootstrap-wizard.css" />
-    <Content Include="wizardjs\material-bootstrap-wizard.js" />
-    <Content Include="wizardjs\new_logo.png" />
-    <Content Include="wizardjs\sprite-bank-mob-v1.png" />
-    <Content Include="wizardjs\sprite-city-tab.png" />
-    <Content Include="wizardjs\sprite-city.png" />
-    <Content Include="wizardjs\sprite-ex-cc-mob-v3.png" />
-    <Content Include="wizardjs\thumb-book-room.jpg" />
-    <Content Include="wizardjs\thumb-build-profile.jpg" />
-    <Content Include="wizardjs\thumb-list-place.jpg" />
-    <Content Include="wizardjs\wizard-book.jpg" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Areas\Admin\Template\pug\blank.pug" />
@@ -428,11 +381,6 @@
     <Content Include="Areas\Admin\Template\vendor\jquery\jquery.min.map" />
     <Content Include="Areas\Admin\Template\vendor\jquery\jquery.slim.min.map" />
     <Content Include="Areas\Admin\Views\Login\forgotpassword.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Users\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Login.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Dashboard.cshtml" />
     <Content Include="Areas\Admin\Views\UserCCApplyDetails\Create.cshtml" />
@@ -448,6 +396,33 @@
     <Content Include="Areas\Admin\Views\CreditCards\SaveCcFeesAndCharges.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\SaveCcRedeemReward.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\SaveCcBorrowPrivilege.cshtml" />
+    <Content Include="wizardjs\bbootstrap-datepicker.js" />
+    <Content Include="wizardjs\bbotstrap-datepicker.css" />
+    <Content Include="wizardjs\bootstrap.min.css" />
+    <Content Include="wizardjs\bootstrap.min.js" />
+    <Content Include="wizardjs\CreditCard.js" />
+    <Content Include="wizardjs\demo.css" />
+    <Content Include="wizardjs\demo.js" />
+    <Content Include="wizardjs\font-awesome.min.css" />
+    <Content Include="wizardjs\jquery-2.2.4.min.js" />
+    <Content Include="wizardjs\jquery.bootstrap.js" />
+    <Content Include="wizardjs\jquery.form.js" />
+    <Content Include="wizardjs\jquery.validate.min.js" />
+    <Content Include="wizardjs\jqueryui.css" />
+    <Content Include="wizardjs\material-bootstrap-wizard_Loan.js" />
+    <Content Include="wizardjs\material-bootstrap-wizard.css" />
+    <Content Include="wizardjs\material-bootstrap-wizard.js" />
+    <Content Include="wizardjs\Multiselect\multiselect.css" />
+    <Content Include="wizardjs\Multiselect\multiselect.js" />
+    <Content Include="wizardjs\new_logo.png" />
+    <Content Include="wizardjs\sprite-bank-mob-v1.png" />
+    <Content Include="wizardjs\sprite-city-tab.png" />
+    <Content Include="wizardjs\sprite-city.png" />
+    <Content Include="wizardjs\sprite-ex-cc-mob-v3.png" />
+    <Content Include="wizardjs\thumb-book-room.jpg" />
+    <Content Include="wizardjs\thumb-build-profile.jpg" />
+    <Content Include="wizardjs\thumb-list-place.jpg" />
+    <Content Include="wizardjs\wizard-book.jpg" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\commonScript.js" />
@@ -457,7 +432,6 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="wizardjs\css" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -471,10 +445,12 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserCCApplyDetailsController.cs" />
     <Compile Include="Areas\Admin\Models\User.cs" />
+    <Compile Include="Class\sendsms.cs" />
     <Compile Include="Controllers\BusinessPartnerProgrammesController.cs" />
     <Compile Include="Controllers\CreditCardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoanController.cs" />
+    <Compile Include="Controllers\LoanInfoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -510,6 +486,8 @@
     <Content Include="Views\BusinessPartnerProgrammes\CreateOld.cshtml" />
     <Content Include="Views\Home\CreditCard.cshtml" />
     <Content Include="Views\CreditCard\CardDetail.cshtml" />
+    <Content Include="Views\Loan\Index.cshtml" />
+    <Content Include="Views\LoanInfo\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -519,6 +497,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\Users\" />
     <Folder Include="images\other\" />
   </ItemGroup>
   <PropertyGroup>
