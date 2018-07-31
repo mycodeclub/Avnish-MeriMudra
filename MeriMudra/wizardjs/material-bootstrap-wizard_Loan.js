@@ -337,7 +337,7 @@ function formDataToJSON($formElement, isfinish) {
             else if (isfinish == 1) {
                 eraseCookie("user_id");
                 $("#Id").val(0);
-                window.location.href = "http://merimudra.com/CreditCard";
+                window.location.href = "http://merimudra.com";
             }
             // $("#htmlListOfProduct").html(data);
             // alert(data);

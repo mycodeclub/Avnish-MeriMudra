@@ -463,22 +463,22 @@
                 $("#savings_bank_accounts #infoText").html("My salary is deposited to");
                 $("#savings_bank_accounts .choice").attr("data-toggle", "wizard-radio");
                 $("#savings_bank_accounts[name=job]").attr("type", "radio");
-                $("#ComapanyName").removeAttr("readonly");
-                $("#ComapanyName").attr("placeholder", "Company Name");
+                //$("#ComapanyName").removeAttr("readonly");
+                //$("#ComapanyName").attr("placeholder", "Company Name");
                 $("#Income").attr("placeholder", "My net monthly salary is");
                 $("#ITR").hide();
-                $("#ComapanyName").attr("required", "true");
+                //$("#ComapanyName").attr("required", "true");
 
             } else {
                 type = false;
                 $("#savings_bank_accounts #infoText").html("I have savings bank accounts with");
                 $("#savings_bank_accounts .choice").attr("data-toggle", "wizard-checkbox");
                 $("#savings_bank_accounts[name=job]").attr("type", "checkbox");
-                $("#ComapanyName").removeAttr("placeholder");
+                //$("#ComapanyName").removeAttr("placeholder");
                 $("#Income").attr("placeholder", "My gross annual income is");
-                $("#ComapanyName").val("");
-                $("#ComapanyName").attr("readonly", true);
-                $("#ComapanyName").removeAttr("required");
+                //$("#ComapanyName").val("");
+                //$("#ComapanyName").attr("readonly", true);
+                //$("#ComapanyName").removeAttr("required");
                 $("#ITR").show();
             }
             $("#hdnRadio").val(type);

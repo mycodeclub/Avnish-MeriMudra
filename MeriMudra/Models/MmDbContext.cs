@@ -20,5 +20,6 @@ namespace MeriMudra.Models
         public virtual DbSet<Company> Companys { get; set; }
         //public virtual DbSet<UserCCApplyDetail> RegisterCCUserDetail { get; set; }
         public System.Data.Entity.DbSet<MeriMudra.Models.UserCCApplyDetail> UserCCApplyDetail { get; set; }
+        public System.Data.Entity.DbSet<MeriMudra.Models.UserLoanApplyDetail> userLoanApplyDetail { get; set; }
     }
 }

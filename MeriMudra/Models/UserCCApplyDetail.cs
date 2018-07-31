@@ -37,6 +37,8 @@ namespace MeriMudra.Models
         public bool isMobileNumberVerify { get; set; }
         public bool isEmailVerify { get; set; }
         public bool isUserActive { get; set; }
+        [DisplayName("Apply Date")]
+        public DateTime? CreatedDate { get; set; }
         public UserCCApplyDetail()
         {
             Id = 0;
@@ -63,7 +65,7 @@ namespace MeriMudra.Models
         }
 
     }
-    [Table("UserCCApplyDetail")]
+    [Table("UserLoanApplyDetail")]
     public class UserLoanApplyDetail
     {
         [Key]
