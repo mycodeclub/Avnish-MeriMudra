@@ -152,6 +152,15 @@ namespace MeriMudra.Models.CreditCardViewModel
                         db.CcDetails.Add(new CcDetail() { CardId = CardId, CcInfoSectionMasterId = 2, Heading = benefit.HeadingText, Point = point });
             return db.SaveChanges() > 0 ? true : false;
         }
+        public bool SaveRedeemReward()
+        {
+            db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == CardId && ccd.CcInfoSectionMasterId == 4).ToList());
+            foreach (var rr in _RedeemReward)
+                if (rr.Points != null && rr.Points.Any())
+                    foreach (var point in rr.Points)
+                        db.CcDetails.Add(new CcDetail() { CardId = CardId, CcInfoSectionMasterId = 4, Heading = rr.HeadingText, Point = point });
+            return db.SaveChanges() > 0 ? true : false;
+        }
         public void DeleteCreditCard(int cardId)
         {
             db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == cardId).ToList());

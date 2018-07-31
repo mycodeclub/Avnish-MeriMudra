@@ -188,7 +188,6 @@ namespace MeriMudra.Areas.Admin.Controllers
             return View(ccVm);
         }
         [HttpPost]
-        //  public ActionResult SaveCcBenefitsAndFeature(int id)
         public ActionResult SaveCcBenefitsAndFeature(CreditCardViewModel ccVm, FormCollection fc)
         {
             ccVm = new CreditCardViewModel(ccVm.CardId);
@@ -244,5 +243,30 @@ namespace MeriMudra.Areas.Admin.Controllers
                 return imgUrl;// @"\images\" + fileName;
             }
         }
+
+
+        [HttpPost]
+        public ActionResult SaveCcRedeemReward(CreditCardViewModel ccVm, FormCollection fc)
+        {
+            ccVm = new CreditCardViewModel(ccVm.CardId);
+            ccVm._RedeemReward = new List<RedeemReward>() { };
+            foreach (var key in fc.AllKeys)
+            {
+                if (key.Equals("CardId")) continue;
+                if (key.Contains("Point"))
+                {
+                    if (ccVm._RedeemReward.Last().Points == null)
+                        ccVm._RedeemReward.Last().Points = new List<string>() { };
+                    ccVm._RedeemReward.Last().Points.Add(fc[key].ToString());
+                }
+                else { ccVm._RedeemReward.Add(new RedeemReward() { HeadingText = fc[key] }); }
+            }
+
+            if (ccVm.SaveRedeemReward())
+                return RedirectToAction("Details", new { id = ccVm.CardId });
+            //            return RedirectToAction("Details", "creditcards", ccVm.CardId);
+            return View(ccVm);
+        }
+
     }
 }

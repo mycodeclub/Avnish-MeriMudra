@@ -20,7 +20,7 @@
                     <table width="100%" class="table table-hover Heading">
                         <thead class="thead-light">
                             <tr>
-                                <th width="10%"> Heading  @(i + 1) </th>
+                                <th width="10%"> Heading   </th>
                                 <th width="80%"><input class="form-control text-box single-line" name="Headding@(i + 1)" type="text" value="@Model._BenefitsAndFeature[i].HeadingText"></th>
                                 <th width="10%">
                                     <label class="fa fa-trash btn btn-danger" onclick="ccVM.RemoveHeading(this)">  </label>
@@ -39,7 +39,8 @@
                             }
                         </tbody>
                     </table>
-                }
+                }        <input type="hidden" name="maxHeadingId" id="maxHeadingId" value="@Model._BenefitsAndFeature.Count" />
+
 
             </div>
             <div class="card-footer small text-muted">
