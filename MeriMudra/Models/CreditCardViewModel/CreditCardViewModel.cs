@@ -161,6 +161,17 @@ namespace MeriMudra.Models.CreditCardViewModel
                         db.CcDetails.Add(new CcDetail() { CardId = CardId, CcInfoSectionMasterId = 4, Heading = rr.HeadingText, Point = point });
             return db.SaveChanges() > 0 ? true : false;
         }
+
+        public bool SaveCcFeesAndCharges()
+        {
+            db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == CardId && ccd.CcInfoSectionMasterId == 3).ToList());
+            foreach (var rr in _FeesAndCharge)
+                if (rr.Points != null && rr.Points.Any())
+                    foreach (var point in rr.Points)
+                        db.CcDetails.Add(new CcDetail() { CardId = CardId, CcInfoSectionMasterId = 3, Heading = rr.HeadingText, Key_ = point.Key, Value = point.Value });
+            return db.SaveChanges() > 0 ? true : false;
+        }
+
         public void DeleteCreditCard(int cardId)
         {
             db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == cardId).ToList());
