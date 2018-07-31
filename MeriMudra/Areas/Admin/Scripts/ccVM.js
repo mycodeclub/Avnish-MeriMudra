@@ -14,7 +14,7 @@
         var tbl = ' <table width="100%" class="table table-hover Heading">';
         tbl += '       <thead class="thead-light">';
         tbl += '   					<tr>';
-        tbl += '   						<th width="10%"> Heading   </th>';
+        tbl += '   						<th width="10%"> Heading </th>';
         tbl += '   						<th width="80%"><input class="form-control text-box single-line" id="Headding' + headingCount + '" name="Headding' + headingCount + '" type="text" value=""></th>';
         tbl += '   						<th width="10%">';
         tbl += '   							<label class="fa fa-trash btn btn-danger" onclick="ccVM.RemoveHeading(this)">  </label>';
@@ -93,11 +93,12 @@
     //---------------------------------------------------------
 
     AddRedeemReward: function () {
-        var headingCount = Number($('#RedeemRewardSection .Heading').length) + 1;
+        var headingCount = Number($('#maxHeadingId').val()) + 1;
+        $('#maxHeadingId').val(headingCount);
         var tbl = ' <table width="100%" class="table table-hover Heading">';
         tbl += '       <thead class="thead-light">';
         tbl += '   					<tr>';
-        tbl += '   						<th width="10%"> Heading  ' + headingCount + ' </th>';
+        tbl += '   						<th width="10%"> Heading </th>';
         tbl += '   						<th width="80%"><input class="form-control text-box single-line" id="Headding' + headingCount + '" name="Headding' + headingCount + '" type="text" value=""></th>';
         tbl += '   						<th width="10%">';
         tbl += '   							<label class="fa fa-trash btn btn-danger" onclick="ccVM.RemoveHeading(this)">  </label>';
@@ -108,12 +109,11 @@
         tbl += '   				<tbody>';
         tbl += '                <tr>';
         tbl += '                    <td><label style="width:80px" class="form-control"> 1 </label></td>';
-        tbl += '                    <td><input class="form-control text-box single-line" name="Heading' + (headingCount + 1) + 'Point1" type="text" value=""></td>';
+        tbl += '                    <td><input class="form-control text-box single-line" name="Heading' + (headingCount) + 'Point1" type="text" value=""></td>';
         tbl += '                    <td><label class="fa fa-minus-circle btn btn-danger" onclick="ccVM.RemovePoint(this)"> </label></td>';
         tbl += '                </tr>';
         tbl += ' 				</tbody>';
-        tbl += ' 		    </table>';
-        $("#RedeemRewardSection").append(tbl);
+        tbl += ' 		    </table>'; $("#RedeemRewardSection").append(tbl);
     },
 
     GetNewHeadingId: function (section) {
