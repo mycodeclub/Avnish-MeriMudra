@@ -143,14 +143,15 @@ namespace MeriMudra.Models.CreditCardViewModel
             if (CardId == 0) CardId = db.CreditCards.Max(ccc => (int)ccc.CardId);
             return CardId;
         }
-
-        public void SaveBenefitsAndFeature()
+        public bool SaveBenefitsAndFeature()
         {
-            foreach (var item in _BenefitsAndFeature)
-                db.CcDetails.Add(new CcDetail() { });
+            db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == CardId && ccd.CcInfoSectionMasterId == 2).ToList());
+            foreach (var benefit in _BenefitsAndFeature)
+                if (benefit.Points != null && benefit.Points.Any())
+                    foreach (var point in benefit.Points)
+                        db.CcDetails.Add(new CcDetail() { CardId = CardId, CcInfoSectionMasterId = 2, Heading = benefit.HeadingText, Point = point });
+            return db.SaveChanges() > 0 ? true : false;
         }
-
-
         public void DeleteCreditCard(int cardId)
         {
             db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == cardId).ToList());
@@ -161,7 +162,6 @@ namespace MeriMudra.Models.CreditCardViewModel
     public class BenefitsAndFeature
     {
         public int CardId { get; set; }
-        public int CcDetailId { get; set; }
         public string HeadingText { get; set; }
         public List<string> Points { get; set; }
     }

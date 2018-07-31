@@ -188,14 +188,26 @@ namespace MeriMudra.Areas.Admin.Controllers
             return View(ccVm);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         //  public ActionResult SaveCcBenefitsAndFeature(int id)
-        public ActionResult SaveCcBenefitsAndFeature([Bind(Include = "CardId,BankId,CardName,CardDescription,CardImageUrl,ReasonsToGetThisCard,CardImageUpload")] CreditCardViewModel ccVm, FormCollection fc)
+        public ActionResult SaveCcBenefitsAndFeature(CreditCardViewModel ccVm, FormCollection fc)
         {
-            //CreditCardViewModel ccVm;
-            //if (id > 0) ccVm = new CreditCardViewModel(id);
-            //else ccVm = new CreditCardViewModel();
-            //ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
+            ccVm = new CreditCardViewModel(ccVm.CardId);
+            ccVm._BenefitsAndFeature = new List<BenefitsAndFeature>();
+            foreach (var key in fc.AllKeys)
+            {
+                if (key.Equals("CardId")) continue;
+                if (key.Contains("Point"))
+                {
+                    if (ccVm._BenefitsAndFeature.Last().Points == null)
+                        ccVm._BenefitsAndFeature.Last().Points = new List<string>() { };
+                    ccVm._BenefitsAndFeature.Last().Points.Add(fc[key].ToString());
+                }
+                else { ccVm._BenefitsAndFeature.Add(new BenefitsAndFeature() { HeadingText = fc[key] }); }
+            }
+
+            if (ccVm.SaveBenefitsAndFeature())
+                return RedirectToAction("Details", new { id = ccVm.CardId });
+            //            return RedirectToAction("Details", "creditcards", ccVm.CardId);
             return View(ccVm);
         }
         public ActionResult SaveCcFeesAndCharges(int id)
@@ -206,7 +218,6 @@ namespace MeriMudra.Areas.Admin.Controllers
             ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
             return View(ccVm);
         }
-
         public ActionResult SaveCcRedeemReward(int id)
         {
             CreditCardViewModel ccVm;
@@ -215,7 +226,6 @@ namespace MeriMudra.Areas.Admin.Controllers
             ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
             return View(ccVm);
         }
-
         public ActionResult SaveCcBorrowPrivilege(int id)
         {
             CreditCardViewModel ccVm;
@@ -224,9 +234,6 @@ namespace MeriMudra.Areas.Admin.Controllers
             ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
             return View(ccVm);
         }
-
-
-
         private string SaveImageAndGetUrl(HttpPostedFileBase cardImage)
         {
             {
