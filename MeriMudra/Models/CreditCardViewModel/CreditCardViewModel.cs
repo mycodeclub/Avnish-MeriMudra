@@ -149,6 +149,14 @@ namespace MeriMudra.Models.CreditCardViewModel
             foreach (var item in _BenefitsAndFeature)
                 db.CcDetails.Add(new CcDetail() { });
         }
+
+
+        public void DeleteCreditCard(int cardId)
+        {
+            db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == cardId).ToList());
+            db.CreditCards.Remove(db.CreditCards.Find(cardId));
+            db.SaveChanges();
+        }
     }
     public class BenefitsAndFeature
     {

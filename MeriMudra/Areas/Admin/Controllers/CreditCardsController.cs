@@ -117,9 +117,8 @@ namespace MeriMudra.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            CreditCard creditCard = db.CreditCards.Find(id);
-            db.CreditCards.Remove(creditCard);
-            db.SaveChanges();
+            CreditCardViewModel ccvm = new CreditCardViewModel();
+            ccvm.DeleteCreditCard(id);
             return RedirectToAction("Index");
         }
 
