@@ -204,9 +204,8 @@ namespace MeriMudra.Areas.Admin.Controllers
                 else { ccVm._BenefitsAndFeature.Add(new BenefitsAndFeature() { HeadingText = fc[key] }); }
             }
 
-            if (ccVm.SaveBenefitsAndFeature())
+            if (ccVm.SaveCcDetails(CcInfoSection.BenefitsAndFeatures))
                 return RedirectToAction("Details", new { id = ccVm.CardId });
-            //            return RedirectToAction("Details", "creditcards", ccVm.CardId);
             return View(ccVm);
         }
         public ActionResult SaveCcFeesAndCharges(int id)
@@ -261,10 +260,8 @@ namespace MeriMudra.Areas.Admin.Controllers
                 }
                 else { ccVm._RedeemReward.Add(new RedeemReward() { HeadingText = fc[key] }); }
             }
-
-            if (ccVm.SaveRedeemReward())
+            if (ccVm.SaveCcDetails(CcInfoSection.RedeemRewards))
                 return RedirectToAction("Details", new { id = ccVm.CardId });
-            //            return RedirectToAction("Details", "creditcards", ccVm.CardId);
             return View(ccVm);
         }
 
@@ -291,12 +288,39 @@ namespace MeriMudra.Areas.Admin.Controllers
                 }
                 else { ccVm._FeesAndCharge.Add(new FeesAndCharge() { HeadingText = fc[key] }); }
             }
-
-            if (ccVm.SaveCcFeesAndCharges())
+            if (ccVm.SaveCcDetails(CcInfoSection.FeesAndCharges))
                 return RedirectToAction("Details", new { id = ccVm.CardId });
             return View(ccVm);
         }
 
+
+        [HttpPost]
+        public ActionResult SaveCcBorrowPrivilege(CreditCardViewModel ccVm, FormCollection fc)
+        {
+            ccVm = new CreditCardViewModel(ccVm.CardId);
+            ccVm._BorrowPrivilege = new List<BorrowPrivilege>() { };
+            foreach (var key in fc.AllKeys)
+            {
+                if (key.Equals("CardId")) continue;
+                if (key.Contains("Key") || key.Contains("Value"))
+                {
+                    if (ccVm._BorrowPrivilege.Last().Points == null)
+                        ccVm._BorrowPrivilege.Last().Points = new List<KeyValuePair<string, string>> { };
+                    if (key.Contains("Key"))
+                    {
+                        int keyValueOrPointId = GetkeyValueOrPointId(key);
+                        int HeadingId = GetHeadingId(key, keyValueOrPointId.ToString().Length);
+                        ccVm._BorrowPrivilege.Last().Points.Add(new KeyValuePair<string, string>(fc[key], fc["Heading" + HeadingId + "Value" + keyValueOrPointId]));
+                    }
+                }
+                else { ccVm._BorrowPrivilege.Add(new BorrowPrivilege() { HeadingText = fc[key] }); }
+            }
+
+            //            if (ccVm.SaveCcBorrowPrivilege())
+            if (ccVm.SaveCcDetails(CcInfoSection.BorrowPriviledges))
+                return RedirectToAction("Details", new { id = ccVm.CardId });
+            return View(ccVm);
+        }
 
         private int GetkeyValueOrPointId(string str)
         {

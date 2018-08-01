@@ -143,7 +143,7 @@ namespace MeriMudra.Models.CreditCardViewModel
             if (CardId == 0) CardId = db.CreditCards.Max(ccc => (int)ccc.CardId);
             return CardId;
         }
-        public bool SaveBenefitsAndFeature()
+        private bool SaveBenefitsAndFeature()
         {
             db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == CardId && ccd.CcInfoSectionMasterId == 2).ToList());
             foreach (var benefit in _BenefitsAndFeature)
@@ -152,7 +152,7 @@ namespace MeriMudra.Models.CreditCardViewModel
                         db.CcDetails.Add(new CcDetail() { CardId = CardId, CcInfoSectionMasterId = 2, Heading = benefit.HeadingText, Point = point });
             return db.SaveChanges() > 0 ? true : false;
         }
-        public bool SaveRedeemReward()
+        private bool SaveRedeemReward()
         {
             db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == CardId && ccd.CcInfoSectionMasterId == 4).ToList());
             foreach (var rr in _RedeemReward)
@@ -161,8 +161,7 @@ namespace MeriMudra.Models.CreditCardViewModel
                         db.CcDetails.Add(new CcDetail() { CardId = CardId, CcInfoSectionMasterId = 4, Heading = rr.HeadingText, Point = point });
             return db.SaveChanges() > 0 ? true : false;
         }
-
-        public bool SaveCcFeesAndCharges()
+        private bool SaveCcFeesAndCharges()
         {
             db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == CardId && ccd.CcInfoSectionMasterId == 3).ToList());
             foreach (var rr in _FeesAndCharge)
@@ -171,7 +170,35 @@ namespace MeriMudra.Models.CreditCardViewModel
                         db.CcDetails.Add(new CcDetail() { CardId = CardId, CcInfoSectionMasterId = 3, Heading = rr.HeadingText, Key_ = point.Key, Value = point.Value });
             return db.SaveChanges() > 0 ? true : false;
         }
-
+        private bool SaveCcBorrowPrivilege()
+        {
+            db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == CardId && ccd.CcInfoSectionMasterId == 5).ToList());
+            foreach (var bp in _BorrowPrivilege)
+                if (bp.Points != null && bp.Points.Any())
+                    foreach (var point in bp.Points)
+                        db.CcDetails.Add(new CcDetail() { CardId = CardId, CcInfoSectionMasterId = 5, Heading = bp.HeadingText, Key_ = point.Key, Value = point.Value });
+            return db.SaveChanges() > 0 ? true : false;
+        }
+        public bool SaveCcDetails(CcInfoSection section)
+        {
+            bool restult = false;
+            switch (section)
+            {
+                case CcInfoSection.BenefitsAndFeatures:
+                    restult = SaveBenefitsAndFeature();
+                    break;
+                case CcInfoSection.FeesAndCharges:
+                    restult = SaveCcFeesAndCharges();
+                    break;
+                case CcInfoSection.RedeemRewards:
+                    restult = SaveRedeemReward();
+                    break;
+                case CcInfoSection.BorrowPriviledges:
+                    restult = SaveCcBorrowPrivilege();
+                    break;
+            }
+            return restult;
+        }
         public void DeleteCreditCard(int cardId)
         {
             db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == cardId).ToList());
