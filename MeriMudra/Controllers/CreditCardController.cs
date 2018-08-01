@@ -14,12 +14,13 @@ namespace MeriMudra.Controllers
         // GET: CreditCard
         public ActionResult Index()
         {
-            return View();
+
+            return View(db.CreditCards.ToList());
         }
 
-        public ActionResult CardDetail(int CardId = 1)
+        public ActionResult CardDetail(int id = 1)
         {
-            var ccViewModel = new CreditCardViewModel(1);
+            var ccViewModel = new CreditCardViewModel(id);
             return View(ccViewModel);
         }
     }
