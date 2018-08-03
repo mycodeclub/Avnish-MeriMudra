@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -14,6 +12,7 @@ namespace MeriMudra.Areas.Admin.Controllers
     {
         private MmDbContext db = new MmDbContext();
 
+        private string validImageFormets = @"bmp, jpg, jpeg, gif, png";
         // GET: Admin/Banks
         public ActionResult Index()
         {
@@ -38,7 +37,7 @@ namespace MeriMudra.Areas.Admin.Controllers
         // GET: Admin/Banks/Create
         public ActionResult Create()
         {
-            return View();
+            return View(new Bank());
         }
 
         // POST: Admin/Banks/Create
@@ -50,14 +49,49 @@ namespace MeriMudra.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (!string.IsNullOrEmpty(bank.LogoUrl) || (bank.BankLogoUpload != null && bank.BankLogoUpload.ContentLength > 0))
+                {
+                    if ((bank.BankLogoUpload != null && bank.BankLogoUpload.ContentLength > 0))
+                    {
+                        if (!validImageFormets.Contains(bank.BankLogoUpload?.FileName.Split('.').Last()))
+                        {
+                            ModelState.AddModelError("CardImageUpload", "Upload Card Image in a valid image format, allowed formats are : " + validImageFormets);
+                            return View(bank);
+                        }
+                        else
+                        {
+                            bank.LogoUrl = SaveImageAndGetUrl(bank.BankLogoUpload);
+                        }
+                    }
+                    bank.LogoUrl = SaveImageAndGetUrl(bank.BankLogoUpload);
+                    db.Banks.Add(bank);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("BankLogoUpload", "This field is required");
+                    return View(bank);
+                }
+
+
+
+
+                bank.LogoUrl = SaveImageAndGetUrl(bank.BankLogoUpload);
                 db.Banks.Add(bank);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
             return View(bank);
         }
 
+        private string SaveImageAndGetUrl(HttpPostedFileBase bankImage)
+        {
+            var fileName = DateTime.UtcNow.ToString().Replace(" ", string.Empty).Replace(":", string.Empty).Replace("/", string.Empty) + bankImage.FileName.Replace(" ", string.Empty);
+            var imgUrl = @"\images\cards\" + fileName;
+            bankImage.SaveAs(Server.MapPath(imgUrl));
+            return imgUrl;
+        }
         // GET: Admin/Banks/Edit/5
         public ActionResult Edit(int? id)
         {
