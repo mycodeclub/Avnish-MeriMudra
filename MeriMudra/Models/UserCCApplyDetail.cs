@@ -97,6 +97,7 @@ namespace MeriMudra.Models
         public bool isEmailVerify { get; set; }
         public bool isUserActive { get; set; }
         public decimal? Intended_loan_amount { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public UserLoanApplyDetail()
         {
             Intended_loan_amount = 0;
@@ -106,7 +107,7 @@ namespace MeriMudra.Models
             CompanyName = "";
             GrossIncomeOrNetSalary = 0;
             Name = "";
-            DOB = DateTime.Now;
+            CreatedDate=DOB = DateTime.Now;
             CityName = "";
             CityId = "";
             PinCode = "";

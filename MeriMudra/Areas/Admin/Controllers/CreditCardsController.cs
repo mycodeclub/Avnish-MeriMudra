@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MeriMudra.Models;
 using MeriMudra.Models.CreditCardViewModel;
+using System.IO;
 
 namespace MeriMudra.Areas.Admin.Controllers
 {
@@ -236,9 +237,13 @@ namespace MeriMudra.Areas.Admin.Controllers
         {
             {
                 var fileName = DateTime.UtcNow.ToString().Replace(" ", string.Empty).Replace(":", string.Empty).Replace("/", string.Empty) + cardImage.FileName.Replace(" ", string.Empty);
+               // var fileName = "abc";
                 var imgUrl = @"\images\cards\" + fileName;
+                string path = Server.MapPath("/images/cards/");
                 //                cardImage.SaveAs(Server.MapPath("~/images/cards" + fileName));
-                cardImage.SaveAs(Server.MapPath(imgUrl));
+                // cardImage.SaveAs(path);
+                //var productPath = Server.MapPath("~/App_Upload/Product");
+                cardImage.SaveAs(Path.Combine(path, fileName));
                 return imgUrl;// @"\images\" + fileName;
             }
         }

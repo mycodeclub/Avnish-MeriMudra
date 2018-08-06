@@ -78,7 +78,7 @@ $(document).ready(function () {
                 $validator.focusInvalid();
                 return false;
             } else {
-                var userid = getCookie("user_id");
+                var userid = getCookie("user_id_Loan");
                 if (userid != null) {
                     $("#Id").val(userid);
                 }
@@ -333,9 +333,9 @@ function formDataToJSON($formElement, isfinish) {
         success: function (data) {
             debugger;
             if (isfinish == 0)
-                setCookie("user_id", data, 12);
+                setCookie("user_id_Loan", data, 12);
             else if (isfinish == 1) {
-                eraseCookie("user_id");
+                eraseCookie("user_id_Loan");
                 $("#Id").val(0);
                 window.location.href = "http://merimudra.com";
             }
