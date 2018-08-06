@@ -423,6 +423,11 @@
     <Content Include="wizardjs\thumb-build-profile.jpg" />
     <Content Include="wizardjs\thumb-list-place.jpg" />
     <Content Include="wizardjs\wizard-book.jpg" />
+    <Content Include="Areas\Admin\Views\UserLoanApplyDetails\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\UserLoanApplyDetails\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\UserLoanApplyDetails\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\UserLoanApplyDetails\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\UserLoanApplyDetails\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\commonScript.js" />
@@ -444,6 +449,7 @@
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserCCApplyDetailsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserLoanApplyDetailsController.cs" />
     <Compile Include="Areas\Admin\Models\User.cs" />
     <Compile Include="Class\sendsms.cs" />
     <Compile Include="Controllers\BusinessPartnerProgrammesController.cs" />

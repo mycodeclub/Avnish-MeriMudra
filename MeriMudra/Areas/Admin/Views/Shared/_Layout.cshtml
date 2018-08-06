@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
     <!-- Bootstrap core CSS-->
     <link href="@Url.Content("~/Areas/Admin/Template/vendor/bootstrap/css/bootstrap.min.css")" rel="stylesheet" />
     <link href="@Url.Content("~/Areas/Admin/Template/vendor/font-awesome/css/font-awesome.min.css")" rel="stylesheet">
@@ -31,8 +31,20 @@
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
                     <a class="nav-link" href="/Admin/Banks/Index">
-                        <i class="fa fa-fw fa-bank"></i>
+                        <i class="fa fa-fw fa-area-chart"></i>
                         <span class="nav-link-text">Banks</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                    <a class="nav-link" href="/Admin/Cities/Index">
+                        <i class="fa fa-fw fa-area-chart"></i>
+                        <span class="nav-link-text">Cities</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                    <a class="nav-link" href="/Admin/BusinessPartnerProgrammes/Index">
+                        <i class="fa fa-fw fa-area-chart"></i>
+                        <span class="nav-link-text">BP Programmes</span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
@@ -42,17 +54,15 @@
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                    <a class="nav-link" href="/Admin/BusinessPartnerProgrammes/Index">
-                        <i class="fa fa-fw fa-area-chart"></i>
-                        <span class="nav-link-text">BP Programmes</span>
-                    </a>
-                </li>
-
-
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
                     <a class="nav-link" href="/Admin/UserCCApplyDetails/Index">
                         <i class="fa fa-fw fa-user-circle-o"></i>
                         <span class="nav-link-text">CC Applcations</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                    <a class="nav-link" href="/Admin/UserLoanApplyDetails/Index">
+                        <i class="fa fa-fw fa-user-circle-o"></i>
+                        <span class="nav-link-text">Loan Applcations</span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
@@ -214,11 +224,21 @@
         <script src="@Url.Content("~/Areas/Admin/Template/vendor/chart.js/Chart.min.js")"></script>
         <script src="@Url.Content("~/Areas/Admin/Template/vendor/datatables/jquery.dataTables.js")"></script>
         <script src="@Url.Content("~/Areas/Admin/Template/vendor/datatables/dataTables.bootstrap4.js")"></script>
+        <script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+        <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
+        <script src="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css"></script>
         <!-- Custom scripts for all pages-->
         <script src="@Url.Content("~/Areas/Admin/Template/js/sb-admin.min.js")"></script>
         <!-- Custom scripts for this page-->
         <script src="@Url.Content("~/Areas/Admin/Template/js/sb-admin-datatables.min.js")"></script>
         <script src="@Url.Content("~/Areas/Admin/Template/js/sb-admin-charts.js")"></script>
+
         @RenderSection("scripts", required: false)
     </div>
 </body>

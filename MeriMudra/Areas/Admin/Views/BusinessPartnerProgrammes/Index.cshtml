@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MeriMudra.Models.BusinessPartnerProgramme>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Business Partner Programmes";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <div class="container-fluid">
@@ -16,14 +16,14 @@
             @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary btn-block" })
         </div>           
 </p>
-
+    
     <div class="card mb-3">
         <div class="card-header">
             <i class="fa fa-table"></i> List
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered dataTable" id="dataTable" width="100%">
+                <table class="table table-bordered dataTable" data-export-column="8" data-export-title="Business Partner Programmes" id="dataTable_button" width="100%">
                     <thead>
                         <tr>
                             <th>
