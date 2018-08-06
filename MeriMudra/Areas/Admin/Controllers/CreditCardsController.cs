@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using MeriMudra.Models;
 using MeriMudra.Models.CreditCardViewModel;
-using System.IO;
 
 namespace MeriMudra.Areas.Admin.Controllers
 {
@@ -45,25 +44,21 @@ namespace MeriMudra.Areas.Admin.Controllers
             return View("CreateOld", Card);
         }
 
-        // POST: Admin/CreditCards/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CardId,BankId,CardName,CardDescription,CardImageUrl,ReasonsToGetThisCard")] CreditCardViewModel ccVm, FormCollection collection)
-        //        public ActionResult Create(FormCollection collection)
-        {
-            if (ModelState.IsValid)
-            {
-                //if (creditCard.CardId > 0) db.Entry(creditCard).State = EntityState.Modified;
-                //else db.CreditCards.Add(creditCard);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name", ccVm.BankId);
-            return View(ccVm);
-        }
+        //// POST: Admin/CreditCards/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "CardId,BankId,CardName,CardDescription,CardImageUrl,ReasonsToGetThisCard")] CreditCardViewModel ccVm, FormCollection collection)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name", ccVm.BankId);
+        //    return View(ccVm);
+        //}
 
         // GET: Admin/CreditCards/Edit/5
         public ActionResult Edit(int? id)
@@ -179,7 +174,6 @@ namespace MeriMudra.Areas.Admin.Controllers
             ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name", ccVm.BankId);
             return View(ccVm);
         }
-
         public ActionResult SaveCcBenefitsAndFeature(int id)
         {
             CreditCardViewModel ccVm;
@@ -235,20 +229,11 @@ namespace MeriMudra.Areas.Admin.Controllers
         }
         private string SaveImageAndGetUrl(HttpPostedFileBase cardImage)
         {
-            {
-                var fileName = DateTime.UtcNow.ToString().Replace(" ", string.Empty).Replace(":", string.Empty).Replace("/", string.Empty) + cardImage.FileName.Replace(" ", string.Empty);
-               // var fileName = "abc";
-                var imgUrl = @"\images\cards\" + fileName;
-                string path = Server.MapPath("/images/cards/");
-                //                cardImage.SaveAs(Server.MapPath("~/images/cards" + fileName));
-                // cardImage.SaveAs(path);
-                //var productPath = Server.MapPath("~/App_Upload/Product");
-                cardImage.SaveAs(Path.Combine(path, fileName));
-                return imgUrl;// @"\images\" + fileName;
-            }
+            var fileName = DateTime.UtcNow.ToString().Replace(" ", string.Empty).Replace(":", string.Empty).Replace("/", string.Empty) + cardImage.FileName.Replace(" ", string.Empty);
+            var imgUrl = @"\images\cards\" + fileName;
+            cardImage.SaveAs(Server.MapPath(imgUrl));
+            return imgUrl;
         }
-
-
         [HttpPost]
         public ActionResult SaveCcRedeemReward(CreditCardViewModel ccVm, FormCollection fc)
         {
@@ -269,9 +254,6 @@ namespace MeriMudra.Areas.Admin.Controllers
                 return RedirectToAction("Details", new { id = ccVm.CardId });
             return View(ccVm);
         }
-
-
-
         [HttpPost]
         public ActionResult SaveCcFeesAndCharges(CreditCardViewModel ccVm, FormCollection fc)
         {
@@ -297,8 +279,6 @@ namespace MeriMudra.Areas.Admin.Controllers
                 return RedirectToAction("Details", new { id = ccVm.CardId });
             return View(ccVm);
         }
-
-
         [HttpPost]
         public ActionResult SaveCcBorrowPrivilege(CreditCardViewModel ccVm, FormCollection fc)
         {
@@ -326,7 +306,6 @@ namespace MeriMudra.Areas.Admin.Controllers
                 return RedirectToAction("Details", new { id = ccVm.CardId });
             return View(ccVm);
         }
-
         private int GetkeyValueOrPointId(string str)
         {
             if (!int.TryParse(str.Substring(str.Length - 3), out int id))
@@ -336,7 +315,6 @@ namespace MeriMudra.Areas.Admin.Controllers
             }
             return id;
         }
-
         private int GetHeadingId(string str, int keyValueOrPointIdLength)
         {
             if (!int.TryParse(str.Substring(str.Length - (6 + keyValueOrPointIdLength), 3), out int id))

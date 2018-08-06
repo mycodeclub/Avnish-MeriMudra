@@ -14,10 +14,8 @@ namespace MeriMudra.Models
         [DisplayName("Bank")]
         public int BankId { get; set; }
         public string Name { get; set; }
-
         [DisplayName("Bank Logo Url")]
         public string LogoUrl { get; set; }
-
         [NotMapped]
         [DataType(DataType.Upload)]
         public HttpPostedFileBase BankLogoUpload { get; set; }
