@@ -182,6 +182,16 @@
     </style>
 </head>
 <body>
+    @{ string baseurl = "";
+            if (HttpContext.Current.Request.ApplicationPath == "/")
+            {
+                baseurl = string.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority);
+            }
+            else
+            {
+                baseurl = string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority, HttpContext.Current.Request.ApplicationPath);
+            }}
+    <span style="display: none" id="baseURL">@baseurl</span>
     @{
         var dateTime = DateTime.Now;
         // var IRT = (dateTime.Month >= 4 ? dateTime.Year + 1 : dateTime.Year);
@@ -263,6 +273,7 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="Profile_Detail">
+                                        <input type="hidden" value="@ViewBag.id" name="LoanType" />
                                         <div class="row">
                                             @*<h4 class="info-text"> My existing credit cards are with</h4>*@
                                             <div class="col-sm-12">

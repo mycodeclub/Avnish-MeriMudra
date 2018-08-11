@@ -12,6 +12,7 @@
     <!-- Custom styles for this template-->
     <link href="@Url.Content("~/Areas/Admin/Template/css/sb-admin.css")" rel="stylesheet" />
 </head>
+
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
@@ -182,6 +183,16 @@
             </ul>
         </div>
     </nav>
+    @{ string baseurl = "";
+            if (HttpContext.Current.Request.ApplicationPath == "/")
+            {
+                baseurl = string.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority);
+            }
+            else
+            {
+                baseurl = string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority, HttpContext.Current.Request.ApplicationPath);
+            }}
+    <span style="display: none" id="baseURL">@baseurl</span>
     <div class="content-wrapper" style="padding:25px;">
         @RenderBody()
         <!-- /.container-fluid-->
@@ -211,6 +222,24 @@
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                         <a class="btn btn-primary" href="/Admin/Login/Login">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleDeleteBox" tabindex="-1" role="dialog" aria-labelledby="exampleDeleteBoxLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleDeleteBoxLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Are you sure to delete this record.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" id="cinfirmBox">Yes</button>
+                        <button class="btn btn-secondary" onclick="removeActionInConfirm();" type="button" data-dismiss="modal">No</button>
+                        
                     </div>
                 </div>
             </div>

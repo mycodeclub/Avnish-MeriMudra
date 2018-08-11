@@ -9,6 +9,7 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
+    @Html.AntiForgeryToken()
 </p>
 <div class="table-responsive">
     <table class="table table-bordered dataTable" data-export-column="6" data-export-title="User credit card detail" id="dataTable_button">
@@ -59,7 +60,8 @@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                <a href="#" data-toggle="modal" data-target="#exampleDeleteBox" onclick="addActionInConfirmBox('UserCCApplyDetails', 'Delete', @item.Id);">Delete</a>
             </td>
         </tr>
         }
