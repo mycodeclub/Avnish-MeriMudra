@@ -107,12 +107,12 @@ namespace MeriMudra.Areas.Admin.Controllers
         // POST: Admin/UserCCApplyDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public void DeleteConfirmed(int id)
         {
             UserCCApplyDetail userCCApplyDetail = db.UserCCApplyDetail.Find(id);
             db.UserCCApplyDetail.Remove(userCCApplyDetail);
             db.SaveChanges();
-            return RedirectToAction("Index");
+           // return Redirect("Admin/UserCCAppyDetails/Index");
         }
 
         protected override void Dispose(bool disposing)

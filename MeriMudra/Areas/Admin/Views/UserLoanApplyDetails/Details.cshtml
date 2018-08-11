@@ -1,138 +1,119 @@
 ﻿@model MeriMudra.Models.UserLoanApplyDetail
 
 @{
-    Layout = null;
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">User Loan Apply Detail</div>
+        <div class="card-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-3">
 
-<!DOCTYPE html>
+                            @Html.DisplayNameFor(model => model.EmployerType)
+                            :<span class="text-muted large">
+                                @Html.Raw(Model.isMobileNumberVerify ? "Salaried" : "Self-employed")
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.CompanyName)
+                            :<span class="text-muted large">
+                                @Html.DisplayFor(model => model.CompanyName)
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.GrossIncomeOrNetSalary):<span class="text-muted large">
+                                @Html.DisplayFor(model => model.GrossIncomeOrNetSalary)
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
-    <div>
-        <h4>UserLoanApplyDetail</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.EmployerType)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.EmployerType)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.CompanyName)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.CompanyName)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.GrossIncomeOrNetSalary)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.GrossIncomeOrNetSalary)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.DOB)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.DOB)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.CityName)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.CityName)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.MobileNumber)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.MobileNumber)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.email)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.email)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.CreditCardMaxLimit)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.CreditCardMaxLimit)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.OTP)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.OTP)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.isMobileNumberVerify)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.isMobileNumberVerify)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.isEmailVerify)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.isEmailVerify)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.isUserActive)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.isUserActive)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Intended_loan_amount)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Intended_loan_amount)
-            </dd>
-    
-        </dl>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.Name):<span class="text-muted large">
+                                @Html.DisplayFor(model => model.Name)
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.DOB):<span class="text-muted large">
+                                @Html.Raw(Convert.ToDateTime(Model.DOB).ToString("dd/MM/yyyy"))
+                            </span>
+
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.CityName):<span class="text-muted large">
+                                @Html.DisplayFor(model => model.CityName)
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.MobileNumber):<span class="text-muted large">
+                                @Html.DisplayFor(model => model.MobileNumber)
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.email):<span class="text-muted large">
+                                @Html.DisplayFor(model => model.email)
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.CreditCardMaxLimit):<span class="text-muted large">
+                                @Html.DisplayFor(model => model.CreditCardMaxLimit)
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            Mobile Number Verified:<span class="text-muted large">
+                                @Html.Raw(Model.isMobileNumberVerify ? "YES" : "NO")
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            Email Verified:<span class="text-muted large">
+                                @Html.Raw(Model.isEmailVerify ? "YES" : "NO")
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            User Active:<span class="text-muted large">
+                                @Html.Raw(Model.isUserActive ? "YES" : "NO")
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.Intended_loan_amount):<span class="text-muted large">
+                                @Html.DisplayFor(model => model.Intended_loan_amount)
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                        <div class="col-md-3">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-</body>
-</html>
+</div>
+
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+    </html>

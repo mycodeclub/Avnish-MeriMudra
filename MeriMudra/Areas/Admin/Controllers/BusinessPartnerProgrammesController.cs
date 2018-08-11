@@ -107,12 +107,12 @@ namespace MeriMudra.Areas.Admin.Controllers
         // POST: Admin/BusinessPartnerProgrammes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public void DeleteConfirmed(int id)
         {
             BusinessPartnerProgramme businessPartnerProgramme = db.BusinessPartnerProgrammes.Find(id);
             db.BusinessPartnerProgrammes.Remove(businessPartnerProgramme);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

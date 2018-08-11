@@ -141,12 +141,12 @@ namespace MeriMudra.Areas.Admin.Controllers
         // POST: Admin/Banks/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public void DeleteConfirmed(int id)
         {
             Bank bank = db.Banks.Find(id);
             db.Banks.Remove(bank);
             db.SaveChanges();
-            return RedirectToAction("Index");
+           // return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

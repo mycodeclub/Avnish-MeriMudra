@@ -39,6 +39,7 @@ namespace MeriMudra.Models
         public bool isUserActive { get; set; }
         [DisplayName("Apply Date")]
         public DateTime? CreatedDate { get; set; }
+        public int CreditCardId { get; set; }
         public UserCCApplyDetail()
         {
             Id = 0;
@@ -98,10 +99,11 @@ namespace MeriMudra.Models
         public bool isUserActive { get; set; }
         public decimal? Intended_loan_amount { get; set; }
         public DateTime? CreatedDate { get; set; }
+        public int LoanType { get; set; }
         public UserLoanApplyDetail()
         {
             Intended_loan_amount = 0;
-            Id = 0;
+            LoanType = Id = 0;
             EmployerType = true;
             employed_radios = "";
             CompanyName = "";

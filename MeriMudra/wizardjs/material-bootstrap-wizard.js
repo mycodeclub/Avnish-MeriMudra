@@ -83,7 +83,7 @@ $(document).ready(function () {
                     $("#Id").val(userid);
                 }
                 var promise = formDataToJSON($("#from_data"), 0);
-                debugger;
+                //debugger;
                 promise.success(function (data) {
                     return true;
                 });
@@ -244,7 +244,7 @@ $(window).resize(function () {
 });
 
 function refreshAnimation($wizard, index) {
-    total_steps = $wizard.find('li').length;
+    total_steps = 3;// $wizard.find('li').length;
     move_distance = $wizard.width() / total_steps;
     step_width = move_distance;
     move_distance *= index;
@@ -320,13 +320,14 @@ function formDataToJSON($formElement, isfinish) {
     //    convertedJSON[key] = value;
     //});
     var convertedJSON = JSON.stringify($formElement.serializeObject())
+    var FormActionURL = $("#baseURL").text() + "/Home/savestep";
     var Paramerter = {
         convertedJSON: convertedJSON,
         isfinish: isfinish,
     }
     return $.ajax({
         type: "POST",
-        url: 'savestep',
+        url: FormActionURL,
         cache: false,
         //async: false,
         data: Paramerter,

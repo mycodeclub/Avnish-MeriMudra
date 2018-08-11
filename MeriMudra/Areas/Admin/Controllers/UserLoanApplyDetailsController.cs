@@ -107,12 +107,12 @@ namespace MeriMudra.Areas.Admin.Controllers
         // POST: Admin/UserLoanApplyDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public void DeleteConfirmed(int id)
         {
             UserLoanApplyDetail userLoanApplyDetail = db.userLoanApplyDetail.Find(id);
             db.userLoanApplyDetail.Remove(userLoanApplyDetail);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

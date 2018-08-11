@@ -4,6 +4,7 @@
     ViewBag.Title = "Business Partner Programmes";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+@Html.AntiForgeryToken()
 <div class="container-fluid">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
@@ -85,7 +86,8 @@
                                 <td>
                                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                    @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                                    <a href="#" data-toggle="modal" data-target="#exampleDeleteBox" onclick="addActionInConfirmBox('BusinessPartnerProgrammes', 'Delete', @item.Id);">Delete</a>
                                 </td>
                             </tr>
                         }

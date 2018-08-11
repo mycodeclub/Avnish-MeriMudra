@@ -13,5 +13,25 @@ namespace MeriMudra.Controllers
         {
             return View();
         }
+        public ActionResult Personal_Loan()
+        {
+            return View();
+        }
+        public ActionResult Home_Loan()
+        {
+            return View();
+        }
+        public ActionResult Business_Loan()
+        {
+            return View();
+        }
+        public ActionResult Car_Loan()
+        {
+            return View();
+        }
+        public ActionResult Loan_Against_Property()
+        {
+            return View();
+        }
     }
 }
