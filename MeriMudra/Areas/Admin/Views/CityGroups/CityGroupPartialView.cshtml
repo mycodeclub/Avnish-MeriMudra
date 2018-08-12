@@ -1,0 +1,32 @@
+﻿@model MeriMudra.Models.ViewModels.CityGroupViewModel
+
+<div class="container">
+    <div class="row">
+        @foreach (var state in Model.IncludedCitys.GroupBy(x => x.StateId).Select(g => g.First().State))
+        {
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+
+                <div class="panel panel-info " style="border:groove">
+                    <div class="panel-heading">
+                        <b>@state.Name</b>
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            @foreach (var city in Model.IncludedCitys)
+                            {
+                                if (city.StateId == state.StateId)
+                                {
+                                    <li>  @city.Name </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+
+        }
+    </div>
+
+</div>

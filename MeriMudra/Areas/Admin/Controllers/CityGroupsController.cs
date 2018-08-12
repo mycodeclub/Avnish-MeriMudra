@@ -35,11 +35,6 @@ namespace MeriMudra.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             cityGroup.IncludedCitys.OrderBy(c => c.State.Name);
-            //            cityGroup.IncludedCitys.Distinct(c=>c.)
-            foreach (var state in cityGroup.IncludedCitys.GroupBy(x => x.StateId).Select(g => g.First().State))
-            {
-                var s = state.Name;
-            }
             return View(cityGroup);
         }
 
@@ -67,18 +62,15 @@ namespace MeriMudra.Areas.Admin.Controllers
         }
 
         // GET: Admin/CityGroups/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id, int stateId = 32)
         {
-            if (id == null)
+            ViewBag.StateList = db.States.Select(s => new SelectListItem
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CityGroup cityGroup = db.CityGroups.Find(id);
-            if (cityGroup == null)
-            {
-                return HttpNotFound();
-            }
-            return View(cityGroup);
+                Text = s.Name,
+                Value = s.StateId.ToString()
+            }).ToList();
+            ViewBag.CitiList = db.Citys.Where(c => c.StateId == stateId).ToList();
+            return View(new CityGroupViewModel(id.Value));
         }
 
         // POST: Admin/CityGroups/Edit/5
