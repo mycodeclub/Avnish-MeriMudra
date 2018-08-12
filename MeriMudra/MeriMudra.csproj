@@ -504,6 +504,11 @@
     <Content Include="Areas\Admin\Views\UserLoanApplyDetails\Details.cshtml" />
     <Content Include="Areas\Admin\Views\UserLoanApplyDetails\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\UserLoanApplyDetails\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CityGroups\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\CityGroups\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\CityGroups\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\CityGroups\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\CityGroups\Index.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\commonScript.js" />
@@ -523,6 +528,7 @@
     <Compile Include="Areas\Admin\Controllers\BanksController.cs" />
     <Compile Include="Areas\Admin\Controllers\BusinessPartnerProgrammesController.cs" />
     <Compile Include="Areas\Admin\Controllers\CitiesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CityGroupsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CreditCardsController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
@@ -543,9 +549,11 @@
     <Compile Include="Models\CcDetail.cs" />
     <Compile Include="Models\CcInfoSectionMaster.cs" />
     <Compile Include="Models\City.cs" />
+    <Compile Include="Models\CityGroup.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CreditCard.cs" />
-    <Compile Include="Models\CreditCardViewModel\CreditCardViewModel.cs" />
+    <Compile Include="Models\ViewModels\CityGroupViewModel.cs" />
+    <Compile Include="Models\ViewModels\CreditCardViewModel.cs" />
     <Compile Include="Models\MmDbContext.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\UserCCApplyDetail.cs" />

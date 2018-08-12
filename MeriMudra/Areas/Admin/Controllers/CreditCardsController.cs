@@ -7,7 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MeriMudra.Models;
-using MeriMudra.Models.CreditCardViewModel;
+using MeriMudra.Models.ViewModels;
 
 namespace MeriMudra.Areas.Admin.Controllers
 {

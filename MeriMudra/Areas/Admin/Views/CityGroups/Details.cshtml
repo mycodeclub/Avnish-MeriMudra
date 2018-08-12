@@ -1,0 +1,45 @@
+﻿@model MeriMudra.Models.ViewModels.CityGroupViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-xl-12">
+            <b>Group Name : </b> @Model.GroupName
+            <button class="btn btn-success float-right"> Edit</button>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+
+        @foreach (var state in Model.IncludedCitys.GroupBy(x => x.StateId).Select(g => g.First().State))
+        {
+            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+
+                <div class="panel panel-info " style="border:groove">
+                    <div class="panel-heading">
+                        <b>@state.Name</b>
+                    </div>
+                    <div class="panel-body">
+                        <ul>
+                            @foreach (var city in Model.IncludedCitys)
+                            {
+                                if (city.StateId == state.StateId)
+                                {
+                                    <li>  @city.Name </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+
+        }
+    </div>
+
+</div>
