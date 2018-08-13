@@ -7,7 +7,7 @@
             string selected = cityIds.Split(',').Any(cId => cId.Equals(item.Id.ToString())) ? "checked" : string.Empty;
             <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
                 <div class="checkbox">
-                    <label><input type="checkbox" name="cityIds" @selected value="@item.Id">@item.Name</label>
+                    <label><input type="checkbox" name="SelectedCityIds" @selected value="@item.Id">@item.Name</label>
                 </div>
             </div>
         }

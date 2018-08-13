@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MeriMudra.Models.ViewModels;
 using MeriMudra.Models;
-
+using System.Text;
 
 namespace MeriMudra.Areas.Admin.Controllers
 {
@@ -62,7 +62,7 @@ namespace MeriMudra.Areas.Admin.Controllers
         }
 
         // GET: Admin/CityGroups/Edit/5
-        public ActionResult Edit(int? id, int stateId = 32)
+        public ActionResult Edit(int? id, int stateId = 1)
         {
             ViewBag.StateList = db.States.Select(s => new SelectListItem
             {
@@ -78,11 +78,25 @@ namespace MeriMudra.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "GroupId,GroupName,CityIds")] CityGroup cityGroup)
+        public ActionResult Edit([Bind(Include = "GroupId,GroupName,CityIds")] CityGroup cityGroup, FormCollection fc)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(cityGroup).State = EntityState.Modified;
+                var selectedStateId = 0;
+                Int32.TryParse(fc["StateId"].ToString(), out selectedStateId);
+                var allCitysForGivenState = db.Citys.Where(c => c.StateId == selectedStateId);
+                var oldCityIds = cityGroup.CityIds.Split(',');
+                var selectedCityIds = new StringBuilder();
+                foreach (var cityId in oldCityIds)
+                {
+                    Int32.TryParse(cityId, out int id);
+                    if (!allCitysForGivenState.Any(c => c.Id == id)) { selectedCityIds.Append(cityId + ","); }
+                }
+                cityGroup.CityIds = (selectedCityIds.ToString() + fc["SelectedCityIds"]).Trim(',');
+                if (cityGroup.GroupId > 0)
+                {
+                    db.Entry(cityGroup).State = EntityState.Modified;
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

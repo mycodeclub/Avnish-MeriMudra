@@ -1,6 +1,4 @@
 ﻿@model MeriMudra.Models.ViewModels.CityGroupViewModel
-
-
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -8,58 +6,63 @@
     List<MeriMudra.Models.City> citiList = ViewBag.CitiList;
 }
 <div class="container">
-    <div class="row">
-        @*<div class="col-md-12 col-lg-12">
+    @using (Html.BeginForm("Edit", "CityGroups", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" value="@Model.CityIds" name="CityIds" />
+        <input type="hidden" value="@Model.GroupId" name="GroupId" />
+
+        <div class="form-group row">
+            <label class="control-label col-md-2" for="GroupName"><b>Group Name</b></label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GroupName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GroupName, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <br />
+            <div class="col-md-12 col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        List of citys in Group <b><i>@Model.GroupName</i></b>
+                        Following you can change the state from the drop-down and chose the city's to include in allowed city's list.
                     </div>
                     <div class="card-body">
-                        @Html.Partial("CityGroupPartialView", Model)
+                        <center>
+                            <b style="color:red;" class="pull-center">
+                                <i>
+                                    NOTE: You can only select the city's of 1 state at a time.
+                                </i>
+                            </b>
+                        </center><br />
+                        @Html.DropDownList("StateId", stateList, new
+                   {
+                       onchange = " ReloadCitys(this.options[this.selectedIndex].value)",
+                       @style = "display: initial;",
+                       @class = "form-control",
+                       @id = "StateDDL"
+                   })
+
+                        <div id="CitiesCheckList">
+                            @{ Html.RenderAction("GetCitiesByState", "CityGroups", new { stateId = 1, selctedCitysList = Model.CityIds }); }
+                        </div>
                     </div>
+                    <center>
+                        <input class="btn btn-lg btn-success pull-center" type="submit" value="save" />
+                    </center><br />
                 </div>
-
-            </div>*@
-        <div class="col-md-12 col-lg-12 card">
-            <div class="card-header">
-
             </div>
-            @using (Ajax.BeginForm("GetCitiesByState", "CityGroups",
-                new AjaxOptions { UpdateTargetId = "CitiesCheckList" }))
-            {
-                @Html.DropDownList("StateId", stateList, new
-           {
-               //onchange = "document.location.href = '/Admin/CityGroups/Edit/"+Model.GroupId+"?stateId=' + this.options[this.selectedIndex].value;",
-               onchang= "$(this).parents('form').submit()",
-               @style = "display: initial;",
-               @class = "form-control"
-           })
-                @*@Html.DropDownListFor(
-                        m => m.SelectedCategoryId,
-                        new SelectList(Model.Categories, "Id", "Name"),
-                    string.Empty
-                    )*@
-            }
-            <div id="CitiesCheckList">
-                @{ Html.RenderAction("GetCitiesByState", "CityGroups", new { stateId = 32, selctedCitysList = Model.CityIds }); }
-
-            </div>
-            @*<div class="card-body">
-                    <div class="row">
-                        @foreach (var item in citiList)
-                        {
-                            string selected = Model.CityIds.Split(',').Any(cId => cId.Equals(item.Id.ToString())) ? "checked" : string.Empty;
-                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                                <div class="checkbox">
-                                    <label><input type="checkbox" name="cityIds" @selected value="@item.Id">@item.Name</label>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                </div>*@
         </div>
-    </div>
+    }
 </div>
 
 
-
+@section scripts {
+    <script type="text/javascript">
+        function ReloadCitys(stateId) {
+            $.ajax({
+                 url: '/Admin/CityGroups/GetCitiesByState/@Model.GroupId?stateId='+Number(stateId)+'&selctedCitysList=@Model.CityIds',
+                success: function (data) { $('#CitiesCheckList').html(data);}
+            });
+        }
+    </script>
+}
