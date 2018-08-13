@@ -22,25 +22,41 @@
             </div>*@
         <div class="col-md-12 col-lg-12 card">
             <div class="card-header">
+
+            </div>
+            @using (Ajax.BeginForm("GetCitiesByState", "CityGroups",
+                new AjaxOptions { UpdateTargetId = "CitiesCheckList" }))
+            {
                 @Html.DropDownList("StateId", stateList, new
-{ onchange = "document.location.href = '/Admin/CityGroups/Edit/"+Model.GroupId+"?stateId=' + this.options[this.selectedIndex].value;",
-@style = "display: initial;",
-@class = "form-control"
-})
+           {
+               //onchange = "document.location.href = '/Admin/CityGroups/Edit/"+Model.GroupId+"?stateId=' + this.options[this.selectedIndex].value;",
+               onchang= "$(this).parents('form').submit()",
+               @style = "display: initial;",
+               @class = "form-control"
+           })
+                @*@Html.DropDownListFor(
+                        m => m.SelectedCategoryId,
+                        new SelectList(Model.Categories, "Id", "Name"),
+                    string.Empty
+                    )*@
+            }
+            <div id="CitiesCheckList">
+                @{ Html.RenderAction("GetCitiesByState", "CityGroups", new { stateId = 32, selctedCitysList = Model.CityIds }); }
+
             </div>
-            <div class="card-body">
-                <div class="row">
-                    @foreach (var item in citiList)
-                    {
-                        string selected = Model.CityIds.Split(',').Any(cId => cId.Equals(item.Id.ToString())) ? "checked" : string.Empty;
-                        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                            <div class="checkbox">
-                                <label><input type="checkbox" name="cityIds" @selected value="@item.Id">@item.Name</label>
+            @*<div class="card-body">
+                    <div class="row">
+                        @foreach (var item in citiList)
+                        {
+                            string selected = Model.CityIds.Split(',').Any(cId => cId.Equals(item.Id.ToString())) ? "checked" : string.Empty;
+                            <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-xs-12">
+                                <div class="checkbox">
+                                    <label><input type="checkbox" name="cityIds" @selected value="@item.Id">@item.Name</label>
+                                </div>
                             </div>
-                        </div>
-                    }
-                </div>
-            </div>
+                        }
+                    </div>
+                </div>*@
         </div>
     </div>
 </div>

@@ -123,5 +123,14 @@ namespace MeriMudra.Areas.Admin.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        /// <param name="id">  state Id</param>
+        /// <returns></returns>
+        public PartialViewResult GetCitiesByState(int stateId, string selctedCitysList = "")
+        {
+            ViewBag.selctedCitysList = selctedCitysList;
+            return PartialView(db.Citys.Where(c => c.StateId == stateId).OrderBy(c => c.Name).ToList());
+        }
     }
 }
