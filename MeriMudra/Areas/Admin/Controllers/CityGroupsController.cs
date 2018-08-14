@@ -70,7 +70,7 @@ namespace MeriMudra.Areas.Admin.Controllers
                 Value = s.StateId.ToString()
             }).ToList();
             ViewBag.CitiList = db.Citys.Where(c => c.StateId == stateId).ToList();
-            return View(new CityGroupViewModel(id.Value));
+            return View(id.HasValue ? new CityGroupViewModel(id.Value) : new CityGroupViewModel());
         }
 
         // POST: Admin/CityGroups/Edit/5
@@ -78,6 +78,7 @@ namespace MeriMudra.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+
         public ActionResult Edit([Bind(Include = "GroupId,GroupName,CityIds")] CityGroup cityGroup, FormCollection fc)
         {
             if (ModelState.IsValid)
@@ -85,18 +86,22 @@ namespace MeriMudra.Areas.Admin.Controllers
                 var selectedStateId = 0;
                 Int32.TryParse(fc["StateId"].ToString(), out selectedStateId);
                 var allCitysForGivenState = db.Citys.Where(c => c.StateId == selectedStateId);
-                var oldCityIds = cityGroup.CityIds.Split(',');
                 var selectedCityIds = new StringBuilder();
-                foreach (var cityId in oldCityIds)
+                if (!string.IsNullOrEmpty(cityGroup.CityIds))
                 {
-                    Int32.TryParse(cityId, out int id);
-                    if (!allCitysForGivenState.Any(c => c.Id == id)) { selectedCityIds.Append(cityId + ","); }
+                    var oldCityIds = cityGroup.CityIds.Split(',');
+                    foreach (var cityId in oldCityIds)
+                    {
+                        Int32.TryParse(cityId, out int id);
+                        if (!allCitysForGivenState.Any(c => c.Id == id)) { selectedCityIds.Append(cityId + ","); }
+                    }
                 }
                 cityGroup.CityIds = (selectedCityIds.ToString() + fc["SelectedCityIds"]).Trim(',');
                 if (cityGroup.GroupId > 0)
                 {
                     db.Entry(cityGroup).State = EntityState.Modified;
                 }
+                else { db.CityGroups.Add(cityGroup); }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

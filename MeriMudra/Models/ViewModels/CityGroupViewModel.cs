@@ -24,5 +24,8 @@ namespace MeriMudra.Models.ViewModels
             this.IncludedCitys = db.Citys.SqlQuery("SELECT Id, City as Name, StateId FROM dbo.CityMaster where id in (" + CityIds + ")").ToList<City>();
             IncludedCitys.ForEach(city => { city.State = db.States.Find(city.StateId); });
         }
+        public CityGroupViewModel()
+        {
+        }
     }
 }
