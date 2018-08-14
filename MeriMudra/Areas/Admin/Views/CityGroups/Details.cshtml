@@ -3,12 +3,18 @@
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-    <div class="col-xs-12 col-xl-12">
-        <b>Group Name : </b> @Model.GroupName
-        <a href="/Admin/CityGroups/Edit/@Model.GroupId" class="btn btn-success float-right">Edit</a>
+
+<div class="col-xs-12 col-xl-12">
+    <button class="btn btn-outline-info fa fa-backward pull-right" onclick="location.href = '/Admin/CityGroups/Index';"> Back to CityGroup List</button>
+    <br />
+    <br />
+    <div class="card">
+        <div class="card-header">
+            List of citys in Group <b><i>@Model.GroupName</i></b>
+            <label class="fa fa-edit btn btn-outline-secondary float-right" onclick="location.href='/Admin/CityGroups/Edit/@Model.GroupId'"> Edit </label>
+        </div>
+        <div class="card-body">
+            @Html.Partial("CityGroupPartialView", Model)
+        </div>
     </div>
 </div>
-<br />
-
-@Html.Partial("CityGroupPartialView", Model)

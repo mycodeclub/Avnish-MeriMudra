@@ -103,7 +103,7 @@ namespace MeriMudra.Areas.Admin.Controllers
                 }
                 else { db.CityGroups.Add(cityGroup); }
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", "CityGroups");
             }
             return View(cityGroup);
         }
@@ -150,6 +150,12 @@ namespace MeriMudra.Areas.Admin.Controllers
         {
             ViewBag.selctedCitysList = selctedCitysList;
             return PartialView(db.Citys.Where(c => c.StateId == stateId).OrderBy(c => c.Name).ToList());
+        }
+
+
+        public PartialViewResult CityGroupPartialView(int id)
+        {
+            return PartialView(new CityGroupViewModel(id));
         }
     }
 }
