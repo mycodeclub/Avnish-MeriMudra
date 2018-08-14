@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.Net.Compilers.2.8.2\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.8.2\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.8\build\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
@@ -271,10 +271,8 @@
     <Content Include="Areas\Admin\Views\Banks\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Banks\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Banks\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\CreditCards\Create.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\CreditCards\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\Index.cshtml" />
     <Content Include="fonts\Flaticon.eot" />
     <Content Include="fonts\Flaticon.ttf" />
@@ -388,7 +386,6 @@
     <Content Include="Areas\Admin\Views\UserCCApplyDetails\Details.cshtml" />
     <Content Include="Areas\Admin\Views\UserCCApplyDetails\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\UserCCApplyDetails\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\CreditCards\CreateOld.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\CcBasicPartialView.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\SaveCcBasic.cshtml" />
     <Content Include="Areas\Admin\Views\CreditCards\SaveCcBenefitsAndFeature.cshtml" />
