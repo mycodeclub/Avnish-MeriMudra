@@ -20,24 +20,25 @@
                                         <!-- card listing -->
                                         <div class="card-img">
                                             <a href="#">
-                                                <img src="images/cards/card-1.png" alt="Borrow - A Loan Company Website Templates">
+                                                <img src="@Model.CardImageUrl" alt="Borrow - A Loan Company Website Templates">
                                             </a>
                                         </div>
                                     </div>
                                     <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12 col-12">
-                                        <h2 class="card-name"><a href="#" class="title">Borrow Money Card</a></h2>
-                                        <p>You now don't have to spend more on your Rewards Credit Card to earn extra reward points. Simple way to reward your points.</p>
+                                        <h2 class="card-name"><a href="#" class="title">@Model.CardName</a></h2>
+                                        <p>@Model.CardDescription</p>
                                     </div>
-                                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12"><a href="#" class="btn btn-default btn-sm">Apply Now</a></div>
+                                    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12"><a href="/home/creditcard/@Model.CardId" class="btn btn-default btn-sm">Apply Now</a></div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <h3>Top reasons to get the Rewards Credit Card</h3>
                                     <ul class="listnone bullet bullet-check-circle-default">
-                                        <li>Earn 10 Reward Points for every Rs 125 spent at apparel & department stores and select partners.</li>
-                                        <li>Continue earning Reward Points at rate of 1 point for every Rs 125 on all other purchases.</li>
-                                        <li>Redeem points instantly at select partners.</li>
+                                        @foreach (var tr in Model.ReasonsToGetThisCard)
+                                        {
+                                            <li>@tr</li>
+                                        }
                                     </ul>
                                 </div>
                             </div>
@@ -86,7 +87,7 @@
                                                             }
                                                         </ul>
                                                     </div>
-                                                }   <p>For further details, please <a href="#">Click here</a></p>
+                                                }   <p>For further details, please <a href="/home/creditcard/@Model.CardId">Click here</a></p>
 
                                             </div>
                                             <div class="tab-pane fade" id="service3" role="tabpanel" aria-labelledby="tab-3">

@@ -1,4 +1,4 @@
-﻿@model MeriMudra.Models.CreditCardViewModel.CreditCardViewModel
+﻿@model MeriMudra.Models.ViewModels.CreditCardViewModel
 @{
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
@@ -23,7 +23,7 @@
                                 <th width="80%" colspan="2"><input class="form-control text-box single-line" name="Headding@(i + 1)" type="text" value="@Model._FeesAndCharge[i].HeadingText"></th>
                                 <th width="10%">
                                     <label class="fa fa-trash btn btn-danger" onclick="ccVM.RemoveHeading(this)">  </label>
-                                    <label class="fa fa-plus btn btn-success" onclick="ccVM.AddPointToFeesAndCharge(this)"></label>
+                                    <label class="fa fa-plus btn btn-success" onclick="ccVM.AddPointToFeesAndCharge(this,@(i + 1))"></label>
                                 </th>
                             </tr>
                         </thead>

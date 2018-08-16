@@ -1,0 +1,38 @@
+﻿@model IEnumerable<MeriMudra.Models.CityGroup>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>City Group</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Edit")
+</p>
+
+<table class="table">
+    <tr>
+        <th> Group Name</th>
+        <th> Number of cities </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupName)
+            </td>
+            <td>
+                @item.CityIds.Split(',').Count()
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.GroupId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.GroupId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.GroupId })
+            </td>
+        </tr>
+    }
+
+</table>

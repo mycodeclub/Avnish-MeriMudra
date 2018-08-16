@@ -5,77 +5,76 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">User Credit Card Apply Detail</div>
+        <div class="card-body">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.FullName):
+                            <span class="text-muted large">
+                                @Html.DisplayFor(model => model.FullName)
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.Mobile):
+                            <span class="text-muted large">
+                                @Html.DisplayFor(model => model.Mobile)
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.Email):
+                            <span class="text-muted large">
+                                @Html.DisplayFor(model => model.Email)
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.PAN):
+                            <span class="text-muted large">
+                                @Html.DisplayFor(model => model.PAN)
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.Aadhar):
+                            <span class="text-muted large">
+                                @Html.DisplayFor(model => model.Aadhar)
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            @Html.DisplayNameFor(model => model.Company):
+                            <span class="text-muted large">
+                                @Html.DisplayFor(model => model.Company)
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-3">@Html.DisplayNameFor(model => model.City):
+                            <span class="text-muted large">@Html.DisplayFor(model => model.City)
+                            </span>
+                        </div>
+                        <div class="col-md-3">@Html.DisplayNameFor(model => model.CreatedDate):
+                            <span class="text-muted large">@Html.DisplayFor(model => model.CreatedDate)
+                            </span>
+                        </div>
+                        <div class="col-md-3">
+                            <span class="text-muted large">
+                            </span>
+                        </div>
+                    </div>
+                </div>
 
-<div>
-    <h4>BusinessPartnerProgramme</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Mobile)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Mobile)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PAN)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PAN)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Aadhar)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Aadhar)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Company)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Company)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.City)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CreatedDate)
-        </dd>
-
-    </dl>
+            </div>
+        </div>
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
