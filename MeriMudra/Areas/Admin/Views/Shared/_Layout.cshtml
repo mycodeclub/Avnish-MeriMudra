@@ -14,6 +14,11 @@
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <div id="loading_image" style="display: none; height: 100%; width: 100%; background-color: rgba(226, 218, 218, 0.30); top: 0px; position: fixed; z-index: 199999;">
+        <div class="md-preloader" style="position: fixed; left: 50%; top: 40%;">
+            <img src="~/Areas/Admin/Scripts/load.gif" width="50px" />
+        </div>
+    </div>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
         <a class="navbar-brand" href="/Admin/Home/dashboard">
@@ -65,12 +70,23 @@
                         <i class="fa fa-fw fa-user-circle-o"></i>
                         <span class="nav-link-text">Loan Applcations</span>
                     </a>
-                </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                    <a class="nav-link" href="#">
-                        <i class="fa fa-fw fa-table"></i>
-                        <span class="nav-link-text">Tables</span>
+                </li>               
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                    <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+                        <i class="fa fa-fw fa-wrench"></i>
+                        <span class="nav-link-text">Report</span>
                     </a>
+                    <ul class="sidenav-second-level collapse" id="collapseComponents">
+                        <li>
+                            <a href="/Admin/Report/UserCreditCardApplyDetail">User Credit Card Apply</a>
+                        </li>
+                        <li>
+                            <a href="/Admin/Report/UserLoanApplyDetail">User Loan Apply</a>
+                        </li>
+                        <li>
+                            <a href="/Admin/Report/BusinessPartnerProgrammes">Business Partner Programmes</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
             <ul class="navbar-nav sidenav-toggler">
@@ -267,6 +283,9 @@
         <!-- Custom scripts for this page-->
         <script src="@Url.Content("~/Areas/Admin/Template/js/sb-admin-datatables.min.js")"></script>
         <script src="@Url.Content("~/Areas/Admin/Template/js/sb-admin-charts.js")"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
         @RenderSection("scripts", required: false)
     </div>
