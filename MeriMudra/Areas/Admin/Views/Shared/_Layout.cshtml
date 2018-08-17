@@ -48,6 +48,12 @@
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                    <a class="nav-link" href="/Admin/CityGroups/Index">
+                        <i class="fa fa-fw fa-area-chart"></i>
+                        <span class="nav-link-text">City Groups</span>
+                    </a>
+                </li>
+                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
                     <a class="nav-link" href="/Admin/BusinessPartnerProgrammes/Index">
                         <i class="fa fa-fw fa-area-chart"></i>
                         <span class="nav-link-text">BP Programmes</span>
@@ -200,14 +206,14 @@
         </div>
     </nav>
     @{ string baseurl = "";
-            if (HttpContext.Current.Request.ApplicationPath == "/")
-            {
-                baseurl = string.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority);
-            }
-            else
-            {
-                baseurl = string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority, HttpContext.Current.Request.ApplicationPath);
-            }}
+        if (HttpContext.Current.Request.ApplicationPath == "/")
+        {
+            baseurl = string.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority);
+        }
+        else
+        {
+            baseurl = string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority, HttpContext.Current.Request.ApplicationPath);
+        }}
     <span style="display: none" id="baseURL">@baseurl</span>
     <div class="content-wrapper" style="padding:25px;">
         @RenderBody()
@@ -255,7 +261,7 @@
                     <div class="modal-footer">
                         <button class="btn btn-primary" id="cinfirmBox">Yes</button>
                         <button class="btn btn-secondary" onclick="removeActionInConfirm();" type="button" data-dismiss="modal">No</button>
-                        
+
                     </div>
                 </div>
             </div>

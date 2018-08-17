@@ -1,5 +1,5 @@
 ﻿using MeriMudra.Models;
-using MeriMudra.Models.CreditCardViewModel;
+using MeriMudra.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

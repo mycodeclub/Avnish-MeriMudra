@@ -8,7 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace MeriMudra.Models.CreditCardViewModel
+namespace MeriMudra.Models.ViewModels
 {
 
     public enum CcInfoSection { CCHighLights, BenefitsAndFeatures, FeesAndCharges, RedeemRewards, BorrowPriviledges };
@@ -25,8 +25,9 @@ namespace MeriMudra.Models.CreditCardViewModel
         public string CardImageUrl { get; set; }
         public string BankName { get; set; }
         public string BankLogoUrl { get; set; }
-        public List<SelectListItem> BanksSelectList { get; set; }// new SelectList(db.Banks, "BankId", "Name");
+        public List<SelectListItem> BanksSelectList { get; set; }
         public string ServiceProvider { get; set; }
+        public List<CityGroupViewModel> CcFilter { get; set; }
         [Required]
         public List<string> ReasonsToGetThisCard { get; set; }
         [Required]
@@ -205,6 +206,7 @@ namespace MeriMudra.Models.CreditCardViewModel
             db.CreditCards.Remove(db.CreditCards.Find(cardId));
             db.SaveChanges();
         }
+
     }
     public class BenefitsAndFeature
     {
