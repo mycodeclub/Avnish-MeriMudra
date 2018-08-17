@@ -84,7 +84,7 @@ publish
 *.Publish.xml
 
 # NuGet Packages Directory
-MeriMudra/packages
+packages
 
 # Windows Azure Build Output
 csx
