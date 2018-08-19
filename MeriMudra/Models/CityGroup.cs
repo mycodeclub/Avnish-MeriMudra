@@ -10,6 +10,7 @@ namespace MeriMudra.Models
     [Table("CityGroup")]
     public class CityGroup
     {
+
         [Key]
         public int GroupId { get; set; }
 

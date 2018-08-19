@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using MeriMudra.Models.ViewModels;
+using System.Data.Entity;
 
 namespace MeriMudra.Models
 {
@@ -17,9 +18,9 @@ namespace MeriMudra.Models
         public virtual DbSet<CcInfoSectionMaster> CcInfoSectionMasters { get; set; }
         public virtual DbSet<Areas.Admin.Models.User> UserLogin { get; set; }
         public virtual DbSet<Company> Companys { get; set; }
-        //public virtual DbSet<UserCCApplyDetail> RegisterCCUserDetail { get; set; }
-        public virtual DbSet<MeriMudra.Models.UserCCApplyDetail> UserCCApplyDetail { get; set; }
-        public virtual DbSet<MeriMudra.Models.UserLoanApplyDetail> userLoanApplyDetail { get; set; }
+        public virtual DbSet<UserCCApplyDetail> UserCCApplyDetail { get; set; }
+        public virtual DbSet<UserLoanApplyDetail> UserLoanApplyDetail { get; set; }
+        public virtual DbSet<EligibilityCriteria> EligibilityCriterias { get; set; }
         public virtual DbSet<CityGroup> CityGroups { get; set; }
     }
 }

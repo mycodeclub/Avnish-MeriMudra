@@ -20,7 +20,7 @@ namespace MeriMudra.Areas.Admin.Controllers
         public ActionResult Dashboard()
         {
             var data = db.UserCCApplyDetail.ToList();
-            ViewData["loan_data"] = db.userLoanApplyDetail.ToList();
+            ViewData["loan_data"] = db.UserLoanApplyDetail.ToList();
             return View(data);
         }
     }

@@ -32,7 +32,7 @@ namespace MeriMudra.Areas.Admin.Controllers
         [HttpPost]
         public PartialViewResult prtuserLoanApplyDetail(string fromdate, string todate)
         {
-            var data = (from a in db.userLoanApplyDetail.ToList() where a.CreatedDate >= Convert.ToDateTime(fromdate) && a.CreatedDate <= Convert.ToDateTime(todate) select a);
+            var data = (from a in db.UserLoanApplyDetail.ToList() where a.CreatedDate >= Convert.ToDateTime(fromdate) && a.CreatedDate <= Convert.ToDateTime(todate) select a);
             return PartialView(data);
         }
         public ActionResult BusinessPartnerProgrammes()
