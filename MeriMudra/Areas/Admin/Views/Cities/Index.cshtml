@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     int sNo = 0;
 }
-
+@Html.AntiForgeryToken()
 <h2>Cities List</h2>
 
 @Html.DropDownList("StateId", states, new
@@ -41,7 +41,8 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                <a href="#" data-toggle="modal" data-target="#exampleDeleteBox" onclick="addActionInConfirmBox('UserCCApplyDetails', 'Delete', @item.Id);">Delete</a>
             </td>
         </tr>
     }

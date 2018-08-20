@@ -3127,6 +3127,7 @@ Card Listing Page
 }
 
     .card-img img {
+        width:100%;
     }
 
 .card-content {

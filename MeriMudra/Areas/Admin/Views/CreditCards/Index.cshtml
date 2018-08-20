@@ -6,48 +6,53 @@
 }
 
 <h2>Index</h2>
-
+@Html.AntiForgeryToken()
 <p>
     @*@Html.ActionLink("Create New", "Create")*@
     <a href="~/Admin/CreditCards/SaveCcBasic/0"> Create New</a>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Bank.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CardName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CardDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CardImageUrl)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Bank.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CardName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CardDescription)
-            </td>
-            <td>
-                <img src="@item.CardImageUrl" id="CardImageUrl" name="CardImageUrl" class="pull-center img-responsive circle" height="60px" width="100px">
-            </td>
-            <td>
-                @Html.ActionLink("View", "Details", new { id = item.CardId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.CardId })
-            </td>
-        </tr>
-    }
-
-</table>
+<div class="table-responsive">
+    <table class="table table-bordered dataTable" data-export-title="test" id="dataTable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Bank.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CardName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CardDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CardImageUrl)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bank.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CardName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CardDescription)
+                    </td>
+                    <td>
+                        <img src="@item.CardImageUrl" id="CardImageUrl" name="CardImageUrl" class="pull-center img-responsive circle" height="60px" width="100px">
+                    </td>
+                    <td>
+                        @Html.ActionLink("View", "Details", new { id = item.CardId }) |
+                        @*@Html.ActionLink("Delete", "Delete", new { id = item.CardId })*@
+                        <a href="#" data-toggle="modal" data-target="#exampleDeleteBox" onclick="addActionInConfirmBox('CreditCards', 'Delete', @item.CardId);">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

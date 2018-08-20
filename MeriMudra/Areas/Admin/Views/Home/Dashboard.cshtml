@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Dashboard";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var userLoanDetail = (List<MeriMudra.Models.UserLoanApplyDetail>)ViewData["loan_data"];
 }
 
 <div class="container-fluid">
@@ -14,11 +15,11 @@
     </ol>
     <div class="row">
 
-        <div class="col-lg-4">
+        <div class="col-lg-6">
             <!-- Example Pie Chart Card-->
             <div class="card mb-3">
                 <div class="card-header">
-                    <i class="fa fa-pie-chart"></i> Active/Inactive Users percentage
+                    <i class="fa fa-pie-chart"></i> Active/Inactive Users(CreditCard) percentage
                 </div>
                 <div class="card-body">
                     <canvas id="myPieChart" width="100%" height="100"></canvas>
@@ -28,58 +29,53 @@
             <!-- Example Notifications Card-->
 
         </div>
+        <div class="col-lg-6">
+            <!-- Example Pie Chart Card-->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-pie-chart"></i> Active/Inactive Users(Loan) percentage
+                </div>
+                <div class="card-body">
+                    <canvas id="myPieChart_Loan" width="100%" height="100"></canvas>
+                </div>
+                <div class="card-footer small text-muted"></div>
+            </div>
+            <!-- Example Notifications Card-->
+
+        </div>
     </div>
 
     <!-- Example DataTables Card-->
-    <div class="card mb-3">
-        <div class="card-header">
-            <i class="fa fa-table"></i> CC Userd Detail
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>City</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.Name</td>
-                                <td>@item.CityName</td>
-                                <td>@item.email</td>
-                                <td>@item.MobileNumber</td>
-                            </tr>
-                        }
-                       
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-    </div>
     
+
 </div>
 <!-- /.container-fluid-->
 
 <script>
     @{
-        int activeCount = (from m in Model where m.isUserActive select m.isUserActive).Count();
-        int inactiveCount= (from m in Model where !m.isUserActive select m.isUserActive).Count();
-        int total = activeCount + inactiveCount;
-        int a = (activeCount * 100) / (total);
-        int b = (inactiveCount * 100) / (total);
-    }
-   // alert(@inactiveCount+"_"+@activeCount);
-    //var array =
-    // alert(array);
-    //var _labels = JSON.parse(array);
-    //alert(_labels);
+        var active = 0;
+        var inActive  = 100;
+        var total = 0;
+        if (Model.Count() > 0)
+        {
+            var activeCount = (from m in Model where m.isUserActive select m.isUserActive).Count();
+            var inactiveCount = (from m in Model where !m.isUserActive select m.isUserActive).Count();
+            total = activeCount + inactiveCount;
+            active = (activeCount * 100) / (total);
+            inActive = (inactiveCount * 100) / (total);
+        }
+        var Loan_active = 0;
+        var Loan_inActive = 100;
+        var Loan_total = 0;
+        if (userLoanDetail.Count() > 0)
+        {
+            var Loan_activeCount = (from m in userLoanDetail where m.isUserActive select m.isUserActive).Count();
+            var Loan_inactiveCount = (from m in userLoanDetail where !m.isUserActive select m.isUserActive).Count();
+            Loan_total = Loan_activeCount + Loan_inactiveCount;
+            Loan_active = (Loan_activeCount * 100) / (Loan_total);
+            Loan_inActive = (Loan_inactiveCount * 100) / (Loan_total);
+        }
+           }
     setTimeout(function () {
         var ctx = document.getElementById("myPieChart");
         var myPieChart = new Chart(ctx, {
@@ -88,11 +84,26 @@
                 labels: ["Active %", "Inactive %"],//["Blue", "Red", "Yellow", "Green"],
                 datasets: [{
                     //data: [12.21, 15.58, 11.25, 8.32],
-                    data: [@a, @b],
+                    data: [@active, @inActive],
                     backgroundColor: ['#007bff', '#dc3545'],
                     //backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
                 }],
             },
         });
-    }, 1000)
+    }, 2000)
+    setTimeout(function () {
+        var ctx = document.getElementById("myPieChart_Loan");
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ["Active %", "Inactive %"],//["Blue", "Red", "Yellow", "Green"],
+                datasets: [{
+                    //data: [12.21, 15.58, 11.25, 8.32],
+                    data: [@Loan_active, @Loan_inActive],
+                    backgroundColor: ['#007bff', '#dc3545'],
+                    //backgroundColor: ['#007bff', '#dc3545', '#ffc107', '#28a745'],
+                }],
+            },
+        });
+    }, 2500)
 </script>

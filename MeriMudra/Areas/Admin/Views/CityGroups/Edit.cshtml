@@ -1,0 +1,103 @@
+﻿@model MeriMudra.Models.ViewModels.CityGroupViewModel
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    List<SelectListItem> stateList = ViewBag.StateList;
+    List<MeriMudra.Models.City> citiList = ViewBag.CitiList;
+}
+
+@using (Html.BeginForm("Edit", "CityGroups", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <input type="hidden" value="@Model.CityIds" name="CityIds" />
+    <input type="hidden" value="@Model.GroupId" name="GroupId" />
+
+
+    <div class="col-md-12 col-lg-12">
+        <div class="card">
+            <div class="card-header">
+                Following you can change the state from the drop-down and chose the city's to include in allowed city's list.
+                <button type="button" class="btn btn-info pull-right" data-toggle="modal" onclick="GetSelectedCitys()" data-target="#myModal">View</button>
+
+            </div>
+            <div class="card-body">
+                <div class="form-group row">
+                    <label class="control-label col-md-2" for="GroupName"><b>No. Of Citys In Group</b></label>
+                    <label class="control-label col-md-10" for="GroupName"><b> @Model.CityIds.Split(',').Count()</b></label>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2" for="GroupName"><b>Group Name</b></label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.GroupName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.GroupName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="control-label col-md-2" for="GroupName"><b>State </b></label>
+                    <div class="col-md-10">
+                        @Html.DropDownList("StateId", stateList, new
+                   {
+                       onchange = " ReloadCitys(this.options[this.selectedIndex].value)",
+                       @style = "display: initial;",
+                       @class = "form-control",
+                       @id = "StateDDL",
+                       @title= "NOTE: You can only select the city's of 1 state at a time.",
+                   })
+                    </div>
+                </div>
+                <button type="button" class="btn btn-outline-success" onclick="$('input:checkbox').attr('checked',true);">Check All </button>
+                <button type="button" class="btn btn-outline-danger float-right" onclick="$('input:checkbox').attr('checked', false);"> Un-Check All</button>
+                <div id="CitiesCheckList">
+                    @{ Html.RenderAction("GetCitiesByState", "CityGroups", new { stateId = 1, selctedCitysList = Model.CityIds }); }
+                </div>
+            </div>
+            <center>
+                <input class="btn btn-lg btn-success pull-center" type="submit" value="save" />
+            </center><br />
+        </div>
+    </div>
+
+}
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                List Of Citys<button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body" id="SelectedCitys">
+                @Html.Partial("CityGroupPartialView", Model)
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section scripts {
+    <script type="text/javascript">
+        function ReloadCitys(stateId) {
+            $.ajax({
+                 url: '/Admin/CityGroups/GetCitiesByState/@Model.GroupId?stateId='+Number(stateId)+'&selctedCitysList=@Model.CityIds',
+                success: function (data) { $('#CitiesCheckList').html(data);}
+            });
+        }
+
+        function GetSelectedCitys() {
+            $.ajax({
+                url: '/Admin/CityGroups/CityGroupPartialView/@Model.GroupId',
+                success: function (data) { $('#SelectedCitys').html(data);}
+            });
+        }
+    </script>
+}

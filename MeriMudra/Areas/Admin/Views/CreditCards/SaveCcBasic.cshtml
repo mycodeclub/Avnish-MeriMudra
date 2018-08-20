@@ -1,4 +1,4 @@
-﻿@model MeriMudra.Models.CreditCardViewModel.CreditCardViewModel
+﻿@model MeriMudra.Models.ViewModels.CreditCardViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -12,9 +12,9 @@
 {
     @Html.TextBoxFor(model => model.CardId, new { type = "hidden" })
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-horizontal">
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="card mb-3">
             <div class="card-header">
                 Credit Card Basic Information
@@ -22,13 +22,15 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-sm-12 col-md-3 space">
-                        @if (string.IsNullOrEmpty(Model.CardImageUrl))
-                        { Model.CardImageUrl = "/images/cards/card-1.png"; }
-                        else
-                        {@Html.TextBoxFor(model => model.CardImageUrl, new { type = "hidden" })}
-                        <img src="@Model.CardImageUrl" id="CardImage" class="pull-center img-responsive circle" style="max-height:180px;max-width:280px" />
-                        @Html.TextBoxFor(model => model.CardImageUpload, new { type = "file", @style = "padding-top: 5px;", onchange = "UpdateImage(this)" })
-                        @Html.ValidationMessageFor(model => model.CardImageUpload, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @if (string.IsNullOrEmpty(Model.CardImageUrl))
+                            { Model.CardImageUrl = "/images/cards/card-1.png"; }
+                            else
+                            {@Html.TextBoxFor(model => model.CardImageUrl, new { type = "hidden" })}
+                            <img src="@Model.CardImageUrl" id="CardImage" class="pull-center img-responsive circle" style="max-height:180px;max-width:280px" />
+                            @Html.TextBoxFor(model => model.CardImageUpload, new { type = "file", @style = "padding-top: 5px;", onchange = "UpdateImage(this)" })
+                            @Html.ValidationMessageFor(model => model.CardImageUpload, "", new { @class = "text-danger" })
+                        </div>
                     </div>
                     <div class="col-sm-12 col-md-3">
                         <div class="form-group">
@@ -47,7 +49,7 @@
                             @Html.ValidationMessageFor(model => model.CardName, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-5">
+                    <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                             @Html.LabelFor(model => model.CardDescription, htmlAttributes: new { @class = "control-label" })
                             @Html.TextAreaFor(m => m.CardDescription, new { @class = "form-control", @rows = "5" })
@@ -87,8 +89,18 @@
 }
 
 @section scripts {
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/js/bootstrap-multiselect.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.15/css/bootstrap-multiselect.css" type="text/css">
     <script src="~/Areas/Admin/Scripts/ccVM.js"></script>
     <script type="text/javascript">
-        function UpdateImage(obj) { $('#CardImage').attr('src', URL.createObjectURL(event.target.files[0])); }
+        function UpdateImage(obj) {
+            $('#CardImage').attr('src', URL.createObjectURL(event.target.files[0]));
+        }
     </script>
+    <script>
+        $(document).ready(function () {
+            $('#example-getting-started').multiselect();
+        });
+    </script>
+
 }

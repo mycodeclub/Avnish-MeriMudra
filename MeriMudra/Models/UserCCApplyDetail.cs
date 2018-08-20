@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace MeriMudra.Models
@@ -14,6 +15,7 @@ namespace MeriMudra.Models
         [NotMapped]
         public string employed_radios { get; set; }
         public string CompanyName { get; set; }
+        [DisplayName("Gross Income / Net Salary")]
         public decimal? GrossIncomeOrNetSalary { get; set; }
         public string Name { get; set; }
         public DateTime? DOB { get; set; }
@@ -35,10 +37,13 @@ namespace MeriMudra.Models
         public bool isMobileNumberVerify { get; set; }
         public bool isEmailVerify { get; set; }
         public bool isUserActive { get; set; }
+        [DisplayName("Apply Date")]
+        public DateTime? CreatedDate { get; set; }
+        public int CreditCardId { get; set; }
         public UserCCApplyDetail()
         {
             Id = 0;
-            EmployerType =true;
+            EmployerType = true;
             employed_radios = "";
             CompanyName = "";
             GrossIncomeOrNetSalary = 0;
@@ -61,7 +66,7 @@ namespace MeriMudra.Models
         }
 
     }
-    [Table("UserCCApplyDetail")]
+    [Table("UserLoanApplyDetail")]
     public class UserLoanApplyDetail
     {
         [Key]
@@ -93,16 +98,18 @@ namespace MeriMudra.Models
         public bool isEmailVerify { get; set; }
         public bool isUserActive { get; set; }
         public decimal? Intended_loan_amount { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public int LoanType { get; set; }
         public UserLoanApplyDetail()
         {
             Intended_loan_amount = 0;
-            Id = 0;
+            LoanType = Id = 0;
             EmployerType = true;
             employed_radios = "";
             CompanyName = "";
             GrossIncomeOrNetSalary = 0;
             Name = "";
-            DOB = DateTime.Now;
+            CreatedDate=DOB = DateTime.Now;
             CityName = "";
             CityId = "";
             PinCode = "";

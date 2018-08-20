@@ -1,0 +1,19 @@
+﻿@model MeriMudra.Models.ViewModels.CityGroupViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-xs-12 col-xl-12">
+    <button class="btn btn-outline-info fa fa-backward pull-right" onclick="location.href = '/Admin/CityGroups/Index';"> Back to CityGroup List</button>
+    <br />
+    <div class="card">
+        <div class="card-header">
+            List of citys in Group <b><i>@Model.GroupName</i></b>
+            <label class="fa fa-edit btn btn-outline-secondary float-right" onclick="location.href='/Admin/CityGroups/Edit/@Model.GroupId'"> Edit </label>
+        </div>
+        <div class="card-body">
+            @Html.Partial("CityGroupPartialView", Model)
+        </div>
+    </div>
+</div>

@@ -15,8 +15,9 @@ namespace MeriMudra.Controllers
     {
         // GET: Loan
         private MmDbContext db = new MmDbContext();
-        public ActionResult Index()
+        public ActionResult Index(int id=0)
         {
+            ViewBag.id = id;
             var model = new detailsForApplyCard { Banks = db.Banks.ToList(), CreditCards = db.CreditCards.ToList(), Citys = db.Citys.ToList(), Companys = db.Companys.ToList() };
             return View(model);
         }
@@ -70,6 +71,7 @@ namespace MeriMudra.Controllers
                     command.Parameters.AddWithValue("@CurrentOrPrevLoan", userdata._CurrentOrPrevLoan);
                     command.Parameters.AddWithValue("@EmployerType", userdata.EmployerType);
                     command.Parameters.AddWithValue("@Intended_loan_amount", userdata.Intended_loan_amount);
+                    command.Parameters.AddWithValue("@LoanType", userdata.LoanType);
                     if (isfinish == 1)
                         command.Parameters.AddWithValue("@isUserActive", true);
                     else

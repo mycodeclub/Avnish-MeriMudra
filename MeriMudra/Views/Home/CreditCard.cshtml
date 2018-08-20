@@ -16,124 +16,16 @@
     <!-- CSS Files -->
     <link href="~/wizardjs/bootstrap.min.css?123" rel="stylesheet">
     <link href="~/wizardjs/material-bootstrap-wizard.css" rel="stylesheet">
-    <!-- Latest compiled and minified CSS -->
-    <link href="~/wizardjs/Multiselect/multiselect.css" rel="stylesheet" />
+    <link href="~/wizardjs/dropdown/dist/css/bootstrap-select.css" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="~/wizardjs/demo.css" rel="stylesheet">
     <style>
-        .sprite-bank-CC {
-            background-image: url(https://bankbazaar.com/images/sprite/sprite-ex-cc-mob-v3.png);
-            width: 60px;
-            height: 60px;
-            background-repeat: no-repeat;
-            display: inline-block;
-            vertical-align: middle;
-            background-position: 0 300px;
-        }
-
-        .CC-American-Express {
-            background-position: -130px -130px;
-        }
-
-        .CC-Axis {
-            background-position: -2px -2px;
-        }
-
-        .CC-CITI {
-            background-position: -2px -66px;
-        }
-
-        .CC-HDFC {
-            background-position: -66px -2px;
-        }
-
-        .CC-ICICI {
-            background-position: -66px -66px;
-        }
-
-        .CC-SBI {
-            background-position: -130px -66px;
-        }
-
-        .CC-None {
-            background-position: -66px -130px;
-        }
-
-        .CC-Other {
-            background-position: -2px -130px;
-        }
-
-        .sprite-bank-desk {
-            background-image: url('../../wizardjs/sprite-bank-mob-v1.png');
-            background-repeat: no-repeat;
-            display: inline-block;
-            width: 68px;
-            height: 68px;
-            background-position: 0 150px;
-            vertical-align: middle;
-        }
-
-        .icon-bank-Axis {
-            background-position: -5px -5px;
-        }
-
-        .icon-bank-HDFC {
-            background-position: -75px -6px;
-        }
-
-        .icon-bank-CITI {
-            background-position: -145px -6px;
-        }
-
-        .icon-bank-Kotak-Mahindra {
-            background-position: -6px -75px;
-        }
-
-        .icon-bank-ICICI {
-            background-position: -75px -75px;
-        }
-
-        .icon-bank-IDBI {
-            background-position: -215px -75px;
-        }
-
-        .icon-bank-SBI {
-            background-position: -5px -145px;
-        }
-
-        .icon-bank-OTHER {
-            background-position: -74px -145px;
-        }
-
-        .sprite-city {
-            background-image: url('../../wizardjs/sprite-city-tab.png');
-            /*background-image: url('../../wizardjs/sprite-city.png');*/
-            width: 75px;
-            height: 88px;
-            background-repeat: no-repeat;
-            display: inline-block;
-            background-position: -190px -3px;
-            vertical-align: middle;
-        }
-
-        .icon-city-mumbai {
-            background-position: -99px -106px;
-        }
-
-        .icon-city-chennai {
-            background-position: -99px -8px;
-        }
-
-        .icon-city-new-delhi {
-            background-position: -8px -106px;
-        }
-
-        .icon-city-bangalore {
-            background-position: -8px -8px;
-        }
-
-        .icon-city-other, .icon-city-default {
-            background-position: -190px -3px;
+        .dropdown-toggle {
+            color: #333 !important;
+            background-color: #fff !important;
+            border-color: #ccc !important;
+            border: 1px solid #b6b3b3 !important;
+            border-radius: 4px !important;
         }
 
         input[type=radio], input[type=checkbox] {
@@ -179,16 +71,34 @@
                 background-color: #4caf50;
                 color: white;
             }
+        .Cicada-stripes {background-color: #026873;
+background-image: linear-gradient(90deg, rgba(255,255,255,.07) 50%, transparent 50%),
+linear-gradient(90deg, rgba(255,255,255,.13) 50%, transparent 50%),
+linear-gradient(90deg, transparent 50%, rgba(255,255,255,.17) 50%),
+linear-gradient(90deg, transparent 50%, rgba(255,255,255,.19) 50%);
+background-size: 13px, 29px, 37px, 53px;
+        
+        }
     </style>
 </head>
 <body>
+    @{ string baseurl = "";
+            if (HttpContext.Current.Request.ApplicationPath == "/")
+            {
+                baseurl = string.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority);
+            }
+            else
+            {
+                baseurl = string.Format("{0}://{1}{2}", HttpContext.Current.Request.Url.Scheme, HttpContext.Current.Request.Url.Authority, HttpContext.Current.Request.ApplicationPath);
+            }}
+    <span style="display: none" id="baseURL">@baseurl</span>
     @{
         var dateTime = DateTime.Now;
         // var IRT = (dateTime.Month >= 4 ? dateTime.Year + 1 : dateTime.Year);
         var ITR = dateTime.Month <= 3 ? (dateTime.Year - 1).ToString() + "-" + dateTime.Year : dateTime.Year + "-" + (dateTime.Year + 1).ToString();
     }
     @*<img src="~/wizardjs/wizard-book.jpg" />*@
-    <div class="image-container set-full-height" style="background-image: url(/wizardjs/wizard-book.jpg); height: auto;">
+    <div class="image-container set-full-height Cicada-stripes" @*style="background-image: url(/wizardjs/wizard-book.jpg); height: auto;"*@>
         <!--   Creative Tim Branding   -->
         <!--  Made With Material Kit  -->
         <a href="http://merimudra.com">
@@ -243,6 +153,8 @@
                                     <div class="tab-pane active" id="Company">
                                         <h4 class="info-text">Company I work for </h4>
                                         <div class="row">
+
+
                                             <div class="col-sm-10 col-sm-offset-1" style="text-align:center">
                                                 <input type="hidden" value="true" name="EmployerType" id="hdnRadio" />
                                                 <input type="radio" id="employed_radios1" name="employed_radios" value="1" checked="">
@@ -263,74 +175,96 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="Profile_Detail">
+                                        <input type="hidden" value="@ViewBag.id" name="CreditCardId" />
                                         <div class="row">
                                             @*<h4 class="info-text"> My existing credit cards are with</h4>*@
                                             <div class="col-sm-12">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <i style="font-size: 1.8em;" class="fa fa-user"></i>
-                                                    </span>
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label">My Name</label>
-                                                        <input required name="Name" autocomplete="off" type="text" class="form-control">
-                                                        <span class="material-input"></span>
+
+
+                                                <div class="col-sm-6">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i style="font-size: 1.8em;" class="fa fa-user"></i>
+                                                        </span>
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label class="control-label">My Name</label>
+                                                            <input required name="Name" autocomplete="off" type="text" class="form-control">
+                                                            <span class="material-input"></span>
+                                                        </div>
                                                     </div>
-                                                    <span class="input-group-addon">
-                                                        <i style="font-size: 1.8em;" class="fa fa-calendar"></i>
-                                                    </span>
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label">Date Of Birth</label>
-                                                        <input required name="DOB" readonly autocomplete="off" type="text" id="dateOfBirth" class="form-control">
-                                                        <span class="material-input"></span>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i style="font-size: 1.3em;" class="fa fa-envelope"></i>
+                                                        </span>
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label class="control-label">My email</label>
+                                                            <input required name="email" type="email" autocomplete="off" class="form-control">
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i style="font-size: 1.8em;" class="fa fa-mobile-phone"></i>
+                                                        </span>
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label class="control-label">My Mobile No</label>
+                                                            <input required maxlength="10" name="MobileNumber" autocomplete="off" type="text" onkeypress="return isNumber(event);" class="form-control">
+                                                            <span class="material-input"></span>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-sm-6">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i style="font-size: 1.8em;" class="fa fa-calendar"></i>
+                                                        </span>
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label class="control-label">Date Of Birth</label>
+                                                            <input required name="DOB" readonly autocomplete="off" type="text" id="dateOfBirth" class="form-control">
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i style="font-size: 1.8em;" class="fa fa-map-marker"></i>
+                                                        </span>
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label class="control-label">Pin code</label>
+                                                            <input required name="PinCode" maxlength="6" onkeypress="return isNumber(event);" type="text" autocomplete="off" class="form-control">
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i style="font-size: 1.8em;" class="fa fa-eye"></i>
+                                                        </span>
+                                                        <div class="form-group label-floating is-empty">
+                                                            <label class="control-label">OTP</label>
+                                                            <input name="OTP" disabled autocomplete="off" type="text" class="form-control">
+                                                            <span class="material-input"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <div class="input-group">
                                                     <span class="input-group-addon">
-                                                        <i style="font-size: 1.8em;" class="fa fa-home"></i>
+                                                        @*<i style="font-size: 1.8em;" class="fa fa-home"></i>*@
                                                     </span>
-                                                    <div class="form-group label-floating is-empty">
+                                                    <div class="form-group label-floating is-focused">
                                                         <label class="control-label">My city</label>
-                                                        <input required name="CityName" id="my_city" type="text" autocomplete="off" class="form-control">
-                                                        <input type="hidden" value="0" name="CityId" id="hdnCityId" />
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                    <span class="input-group-addon">
-                                                        <i style="font-size: 1.8em;" class="fa fa-map-marker"></i>
-                                                    </span>
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label">Pin code</label>
-                                                        <input required name="PinCode" maxlength="6" onkeypress="return isNumber(event);" type="text" autocomplete="off" class="form-control">
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <i style="font-size: 1.8em;" class="fa fa-mobile-phone"></i>
-                                                    </span>
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label">My Mobile No</label>
-                                                        <input required maxlength="10" name="MobileNumber" autocomplete="off" type="text" onkeypress="return isNumber(event);" class="form-control">
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                    <span class="input-group-addon">
-                                                        <i style="font-size: 1.8em;" class="fa fa-eye"></i>
-                                                    </span>
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label">OTP</label>
-                                                        <input name="OTP" disabled autocomplete="off" type="text" class="form-control">
+                                                        <select required name="CityId" id="my_city" class="selectpicker show-tick form-control" data-live-search="true">
+                                                            @foreach (var item in Model.Citys)
+                                                                {
+                                                                <option value="@item.Id">@item.Name</option>
+                                                            }
+                                                        </select>
+                                                        @*<input required name="" id="my_city" type="text" autocomplete="off" class="form-control">*@
+                                                        @*<input type="hidden" value="0" name="CityId" id="hdnCityId" />*@
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <i style="font-size: 1.3em;" class="fa fa-envelope"></i>
-                                                    </span>
-                                                    <div class="form-group label-floating is-empty">
-                                                        <label class="control-label">My email</label>
-                                                        <input required name="email" type="email" autocomplete="off" class="form-control">
-                                                        <span class="material-input"></span>
-                                                    </div>
-                                                </div>
+
+
 
                                             </div>
                                         </div>
@@ -339,37 +273,29 @@
                                         <div class="row">
                                             @*<h4 class="info-text" id="infoText"> I have savings bank accounts with</h4>*@
                                             <div class="col-sm-12">
-                                                <h5 class="info-text" style="margin:10px;">Account With</h5>
-                                                <div id="select7" class="select7_container">
-                                                    <div class="select7_arrow">&#9662;</div>
-                                                    <div class="select7_placeholder">select your bank</div>
-                                                    <input type="hidden" name="AccountWith" value="0" />
-                                                    <input type="hidden" name="AccountWith" value="0" />
-                                                    <select class="select7_select" name="" onchange="add_selected_item1(this, event);">
-                                                        <option class="select7_hide" value="filler"></option>
+                                                <h5 class="info-text" style="margin:10px;position:absolute;">Account With</h5>
+                                                <input type="hidden" name="AccountWith" value="0" />
+                                                <input type="hidden" name="AccountWith" value="0" />
+                                                <div style="padding:7px">
+                                                    <select id="tokens" name="AccountWith" class="selectpicker form-control" multiple data-live-search="false">
                                                         @foreach (var item in Model.Banks)
                                                         {
                                                             <option value="@item.BankId">@item.Name</option>
                                                             /**/
                                                         }
                                                     </select>
-                                                    <div class="select7_items"></div>
                                                 </div>
-                                                <h5 class="info-text" style="margin:10px;">My Existing Credit Card and its Max Limit</h5>
-                                                <div id="select7" class="select7_container">
-                                                    <div class="select7_arrow">&#9662;</div>
-                                                    <div class="select7_placeholder">select your bank</div>
+                                                <div style="padding-top:33px;">
+                                                    <h5 class="info-text" style="margin:10px;position:absolute;">My Existing Credit Card @*and its Max Limit*@</h5>
                                                     <input type="hidden" name="CreditCardWith" value="0" />
                                                     <input type="hidden" name="CreditCardWith" value="0" />
-                                                    <select class="select7_select" name="" onchange="add_selected_item2(this, event);">
-                                                        <option class="select7_hide" value="filler"></option>
+                                                    <select id="tokens" name="CreditCardWith" class="selectpicker form-control" multiple data-live-search="false">
                                                         @foreach (var item in Model.CreditCards)
                                                         {
                                                             <option value="@item.CardId">@item.CardName</option>
                                                             /**/
                                                         }
                                                     </select>
-                                                    <div class="select7_items"></div>
                                                 </div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon">
@@ -435,16 +361,16 @@
     <!--   Core JS Files   -->
 
     <script src="~/wizardjs/jquery-2.2.4.min.js" type="text/javascript"></script>
-    <script src="~/wizardjs/bootstrap.min.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    @*<script src="~/wizardjs/bootstrap.min.js" type="text/javascript"></script>*@
     <script src="~/wizardjs/jquery.bootstrap.js" type="text/javascript"></script>
     <script src="~/wizardjs/demo.js" type="text/javascript"></script>
     <script src="~/wizardjs/material-bootstrap-wizard.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="~/wizardjs/jquery.validate.min.js" type="text/javascript"></script>
     <script src="~/wizardjs/jquery.form.js"></script>
-    <script src="~/wizardjs/Multiselect/multiselect.js"></script>
     <script src="~/wizardjs/CreditCard.js"></script>
-
+    <script src="~/wizardjs/dropdown/dist/js/bootstrap-select.js"></script>
     <script src="~/wizardjs/bbootstrap-datepicker.js"></script>
     <script>
 
@@ -455,22 +381,22 @@
                 $("#savings_bank_accounts #infoText").html("My salary is deposited to");
                 $("#savings_bank_accounts .choice").attr("data-toggle", "wizard-radio");
                 $("#savings_bank_accounts[name=job]").attr("type", "radio");
-                $("#ComapanyName").removeAttr("readonly");
-                $("#ComapanyName").attr("placeholder", "Company Name");
+                //$("#ComapanyName").removeAttr("readonly");
+                //$("#ComapanyName").attr("placeholder", "Company Name");
                 $("#Income").attr("placeholder", "My net monthly salary is");
                 $("#ITR").hide();
-                $("#ComapanyName").attr("required", "true");
-                
+                //$("#ComapanyName").attr("required", "true");
+
             } else {
                 type = false;
                 $("#savings_bank_accounts #infoText").html("I have savings bank accounts with");
                 $("#savings_bank_accounts .choice").attr("data-toggle", "wizard-checkbox");
                 $("#savings_bank_accounts[name=job]").attr("type", "checkbox");
-                $("#ComapanyName").removeAttr("placeholder");
+                // $("#ComapanyName").removeAttr("placeholder");
                 $("#Income").attr("placeholder", "My gross annual income is");
-                $("#ComapanyName").val("");
-                $("#ComapanyName").attr("readonly", true);
-                $("#ComapanyName").removeAttr("required");
+                //$("#ComapanyName").val("");
+                //$("#ComapanyName").attr("readonly", true);
+                //$("#ComapanyName").removeAttr("required");
                 $("#ITR").show();
             }
             $("#hdnRadio").val(type);
@@ -479,29 +405,29 @@
     </script>
     <script>
 
-        $(function () {
+        @*$(function () {
             var model = '@Html.Raw(Json.Encode(from u in  Model.Citys select new {value=u.Name,id=u.Id }))';
             var availableTags = JSON.parse(model);
             // alert(availableTags);
-            $("#my_city").autocomplete({
-                minLength: 2,
-                source: function (request, response) {
-                    var matches = $.map(availableTags, function (acItem) {
-                        if (acItem.value.toUpperCase().indexOf(request.term.toUpperCase()) === 0) {
-                            return acItem;
-                        }
-                    });
-                    response(matches);
-                }
-            });
-        });
+            //$("#my_city").autocomplete({
+            //    minLength: 2,
+            //    source: function (request, response) {
+            //        var matches = $.map(availableTags, function (acItem) {
+            //            if (acItem.value.toUpperCase().indexOf(request.term.toUpperCase()) === 0) {
+            //                return acItem;
+            //            }
+            //        });
+            //        response(matches);
+            //    }
+            //});
+        });*@
         $(function () {
             var model = '@Html.Raw(Json.Encode(from u in  Model.Companys select new {value=u.CompanyName,id=u.CompanyId}))';
             var acList = JSON.parse(model);
             $('#ComapanyName').autocomplete({
                 minLength: 2,
                 source: function (request, response) {
-                    var matches = $.map(acList, function (acItem) {  
+                    var matches = $.map(acList, function (acItem) {
                         if (acItem.value.toUpperCase().indexOf(request.term.toUpperCase()) === 0) {
                             return acItem;
                         }

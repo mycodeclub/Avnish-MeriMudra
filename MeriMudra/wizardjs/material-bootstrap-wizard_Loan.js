@@ -78,12 +78,12 @@ $(document).ready(function () {
                 $validator.focusInvalid();
                 return false;
             } else {
-                var userid = getCookie("user_id");
+                var userid = getCookie("user_id_Loan");
                 if (userid != null) {
                     $("#Id").val(userid);
                 }
                 var promise = formDataToJSON($("#from_data"), 0);
-                debugger;
+                //debugger
                 promise.success(function (data) {
                     return true;
                 });
@@ -320,24 +320,25 @@ function formDataToJSON($formElement, isfinish) {
     //    convertedJSON[key] = value;
     //});
     var convertedJSON = JSON.stringify($formElement.serializeObject())
+    var FormActionURL = $("#baseURL").text() + "/Loan/savestep";
     var Paramerter = {
         convertedJSON: convertedJSON,
         isfinish: isfinish,
     }
     return $.ajax({
         type: "POST",
-        url: 'savestep',
+        url: FormActionURL,
         cache: false,
         //async: false,
         data: Paramerter,
         success: function (data) {
-            debugger;
+            //debugger
             if (isfinish == 0)
-                setCookie("user_id", data, 12);
+                setCookie("user_id_Loan", data, 12);
             else if (isfinish == 1) {
-                eraseCookie("user_id");
+                eraseCookie("user_id_Loan");
                 $("#Id").val(0);
-                window.location.href = "http://merimudra.com/CreditCard";
+                window.location.href = "http://merimudra.com";
             }
             // $("#htmlListOfProduct").html(data);
             // alert(data);

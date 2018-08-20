@@ -17,8 +17,9 @@ namespace MeriMudra.Controllers
         {
             return View();
         }
-        public ActionResult CreditCard()
+        public ActionResult CreditCard(int id=0)
         {
+            ViewBag.id = id;
             //sendsms.run("9140764725", "run");
             var model = new detailsForApplyCard { Banks = db.Banks.ToList(), CreditCards = db.CreditCards.ToList(), Citys = db.Citys.ToList(), Companys = db.Companys.ToList() };
             return View(model);
@@ -72,6 +73,7 @@ namespace MeriMudra.Controllers
                     command.Parameters.AddWithValue("@CreditCardMaxLimit", userdata.CreditCardMaxLimit);
                     command.Parameters.AddWithValue("@CurrentOrPrevLoan", userdata._CurrentOrPrevLoan);
                     command.Parameters.AddWithValue("@EmployerType", userdata.EmployerType);
+                    command.Parameters.AddWithValue("@CreditCardId", userdata.CreditCardId);
                     if (isfinish == 1)
                         command.Parameters.AddWithValue("@isUserActive", true);
                     else
