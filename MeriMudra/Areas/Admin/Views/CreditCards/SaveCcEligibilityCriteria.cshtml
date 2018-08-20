@@ -1,0 +1,147 @@
+﻿@model MeriMudra.Models.ViewModels.CreditCardViewModel
+@{
+    ViewBag.Title = " Eligibility Criteria";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    List<MeriMudra.Models.CityGroup> CityGroups = ViewBag.CityGroups;
+}
+<button class="btn btn-outline-info fa fa-backward pull-right" onclick="location.href = '/Admin/CreditCards/Index';"> Back to credit card list</button>
+<button class="btn btn-outline-info fa fa-backward" onclick="location.href = '/Admin/CreditCards/Details/1';"> Back to @Model.CardName credit card Details</button>
+@Html.Partial("CcBasicPartialView", Model)
+<br />
+<div class="card mb-3">
+    <div class="card-header">
+        Included City Groups with minimum ITR and Salary as Eligibility Criteria For @Model.CardName
+    </div>
+    <div id="EligibilityCriteriaSection" class="card-body">
+        <div class="form-horizontal" role="form">
+            <div class="form-group form-inline">
+                <div class="col-md-3">
+                    <select class="form-control" id="CityGroupDDL" onchange="IncludedCityGroup(this.options[this.selectedIndex].value)" style="display: initial;">
+                        <option value="-1"> -- Select CityGroup --</option>  @for (int i = 0; i < CityGroups.Count; i++)
+                        {
+                            var disabled = Model.EligibilityCriteria.Any(ec => ec.CityGroupId == CityGroups[i].GroupId) ? "disabled" : string.Empty;
+                            <option value="@CityGroups[i].GroupId" @disabled> @CityGroups[i].GroupName</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="MinItr" placeholder="Min ITR" />
+                </div>
+                <div class="col-md-3">
+                    <input type="text" class="form-control" id="MinItr" placeholder="Min Salary" />
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-success" onclick="IncludedIntoEligibilityCriteria()"> Inclued</button>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive">
+            @using (Html.BeginForm("SaveCcEligibilityCriteria", "CreditCards"))
+            {
+                <div class="form-horizontal">
+                    @Html.TextBoxFor(model => model.CardId, new { type = "hidden" })
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>City Group Name</th>
+                                <th>Min RTI</th>
+                                <th>Min Salary</th>
+                                <th>Remove</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ec in Model.EligibilityCriteria)
+                            {
+                                <tr>
+                                    <td><input type="text" readonly name="GroupName" value=" @ec.CityGroup.GroupName" style="border: 0px;"></td>
+                                    <td><input type="text" readonly name="MinItr" value=" @ec.MinItr" style="border: 0px;" /></td>
+                                    <td>
+                                        <input type="text" readonly name="MinSalary" value=" @ec.MinSalary" style="border: 0px;" />
+                                        <input type="hidden" name="CityGroupId" value="@ec.CityGroupId" />
+                                    </td>
+                                    <td>  <label class="fa fa-minus-circle btn btn-danger" onclick="RemoveFromEligibilityCriteria(@ec.CityGroup.GroupId)"></label></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <button type="submit">Update</button>}
+        </div>
+
+    </div>
+</div>
+@*<div class="card mb-3">
+        <div class="card-header">
+            Update Eligibility Criteria For @Model.CardName
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered dataTable table-hover" data-export-title="test" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th> S.No.</th>
+                            <th> Group Name</th>
+                            <th> Citys </th>
+                            <th>Min ITR</th>
+                            <th>Min Salary</th>
+                            <th>Add / Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < CityGroups.Count; i++)
+                        {
+                            <tr onMouseOver="this.style.cursor='pointer'" onclick="IncluedTogal(this)">
+                                <td> @(i + 1) </td>
+                                <td> @CityGroups[i].GroupName </td>
+                                <td> @CityGroups[i].CityIds.Split(',').Count() </td>
+                                <td> <input type="text" placeholder="Min ITR" class="form-control text-box single-line" /></td>
+                                <td> <input type="text" placeholder="Min Salary" class="form-control text-box single-line" /></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <label class="fa fa-plus btn btn-success" onclick="#"></label>
+                                        <label class="fa fa-minus-circle btn btn-danger" onclick="#"> </label>
+                                    </div>
+                                </td>
+                            </tr>}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>*@
+
+
+
+@section scripts {
+    <script src="~/Areas/Admin/Scripts/ccVM.js"></script>
+    <script>
+        function IncluedTogal(obj) {
+
+            $(obj).toggleClass("AddedGroup");
+            //$(obj).css('background-color', 'rgba(51, 218, 49, 0.28)');
+        }
+
+        function IncludedCityGroup(obj) {
+            alert(obj);
+        }
+
+        function RemoveFromEligibilityCriteria(CityGroupId) {
+            $('#CityGroupDDL option').each(function (i, j) {
+                if (Number($(j).attr("value")) == CityGroupId) {
+                    $(j).removeAttr("disabled");
+                }
+            });
+        }
+
+        function IncludedIntoEligibilityCriteria() {
+            var value = $('select#CityGroupDDL option:selected').val();
+            var text = $('select#CityGroupDDL option:selected').html();
+
+        }
+    </script>
+}
+<style type="text/css">
+    .AddedGroup {
+        background-color: rgba(51, 218, 49, 0.28) !important;
+    }
+</style>

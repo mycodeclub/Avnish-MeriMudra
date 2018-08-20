@@ -7,6 +7,7 @@ using System.Web;
 
 namespace MeriMudra.Models.ViewModels
 {
+    [NotMapped]
     public class CityGroupViewModel
     {
         public int GroupId { get; set; }

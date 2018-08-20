@@ -17,7 +17,7 @@ namespace MeriMudra.Areas.Admin.Controllers
         // GET: Admin/UserLoanApplyDetails
         public ActionResult Index()
         {
-            return View(db.userLoanApplyDetail.ToList());
+            return View(db.UserLoanApplyDetail.ToList());
         }
 
         // GET: Admin/UserLoanApplyDetails/Details/5
@@ -27,7 +27,7 @@ namespace MeriMudra.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserLoanApplyDetail userLoanApplyDetail = db.userLoanApplyDetail.Find(id);
+            UserLoanApplyDetail userLoanApplyDetail = db.UserLoanApplyDetail.Find(id);
             if (userLoanApplyDetail == null)
             {
                 return HttpNotFound();
@@ -50,7 +50,7 @@ namespace MeriMudra.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.userLoanApplyDetail.Add(userLoanApplyDetail);
+                db.UserLoanApplyDetail.Add(userLoanApplyDetail);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -65,7 +65,7 @@ namespace MeriMudra.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserLoanApplyDetail userLoanApplyDetail = db.userLoanApplyDetail.Find(id);
+            UserLoanApplyDetail userLoanApplyDetail = db.UserLoanApplyDetail.Find(id);
             if (userLoanApplyDetail == null)
             {
                 return HttpNotFound();
@@ -96,7 +96,7 @@ namespace MeriMudra.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserLoanApplyDetail userLoanApplyDetail = db.userLoanApplyDetail.Find(id);
+            UserLoanApplyDetail userLoanApplyDetail = db.UserLoanApplyDetail.Find(id);
             if (userLoanApplyDetail == null)
             {
                 return HttpNotFound();
@@ -109,8 +109,8 @@ namespace MeriMudra.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public void DeleteConfirmed(int id)
         {
-            UserLoanApplyDetail userLoanApplyDetail = db.userLoanApplyDetail.Find(id);
-            db.userLoanApplyDetail.Remove(userLoanApplyDetail);
+            UserLoanApplyDetail userLoanApplyDetail = db.UserLoanApplyDetail.Find(id);
+            db.UserLoanApplyDetail.Remove(userLoanApplyDetail);
             db.SaveChanges();
             //return RedirectToAction("Index");
         }

@@ -306,6 +306,47 @@ namespace MeriMudra.Areas.Admin.Controllers
                 return RedirectToAction("Details", new { id = ccVm.CardId });
             return View(ccVm);
         }
+
+
+
+        public ActionResult SaveCcEligibilityCriteria(int id)
+        {
+            CreditCardViewModel ccVm;
+            if (id > 0) ccVm = new CreditCardViewModel(id);
+            else ccVm = new CreditCardViewModel();
+            ViewBag.BankId = new SelectList(db.Banks, "BankId", "Name");
+            ViewBag.CityGroups = db.CityGroups.ToList();
+
+            return View(ccVm);
+        }
+        [HttpPost]
+        public ActionResult SaveCcEligibilityCriteria(CreditCardViewModel ccVm, FormCollection fc)
+        {
+            ccVm = new CreditCardViewModel(ccVm.CardId);
+            ccVm._BorrowPrivilege = new List<BorrowPrivilege>() { };
+            foreach (var key in fc.AllKeys)
+            {
+                if (key.Equals("CardId")) continue;
+                if (key.Contains("Key") || key.Contains("Value"))
+                {
+                    if (ccVm._BorrowPrivilege.Last().Points == null)
+                        ccVm._BorrowPrivilege.Last().Points = new List<KeyValuePair<string, string>> { };
+                    if (key.Contains("Key"))
+                    {
+                        int keyValueOrPointId = GetkeyValueOrPointId(key);
+                        int HeadingId = GetHeadingId(key, keyValueOrPointId.ToString().Length);
+                        ccVm._BorrowPrivilege.Last().Points.Add(new KeyValuePair<string, string>(fc[key], fc["Heading" + HeadingId + "Value" + keyValueOrPointId]));
+                    }
+                }
+                else { ccVm._BorrowPrivilege.Add(new BorrowPrivilege() { HeadingText = fc[key] }); }
+            }
+
+            //            if (ccVm.SaveCcBorrowPrivilege())
+            if (ccVm.SaveCcDetails(CcInfoSection.BorrowPriviledges))
+                return RedirectToAction("Details", new { id = ccVm.CardId });
+            return View(ccVm);
+        }
+
         private int GetkeyValueOrPointId(string str)
         {
             if (!int.TryParse(str.Substring(str.Length - 3), out int id))
@@ -324,5 +365,8 @@ namespace MeriMudra.Areas.Admin.Controllers
             }
             return id;
         }
+
+
+
     }
 }

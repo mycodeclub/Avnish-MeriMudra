@@ -1,0 +1,52 @@
+﻿@model IEnumerable<MeriMudra.Models.UserCCApplyDetail>
+<div class="table-responsive">
+    <table class="table table-bordered dataTable" data-export-column="6" data-export-title="User credit card detail" id="dataTable_button">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployerType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CompanyName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GrossIncomeOrNetSalary)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CityName)
+                </th>
+                <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (item.EmployerType.GetValueOrDefault())
+                {<label> Salaried</label>}
+                else
+                {<lable>Self-Employed</lable>}
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GrossIncomeOrNetSalary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CityName)
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                  
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

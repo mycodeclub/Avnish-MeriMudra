@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Scripts\ccVM.js" />
+    <Content Include="Areas\Admin\Scripts\load.gif" />
     <Content Include="Areas\Admin\Template\css\sb-admin.css" />
     <Content Include="Areas\Admin\Template\css\sb-admin.min.css" />
     <Content Include="Areas\Admin\Template\js\sb-admin-charts.js" />
@@ -507,7 +508,14 @@
     <Content Include="Areas\Admin\Views\CityGroups\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\CityGroups\Index.cshtml" />
     <Content Include="Areas\Admin\Views\CityGroups\CityGroupPartialView.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\usercreditcardapplydetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\prtUsercreditcardapplydetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\userLoanApplyDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\prtuserLoanApplyDetail.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\prtBusinessPartnerProgrammes.cshtml" />
+    <Content Include="Areas\Admin\Views\Report\BusinessPartnerProgrammes.cshtml" />
     <Content Include="Areas\Admin\Views\CityGroups\GetCitiesByState.cshtml" />
+    <Content Include="Areas\Admin\Views\CreditCards\SaveCcEligibilityCriteria.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\commonScript.js" />
@@ -531,6 +539,7 @@
     <Compile Include="Areas\Admin\Controllers\CreditCardsController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ReportController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserCCApplyDetailsController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserLoanApplyDetailsController.cs" />
     <Compile Include="Areas\Admin\Models\User.cs" />
@@ -551,11 +560,16 @@
     <Compile Include="Models\CityGroup.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\CreditCard.cs" />
+    <Compile Include="Models\ViewModels\BenefitsAndFeature.cs" />
+    <Compile Include="Models\ViewModels\BorrowPrivilege.cs" />
     <Compile Include="Models\ViewModels\CityGroupViewModel.cs" />
     <Compile Include="Models\ViewModels\CreditCardViewModel.cs" />
     <Compile Include="Models\MmDbContext.cs" />
     <Compile Include="Models\State.cs" />
     <Compile Include="Models\UserCCApplyDetail.cs" />
+    <Compile Include="Models\EligibilityCriteria.cs" />
+    <Compile Include="Models\ViewModels\FeesAndCharge.cs" />
+    <Compile Include="Models\ViewModels\RedeemReward.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

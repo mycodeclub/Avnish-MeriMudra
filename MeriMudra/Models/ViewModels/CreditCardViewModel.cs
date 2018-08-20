@@ -15,32 +15,6 @@ namespace MeriMudra.Models.ViewModels
 
     public class CreditCardViewModel
     {
-        private MmDbContext db = new MmDbContext();
-        public int BankId { get; set; }
-        public int CardId { get; set; }
-        [DisplayName("Credit Card Name")]
-        public string CardName { get; set; }
-        [DisplayName("Card Description")]
-        public string CardDescription { get; set; }
-        public string CardImageUrl { get; set; }
-        public string BankName { get; set; }
-        public string BankLogoUrl { get; set; }
-        public List<SelectListItem> BanksSelectList { get; set; }
-        public string ServiceProvider { get; set; }
-        public List<CityGroupViewModel> CcFilter { get; set; }
-        [Required]
-        public List<string> ReasonsToGetThisCard { get; set; }
-        [Required]
-        public List<BenefitsAndFeature> _BenefitsAndFeature { get; set; }
-        [Required]
-        public List<RedeemReward> _RedeemReward { get; set; }
-        [Required]
-        public List<FeesAndCharge> _FeesAndCharge { get; set; }
-        [Required]
-        public List<BorrowPrivilege> _BorrowPrivilege { get; set; }
-        [DisplayName("Card Image")]
-        [DataType(DataType.Upload)]
-        public HttpPostedFileBase CardImageUpload { get; set; }
         public CreditCardViewModel()
         {
             MmDbContext db = new MmDbContext();
@@ -54,6 +28,7 @@ namespace MeriMudra.Models.ViewModels
             _RedeemReward = new List<RedeemReward>() { new RedeemReward() { HeadingText = string.Empty, Points = new List<string>(), } };
             _FeesAndCharge = new List<FeesAndCharge>() { new FeesAndCharge() { HeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
             _BorrowPrivilege = new List<BorrowPrivilege>() { new BorrowPrivilege() { HeadingText = string.Empty, SubHeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
+            EligibilityCriteria = new List<EligibilityCriteria> { new EligibilityCriteria() };
         }
         public CreditCardViewModel(int CardId)
         {
@@ -118,7 +93,41 @@ namespace MeriMudra.Models.ViewModels
                 }
                 else _BorrowPrivilege.LastOrDefault().Points.Add(new KeyValuePair<string, string>(bf.Key_, bf.Value));
             }
+            if (db.EligibilityCriterias.Any(ec => ec.CardId == cCard.CardId))
+            {
+                EligibilityCriteria = db.EligibilityCriterias.Where(ec => ec.CardId == cCard.CardId).ToList();
+
+            }
+
         }
+        private MmDbContext db = new MmDbContext();
+        public int BankId { get; set; }
+        public int CardId { get; set; }
+        [DisplayName("Credit Card Name")]
+        public string CardName { get; set; }
+        [DisplayName("Card Description")]
+        public string CardDescription { get; set; }
+        public string CardImageUrl { get; set; }
+        public string BankName { get; set; }
+        public string BankLogoUrl { get; set; }
+        public List<SelectListItem> BanksSelectList { get; set; }
+        public string ServiceProvider { get; set; }
+        public List<CityGroupViewModel> CcFilter { get; set; }
+        [Required]
+        public List<string> ReasonsToGetThisCard { get; set; }
+        [Required]
+        public List<BenefitsAndFeature> _BenefitsAndFeature { get; set; }
+        [Required]
+        public List<RedeemReward> _RedeemReward { get; set; }
+        [Required]
+        public List<FeesAndCharge> _FeesAndCharge { get; set; }
+        [Required]
+        public List<BorrowPrivilege> _BorrowPrivilege { get; set; }
+        [DisplayName("Card Image")]
+        [DataType(DataType.Upload)]
+        public HttpPostedFileBase CardImageUpload { get; set; }
+
+        public List<EligibilityCriteria> EligibilityCriteria { get; set; }
         public int SaveBasic()
         {
             #region Save / Update Credit Card 
@@ -208,36 +217,8 @@ namespace MeriMudra.Models.ViewModels
         }
 
     }
-    public class BenefitsAndFeature
-    {
-        public int CardId { get; set; }
-        public string HeadingText { get; set; }
-        public List<string> Points { get; set; }
-    }
-    public class RedeemReward
-    {
-        [Required]
-        public string HeadingText { get; set; }
-        [Required]
-        public List<string> Points { get; set; }
-    }
-    public class FeesAndCharge
-    {
-        [Required]
-        public string HeadingText { get; set; }
 
-        [Required]
-        public List<KeyValuePair<string, string>> Points { get; set; }
-    }
-    public class BorrowPrivilege
-    {
-        [Required]
-        public string HeadingText { get; set; }
 
-        [Required]
-        public string SubHeadingText { get; set; }
 
-        [Required]
-        public List<KeyValuePair<string, string>> Points { get; set; }
-    }
+
 }
