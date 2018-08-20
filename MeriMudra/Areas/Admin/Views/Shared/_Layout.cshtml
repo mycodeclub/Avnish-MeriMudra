@@ -76,7 +76,7 @@
                         <i class="fa fa-fw fa-user-circle-o"></i>
                         <span class="nav-link-text">Loan Applcations</span>
                     </a>
-                </li>               
+                </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
                     <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
                         <i class="fa fa-fw fa-wrench"></i>
@@ -216,6 +216,12 @@
         }}
     <span style="display: none" id="baseURL">@baseurl</span>
     <div class="content-wrapper" style="padding:25px;">
+        <div id="alertSuccessMsg" class="alert alert-danger" style="display:none"></div>
+        <div id="alertSuccessMsg" class="alert alert-success" style="display:none"> </div>
+        <div id="alertInfoMsg" class="alert alert-info" style="display:none"> </div>
+        <div id="alertWarningMsg" class="alert alert-warning" style="display:none"> </div>
+        <div id="alertDangerMsg" class="alert alert-danger" style="display:none"> </div>
+
         @RenderBody()
         <!-- /.container-fluid-->
         <!-- /.content-wrapper-->
@@ -295,5 +301,12 @@
 
         @RenderSection("scripts", required: false)
     </div>
+    <script>
+        var close = '<a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>';
+        function SuccessAlert(msg) { $('#alertSuccessMsg').fadeIn().html(close + msg).fadeOut(9000); }
+        function InfoAlert(msg) { $('#alertInfoMsg').fadeIn().html(close + msg).fadeOut(9000); }
+        function WarningAlert(msg) { $('#alertWarningMsg').fadeIn().html(close + msg).fadeOut(9000); }
+        function DangerAlert(msg) { $('#alertDangerMsg').fadeIn().html(close + msg).fadeOut(9000); }
+    </script>
 </body>
 </html>

@@ -68,47 +68,6 @@
 
     </div>
 </div>
-@*<div class="card mb-3">
-        <div class="card-header">
-            Update Eligibility Criteria For @Model.CardName
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered dataTable table-hover" data-export-title="test" id="dataTable">
-                    <thead>
-                        <tr>
-                            <th> S.No.</th>
-                            <th> Group Name</th>
-                            <th> Citys </th>
-                            <th>Min ITR</th>
-                            <th>Min Salary</th>
-                            <th>Add / Remove</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < CityGroups.Count; i++)
-                        {
-                            <tr onMouseOver="this.style.cursor='pointer'" onclick="IncluedTogal(this)">
-                                <td> @(i + 1) </td>
-                                <td> @CityGroups[i].GroupName </td>
-                                <td> @CityGroups[i].CityIds.Split(',').Count() </td>
-                                <td> <input type="text" placeholder="Min ITR" class="form-control text-box single-line" /></td>
-                                <td> <input type="text" placeholder="Min Salary" class="form-control text-box single-line" /></td>
-                                <td>
-                                    <div class="btn-group">
-                                        <label class="fa fa-plus btn btn-success" onclick="#"></label>
-                                        <label class="fa fa-minus-circle btn btn-danger" onclick="#"> </label>
-                                    </div>
-                                </td>
-                            </tr>}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>*@
-
-
-
 @section scripts {
     <script src="~/Areas/Admin/Scripts/ccVM.js"></script>
     <script>
@@ -129,9 +88,9 @@
             var CityGroupName = $('select#CityGroupDDL option:selected').html();
             var MinItr = Number($('#MinItr').val());
             var MinSalary = Number($('#MinSalary').val());
-            if (CityGroupId < 1) { alert('Please Select CityGroup '); return; }
-            if (MinItr <= 0) { alert('Please enter a valid Amount in ITR '); $('#MinItr').val('').focus(); return; }
-            if (MinSalary <= 0) { alert('Please enter a valid Amount in Salary '); $('#MinSalary').val('').focus(); return; }
+            if (CityGroupId < 1) { WarningAlert('Please Select CityGroup '); return; }
+            if (MinItr <= 0) { WarningAlert('Please enter a valid Amount in ITR '); $('#MinItr').val('').focus(); return; }
+            if (MinSalary <= 0) { WarningAlert('Please enter a valid Amount in Salary '); $('#MinSalary').val('').focus(); return; }
             $('#CityGroupDDL option').each(function (i, j) {
                 if (Number($(j).attr("value")) == CityGroupId) {
                     $(j).attr("disabled", "disabled");
