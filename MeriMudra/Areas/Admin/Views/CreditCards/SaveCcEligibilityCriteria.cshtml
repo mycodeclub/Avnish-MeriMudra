@@ -16,7 +16,7 @@
         <div class="form-horizontal" role="form">
             <div class="form-group form-inline">
                 <div class="col-md-3">
-                    <select class="form-control" id="CityGroupDDL" onchange="IncludedCityGroup(this.options[this.selectedIndex].value)" style="display: initial;">
+                    <select class="form-control" id="CityGroupDDL" onchange="CityGroupDDLChange(this.options[this.selectedIndex].value)" style="display: initial;">
                         <option value="-1"> -- Select CityGroup --</option>  @for (int i = 0; i < CityGroups.Count; i++)
                         {
                             var disabled = Model.EligibilityCriteria.Any(ec => ec.CityGroupId == CityGroups[i].GroupId) ? "disabled" : string.Empty;
@@ -25,10 +25,10 @@
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <input type="text" class="form-control" id="MinItr" placeholder="Min ITR" />
+                    <input type="number" class="form-control" id="MinItr" placeholder="Min ITR" />
                 </div>
                 <div class="col-md-3">
-                    <input type="text" class="form-control" id="MinItr" placeholder="Min Salary" />
+                    <input type="number" class="form-control" id="MinSalary" placeholder="Min Salary" />
                 </div>
                 <div class="col-md-3">
                     <button type="button" class="btn btn-success" onclick="IncludedIntoEligibilityCriteria()"> Inclued</button>
@@ -40,7 +40,7 @@
             {
                 <div class="form-horizontal">
                     @Html.TextBoxFor(model => model.CardId, new { type = "hidden" })
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="IncludededEligibilityCriteria">
                         <thead>
                             <tr>
                                 <th>City Group Name</th>
@@ -54,13 +54,10 @@
                             @foreach (var ec in Model.EligibilityCriteria)
                             {
                                 <tr>
-                                    <td><input type="text" readonly name="GroupName" value=" @ec.CityGroup.GroupName" style="border: 0px;"></td>
+                                    <td><input type="text" readonly name="GroupName" value=" @ec.CityGroup.GroupName" style="border: 0px;"> <input type="hidden" name="CityGroupId" value="@ec.CityGroupId" /> </td>
                                     <td><input type="text" readonly name="MinItr" value=" @ec.MinItr" style="border: 0px;" /></td>
-                                    <td>
-                                        <input type="text" readonly name="MinSalary" value=" @ec.MinSalary" style="border: 0px;" />
-                                        <input type="hidden" name="CityGroupId" value="@ec.CityGroupId" />
-                                    </td>
-                                    <td>  <label class="fa fa-minus-circle btn btn-danger" onclick="RemoveFromEligibilityCriteria(@ec.CityGroup.GroupId)"></label></td>
+                                    <td><input type="text" readonly name="MinSalary" value=" @ec.MinSalary" style="border: 0px;" /> </td>
+                                    <td><label class="fa fa-minus-circle btn btn-danger" onclick="RemoveFromEligibilityCriteria(@ec.CityGroup.GroupId,this)"></label></td>
                                 </tr>
                             }
                         </tbody>
@@ -115,27 +112,42 @@
 @section scripts {
     <script src="~/Areas/Admin/Scripts/ccVM.js"></script>
     <script>
-        function IncluedTogal(obj) {
-
-            $(obj).toggleClass("AddedGroup");
-            //$(obj).css('background-color', 'rgba(51, 218, 49, 0.28)');
+        function CityGroupDDLChange(obj) {
+            $('#MinItr').val("");
+            $('#MinSalary').val("");
         }
-
-        function IncludedCityGroup(obj) {
-            alert(obj);
-        }
-
-        function RemoveFromEligibilityCriteria(CityGroupId) {
+        function RemoveFromEligibilityCriteria(CityGroupId, obj) {
             $('#CityGroupDDL option').each(function (i, j) {
                 if (Number($(j).attr("value")) == CityGroupId) {
                     $(j).removeAttr("disabled");
                 }
             });
+            $(obj).parent().parent().remove();
         }
-
         function IncludedIntoEligibilityCriteria() {
-            var value = $('select#CityGroupDDL option:selected').val();
-            var text = $('select#CityGroupDDL option:selected').html();
+            var CityGroupId = $('select#CityGroupDDL option:selected').val();
+            var CityGroupName = $('select#CityGroupDDL option:selected').html();
+            var MinItr = Number($('#MinItr').val());
+            var MinSalary = Number($('#MinSalary').val());
+            if (CityGroupId < 1) { alert('Please Select CityGroup '); return; }
+            if (MinItr <= 0) { alert('Please enter a valid Amount in ITR '); $('#MinItr').val('').focus(); return; }
+            if (MinSalary <= 0) { alert('Please enter a valid Amount in Salary '); $('#MinSalary').val('').focus(); return; }
+            $('#CityGroupDDL option').each(function (i, j) {
+                if (Number($(j).attr("value")) == CityGroupId) {
+                    $(j).attr("disabled", "disabled");
+                }
+            });
+            var row = "";
+            row += '	<tr>';
+            row += '		<td><input type="text" readonly="" name="GroupName" value="' + CityGroupName + '" style="border: 0px;"> <input type="hidden" name="CityGroupId" value="' + CityGroupId + '"> </td>';
+            row += '		<td><input type="number" readonly="" name="MinItr" value="' + MinItr + '" style="border: 0px;"></td>';
+            row += '		<td><input type="number" readonly="" name="MinSalary" value="' + MinSalary + '" style="border: 0px;"> </td>';
+            row += '		<td><label class="fa fa-minus-circle btn btn-danger" onclick="RemoveFromEligibilityCriteria(' + CityGroupId + ',this)"></label></td>';
+            row += '	</tr>';
+            $('#IncludededEligibilityCriteria tbody').append(row);
+            $('#MinItr').val("");
+            $('#MinSalary').val("");
+            $("#CityGroupDDL").val('-1');
 
         }
     </script>
