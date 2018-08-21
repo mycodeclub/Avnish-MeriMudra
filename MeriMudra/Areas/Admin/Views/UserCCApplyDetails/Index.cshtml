@@ -36,35 +36,38 @@
         </thead>
         <tbody>
             @foreach (var item in Model)
-        {
-        <tr>
-            <td>
-                @if (item.EmployerType.GetValueOrDefault())
-                {<label> Salaried</label>}
-                else
-                {<lable>Self-Employed</lable>}
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CompanyName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GrossIncomeOrNetSalary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CityName)
-            </td>
-            <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
-                <a href="#" data-toggle="modal" data-target="#exampleDeleteBox" onclick="addActionInConfirmBox('UserCCApplyDetails', 'Delete', @item.Id);">Delete</a>
-            </td>
-        </tr>
-        }
+            {
+                <tr>
+                    <td>
+                        @if (item.EmployerType.GetValueOrDefault())
+                        {<label> Salaried</label>}
+                        else
+                        {<lable>Self-Employed</lable>}
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GrossIncomeOrNetSalary)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CityName)
+                    </td>
+                    <td>
+                        @{ string date = "";
+                            if (item.CreatedDate.HasValue) { date = item.CreatedDate.Value.ToString("dd-MMM-yyyy"); } }
+                        @date
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        <a href="#" data-toggle="modal" data-target="#exampleDeleteBox" onclick="addActionInConfirmBox('UserCCApplyDetails', 'Delete', @item.Id);">Delete</a>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>

@@ -12,7 +12,7 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">User Loan Apply Detail</div>
-       
+
         <div class="table-responsive">
             <table class="table table-bordered dataTable table-responsive-sm" data-export-column="6" data-export-title="User credit card detail" id="dataTable_button">
 
@@ -36,20 +36,23 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Intended_loan_amount)
                         </th>
-                        <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CreatedDate)
+
+                        </th>
 
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
-            {
+                    {
                         <tr>
                             <td>
                                 @if (item.EmployerType.GetValueOrDefault())
-                {<label> Salaried</label>}
-                else
-                {<lable>Self-Employed</lable>}
+                                {<label> Salaried</label>}
+                                else
+                                {<lable>Self-Employed</lable>}
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.CompanyName)
@@ -64,7 +67,11 @@
                                 @Html.DisplayFor(modelItem => item.CityName)
                             </td>
                             <td>@Html.DisplayFor(modelItem => item.Intended_loan_amount)</td>
-                            <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                            <td>
+                                @{ string date = "";
+                                    if (item.CreatedDate.HasValue) { date = item.CreatedDate.Value.ToString("dd-MMM-yyyy"); } }
+                                @date
+                            </td>
                             <td>
                                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
