@@ -101,9 +101,12 @@ namespace MeriMudra.Areas.Admin.Controllers
                 {
                     db.Entry(cityGroup).State = EntityState.Modified;
                 }
-                else { db.CityGroups.Add(cityGroup); }
-                db.SaveChanges();
-                return RedirectToAction("Edit", "CityGroups");
+                else
+                {
+                    db.CityGroups.Add(cityGroup);
+                }
+                var x = db.SaveChanges();
+                return RedirectToAction("Edit", "CityGroups", new { id = cityGroup.GroupId });
             }
             return View(cityGroup);
         }

@@ -19,7 +19,11 @@
                     <select class="form-control" id="CityGroupDDL" onchange="CityGroupDDLChange(this.options[this.selectedIndex].value)" style="display: initial;">
                         <option value="-1"> -- Select CityGroup --</option>  @for (int i = 0; i < CityGroups.Count; i++)
                         {
-                            var disabled = Model.EligibilityCriteria.Any(ec => ec.CityGroupId == CityGroups[i].GroupId) ? "disabled" : string.Empty;
+                            var disabled = string.Empty;
+                            if (Model.EligibilityCriteria != null && Model.EligibilityCriteria.Count > 0)
+                            {
+                                disabled = Model.EligibilityCriteria.Any(ec => ec.CityGroupId == CityGroups[i].GroupId) ? "disabled" : string.Empty;
+                            }
                             <option value="@CityGroups[i].GroupId" @disabled> @CityGroups[i].GroupName</option>
                         }
                     </select>
@@ -47,25 +51,29 @@
                                 <th>Min RTI</th>
                                 <th>Min Salary</th>
                                 <th>Remove</th>
-
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var ec in Model.EligibilityCriteria)
+                            @if (Model.EligibilityCriteria != null)
                             {
-                                <tr>
-                                    <td><input type="text" readonly name="GroupName" value=" @ec.CityGroup.GroupName" style="border: 0px;"> <input type="hidden" name="CityGroupId" value="@ec.CityGroupId" /> </td>
-                                    <td><input type="text" readonly name="MinItr" value=" @ec.MinItr" style="border: 0px;" /></td>
-                                    <td><input type="text" readonly name="MinSalary" value=" @ec.MinSalary" style="border: 0px;" /> </td>
-                                    <td><label class="fa fa-minus-circle btn btn-danger" onclick="RemoveFromEligibilityCriteria(@ec.CityGroup.GroupId,this)"></label></td>
-                                </tr>
+                                foreach (var ec in Model.EligibilityCriteria)
+                                {
+                                    <tr>
+                                        <td><input type="hidden" value="=@ec.EligibilityCriteriaId" name="EligibilityCriteriaId" /><input type="text" readonly name="GroupName" value=" @ec.CityGroup.GroupName" style="border: 0px;"> <input type="hidden" name="CityGroupId" value="@ec.CityGroupId" /> </td>
+                                        <td><input type="text" readonly name="MinItr" value=" @ec.MinItr" style="border: 0px;" /></td>
+                                        <td><input type="text" readonly name="MinSalary" value=" @ec.MinSalary" style="border: 0px;" /> </td>
+                                        <td><label class="fa fa-minus-circle btn btn-danger" onclick="RemoveFromEligibilityCriteria(@ec.CityGroup.GroupId,this)"></label></td>
+                                    </tr>
+                                }
                             }
                         </tbody>
                     </table>
                 </div>
-                <button type="submit">Update</button>}
+                <center>
+                    <button type="submit" class="btn btn-success">Update</button>
+                </center>
+            }
         </div>
-
     </div>
 </div>
 @section scripts {
