@@ -4,6 +4,9 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     List<SelectListItem> stateList = ViewBag.StateList;
     List<MeriMudra.Models.City> citiList = ViewBag.CitiList;
+    int noOfCitysInGroup = 0;
+    if (!string.IsNullOrEmpty(@Model.CityIds))
+    { noOfCitysInGroup = @Model.CityIds.Split(',').Count(); }
 }
 
 @using (Html.BeginForm("Edit", "CityGroups", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -24,7 +27,7 @@
             <div class="card-body">
                 <div class="form-group row">
                     <label class="control-label col-md-2" for="GroupName"><b>No. Of Citys In Group</b></label>
-                    <label class="control-label col-md-10" for="GroupName"><b> @Model.CityIds.Split(',').Count()</b></label>
+                    <label class="control-label col-md-10" for="GroupName"><b> @noOfCitysInGroup</b></label>
                 </div>
                 <div class="form-group row">
                     <label class="control-label col-md-2" for="GroupName"><b>Group Name</b></label>
@@ -37,13 +40,13 @@
                     <label class="control-label col-md-2" for="GroupName"><b>State </b></label>
                     <div class="col-md-10">
                         @Html.DropDownList("StateId", stateList, new
-                   {
-                       onchange = " ReloadCitys(this.options[this.selectedIndex].value)",
-                       @style = "display: initial;",
-                       @class = "form-control",
-                       @id = "StateDDL",
-                       @title= "NOTE: You can only select the city's of 1 state at a time.",
-                   })
+                        {
+                            onchange = " ReloadCitys(this.options[this.selectedIndex].value)",
+                            @style = "display: initial;",
+                            @class = "form-control",
+                            @id = "StateDDL",
+                            @title = "NOTE: You can only select the city's of 1 state at a time.",
+                        })
                     </div>
                 </div>
                 <button type="button" class="btn btn-outline-success" onclick="$('input:checkbox').attr('checked',true);">Check All </button>

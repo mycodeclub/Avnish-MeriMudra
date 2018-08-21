@@ -320,31 +320,30 @@ namespace MeriMudra.Areas.Admin.Controllers
             return View(ccVm);
         }
         [HttpPost]
-        public ActionResult SaveCcEligibilityCriteria(CreditCardViewModel ccVm, FormCollection fc)
-        {
-            ccVm = new CreditCardViewModel(ccVm.CardId);
-            ccVm._BorrowPrivilege = new List<BorrowPrivilege>() { };
-            foreach (var key in fc.AllKeys)
-            {
-                if (key.Equals("CardId")) continue;
-                if (key.Contains("Key") || key.Contains("Value"))
-                {
-                    if (ccVm._BorrowPrivilege.Last().Points == null)
-                        ccVm._BorrowPrivilege.Last().Points = new List<KeyValuePair<string, string>> { };
-                    if (key.Contains("Key"))
-                    {
-                        int keyValueOrPointId = GetkeyValueOrPointId(key);
-                        int HeadingId = GetHeadingId(key, keyValueOrPointId.ToString().Length);
-                        ccVm._BorrowPrivilege.Last().Points.Add(new KeyValuePair<string, string>(fc[key], fc["Heading" + HeadingId + "Value" + keyValueOrPointId]));
-                    }
-                }
-                else { ccVm._BorrowPrivilege.Add(new BorrowPrivilege() { HeadingText = fc[key] }); }
-            }
 
-            //            if (ccVm.SaveCcBorrowPrivilege())
-            if (ccVm.SaveCcDetails(CcInfoSection.BorrowPriviledges))
-                return RedirectToAction("Details", new { id = ccVm.CardId });
-            return View(ccVm);
+        public ActionResult SaveCcEligibilityCriteria(FormCollection fc)
+        {
+            int CardId = 0;
+            try
+            {
+                int.TryParse(fc["CardId"], out CardId);
+                db.EligibilityCriterias.RemoveRange(db.EligibilityCriterias.Where(ec => ec.CardId == CardId).ToList());
+                var x = db.SaveChanges();
+                var CityGroupIds = fc["CityGroupId"].Split(',');
+                var MinItr = fc["MinItr"].Split(',');
+                var MinSalary = fc["MinSalary"].Split(',');
+                for (int index = 0; index < CityGroupIds.Count(); index++)
+                    db.EligibilityCriterias.Add(new EligibilityCriteria()
+                    {
+                        CardId = CardId,
+                        CityGroupId = Convert.ToInt32(CityGroupIds[index]),
+                        MinItr = Convert.ToDouble(MinItr[index]),
+                        MinSalary = Convert.ToDouble(MinSalary[index])
+                    });
+                db.SaveChanges();
+            }
+            catch { }
+            return RedirectToAction("SaveCcEligibilityCriteria", CardId);
         }
 
         private int GetkeyValueOrPointId(string str)
