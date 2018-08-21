@@ -35,10 +35,43 @@ namespace MeriMudra.Controllers
             var userCcApplication = db.UserCCApplyDetail.Find(id);
             if (userCcApplication == null) return HttpNotFound();
             var cGrp = (from cg in db.CityGroups select new { cg.GroupId, cg.CityIds }).AsEnumerable().Select(item => new KeyValuePair<int, string>(item.GroupId, item.CityIds)).ToList();
-            foreach (var item in cGrp) if (item.Value.Split(',').Any(cid => cid.Equals(userCcApplication.CityId.ToString()))) avilableCityGroupId.Add(item.Key);
-            foreach (var cgId in avilableCityGroupId) avilableCardids.AddRange(db.CcEligibilityCriterias.Where(ec => ec.CityGroupId == cgId).Select(ec => ec.CardId).ToList());
+            foreach (var item in cGrp)
+            {
+                if (item.Value.Split(',').Any(cid => cid.Equals(userCcApplication.CityId.ToString())))
+                {
+                    avilableCityGroupId.Add(item.Key);
+                }
+            }
+
+            foreach (var cgId in avilableCityGroupId)
+            {
+                avilableCardids.AddRange(db.CcEligibilityCriterias.Where(ec => ec.CityGroupId == cgId).Select(ec => ec.CardId).ToList());
+                var ecs = db.CcEligibilityCriterias.Where(ec => ec.CityGroupId == cgId).ToList();
+                foreach (var ec in ecs)
+                {
+                    if (userCcApplication.EmployerType.Value)
+                    {
+                        if (userCcApplication.GrossIncomeOrNetSalary.Value >= ec.MinSalary)
+                        {
+                            userCcApplication.CreditCardId = ec.CardId;
+                            db.SaveChanges(); break;
+                        }
+                    }
+                    else
+                    {
+                        if (userCcApplication.GrossIncomeOrNetSalary.Value >= ec.MinItr)
+                        {
+                            userCcApplication.CreditCardId = ec.CardId;
+                            db.SaveChanges(); break;
+                        }
+                    }
+                }
+            }
+
             avilableCardids = avilableCardids.Distinct().ToList();
+
             foreach (var cardId in avilableCardids) avilableCreditCards.Add(db.CreditCards.Find(cardId));
+            ViewBag.userCcApplication = userCcApplication;
             return View(avilableCreditCards);
         }
     }

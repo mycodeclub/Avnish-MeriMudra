@@ -337,8 +337,8 @@ namespace MeriMudra.Areas.Admin.Controllers
                     {
                         CardId = CardId,
                         CityGroupId = Convert.ToInt32(CityGroupIds[index]),
-                        MinItr = Convert.ToDouble(MinItr[index]),
-                        MinSalary = Convert.ToDouble(MinSalary[index])
+                        MinItr = Convert.ToDecimal(MinItr[index]),
+                        MinSalary = Convert.ToDecimal(MinSalary[index])
                     });
                 db.SaveChanges();
             }

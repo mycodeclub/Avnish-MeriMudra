@@ -13,9 +13,9 @@ namespace MeriMudra.Models
         public int CardId { get; set; }
         public int CityGroupId { get; set; }
         [DisplayName("Allowed Min Salary ")]
-        public double MinSalary { get; set; }
+        public decimal MinSalary { get; set; }
         [DisplayName("Allowed Min ITR ")]
-        public double MinItr { get; set; }
+        public decimal MinItr { get; set; }
         public CityGroupViewModel CityGroup { get { return new CityGroupViewModel(CityGroupId); } }
 
     }
