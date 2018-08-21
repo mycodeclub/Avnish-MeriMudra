@@ -23,5 +23,11 @@ namespace MeriMudra.Controllers
             var ccViewModel = new CreditCardViewModel(id);
             return View(ccViewModel);
         }
+
+        // Pass CreditCard Application Id
+        public ActionResult AvilableCreditCardsAsPerApplication(int? id)
+        {
+            return View();
+        }
     }
 }
