@@ -20,7 +20,7 @@ namespace MeriMudra.Models
         public virtual DbSet<Company> Companys { get; set; }
         public virtual DbSet<UserCCApplyDetail> UserCCApplyDetail { get; set; }
         public virtual DbSet<UserLoanApplyDetail> UserLoanApplyDetail { get; set; }
-        public virtual DbSet<EligibilityCriteria> EligibilityCriterias { get; set; }
+        public virtual DbSet<EligibilityCriteria> CcEligibilityCriterias { get; set; }
         public virtual DbSet<CityGroup> CityGroups { get; set; }
     }
 }

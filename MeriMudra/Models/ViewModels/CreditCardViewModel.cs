@@ -93,9 +93,9 @@ namespace MeriMudra.Models.ViewModels
                 }
                 else _BorrowPrivilege.LastOrDefault().Points.Add(new KeyValuePair<string, string>(bf.Key_, bf.Value));
             }
-            if (db.EligibilityCriterias.Any(ec => ec.CardId == cCard.CardId))
+            if (db.CcEligibilityCriterias.Any(ec => ec.CardId == cCard.CardId))
             {
-                EligibilityCriteria = db.EligibilityCriterias.Where(ec => ec.CardId == cCard.CardId).ToList();
+                EligibilityCriteria = db.CcEligibilityCriterias.Where(ec => ec.CardId == cCard.CardId).ToList();
 
             }
 

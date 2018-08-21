@@ -327,13 +327,13 @@ namespace MeriMudra.Areas.Admin.Controllers
             try
             {
                 int.TryParse(fc["CardId"], out CardId);
-                db.EligibilityCriterias.RemoveRange(db.EligibilityCriterias.Where(ec => ec.CardId == CardId).ToList());
+                db.CcEligibilityCriterias.RemoveRange(db.CcEligibilityCriterias.Where(ec => ec.CardId == CardId).ToList());
                 var x = db.SaveChanges();
                 var CityGroupIds = fc["CityGroupId"].Split(',');
                 var MinItr = fc["MinItr"].Split(',');
                 var MinSalary = fc["MinSalary"].Split(',');
                 for (int index = 0; index < CityGroupIds.Count(); index++)
-                    db.EligibilityCriterias.Add(new EligibilityCriteria()
+                    db.CcEligibilityCriterias.Add(new EligibilityCriteria()
                     {
                         CardId = CardId,
                         CityGroupId = Convert.ToInt32(CityGroupIds[index]),

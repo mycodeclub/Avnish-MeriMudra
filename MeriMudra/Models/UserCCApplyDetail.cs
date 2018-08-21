@@ -22,8 +22,8 @@ namespace MeriMudra.Models
         public DateTime? DOB { get; set; }
         [DisplayName("City")]
         public string CityName { get; set; }
-        [NotMapped]
-        public string CityId { get; set; }
+
+        public int CityId { get; set; }
         [NotMapped]
         public string PinCode { get; set; }
         [DisplayName("Mobile")]
@@ -54,7 +54,7 @@ namespace MeriMudra.Models
             Name = "";
             DOB = DateTime.Now;
             CityName = "";
-            CityId = "";
+            CityId = 0;
             PinCode = "";
             MobileNumber = "";
             email = "";
