@@ -78,6 +78,17 @@ $(document).ready(function () {
                 $validator.focusInvalid();
                 return false;
             } else {
+                var phonenumber = $("#MobileNumber").val();
+                if (phonenumber != undefined)
+                    if (phonenumber != "")
+                        if (phonenumber.length != 10) {
+                            $("#MobileNumber").focus();
+                            $("#MobileNumber").parent().addClass("has-error");
+                            return false;
+                        }
+
+
+
                 var userid = getCookie("user_id");
                 if (userid != null) {
                     $("#Id").val(userid);
@@ -165,7 +176,27 @@ $(document).ready(function () {
     });
 
     $('.wizard-card .btn-finish').click(function () {
-        formDataToJSON($("#from_data"), 1);
+        var PanCard = $("#PanCard").val();
+        if (PanCard != undefined) {
+            if (PanCard != "") {
+                var regpan = /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/;
+
+                if (regpan.test(PanCard)) {
+                    formDataToJSON($("#from_data"), 1);
+                    // valid pan card number
+                } else {
+                    $("#PanCard").focus();
+                    $("#PanCard").parent().addClass("has-error");
+                    return false;
+                    // invalid pan card number
+                }
+            } else {
+                formDataToJSON($("#from_data"), 1);
+            }
+        } else {
+            formDataToJSON($("#from_data"), 1);
+        }
+
         //$('#rootwizard').find("a[href*='tab1']").trigger('click');
     });
 

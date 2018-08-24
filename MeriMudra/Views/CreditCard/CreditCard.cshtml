@@ -206,7 +206,7 @@
                                                         </span>
                                                         <div class="form-group label-floating is-empty">
                                                             <label class="control-label">My Mobile No</label>
-                                                            <input required maxlength="10" name="MobileNumber" autocomplete="off" type="text" onkeypress="return isNumber(event);" class="form-control">
+                                                            <input required maxlength="10" name="MobileNumber" id="MobileNumber" autocomplete="off" type="text" onkeypress="return isNumber(event);" class="form-control">
                                                             <span class="material-input"></span>
                                                         </div>
                                                     </div>
@@ -297,11 +297,21 @@
                                                 </div>
                                                 <div class="input-group">
                                                     <span class="input-group-addon">
-                                                        <i class="material-icons"></i>
+                                                        <i style="font-size: 1.3em;" class="fa fa-credit-card"></i>
                                                     </span>
                                                     <div class="form-group label-floating is-empty">
                                                         <label class="control-label">My Credit Card Max Limit</label>
                                                         <input onkeypress="return ValidateDecimal(event, this);" required name="CreditCardMaxLimit" type="number" autocomplete="off" class="form-control">
+                                                        <span class="material-input"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i style="font-size: 1.3em;" class="fa fa-id-card"></i>
+                                                    </span>
+                                                    <div class="form-group label-floating is-empty">
+                                                        <label class="control-label">Pan Card</label>
+                                                        <input maxlength="10" required name="PanCard" id="PanCard" type="text" autocomplete="off" class="form-control">
                                                         <span class="material-input"></span>
                                                     </div>
                                                 </div>

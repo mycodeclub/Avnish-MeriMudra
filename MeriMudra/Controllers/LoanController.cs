@@ -72,6 +72,7 @@ namespace MeriMudra.Controllers
                     command.Parameters.AddWithValue("@EmployerType", userdata.EmployerType);
                     command.Parameters.AddWithValue("@Intended_loan_amount", userdata.Intended_loan_amount);
                     command.Parameters.AddWithValue("@LoanType", userdata.LoanType);
+                    command.Parameters.AddWithValue("@PanCard", userdata.PanCard);
                     if (isfinish == 1)
                         command.Parameters.AddWithValue("@isUserActive", true);
                     else

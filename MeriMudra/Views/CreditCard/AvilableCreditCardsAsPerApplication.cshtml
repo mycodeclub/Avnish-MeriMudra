@@ -30,50 +30,50 @@
                 <div class="row">
                     <div id="alertSuccessMsg" class="alert alert-danger" style="display:none"></div>
 
-                    @*@if (UserCCApplyDetail.CreditCardId > 0)
-                        {
-                            var appNo = "CC" + UserCCApplyDetail.Id;
-                            <p> Your credit card application is submitted sucessfully. Your card application refference number is <b><i>@appNo </i></b> </p>
-                        }
-                        else if (Model.Count > 0)*@
+                    @if (UserCCApplyDetail.CreditCardId > 0)
                     {
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                <div class="wrapper-content bg-white pinside40">
-                                    <div class="row">
-                                        @foreach (var cc in Model)
-                                        {
-                                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                                <div class="card-listing">
-                                                    <!-- card listing -->
-                                                    <div class="card-img">
-                                                        <a href="#">
-                                                            <img src="@cc.CardImageUrl" alt="MM - A Loan Company">
-                                                        </a>
-                                                    </div>
-                                                    <div class="card-content">
-                                                        <h3 class="card-name"><a href="#" class="title">@cc.CardName</a></h3>
-                                                        <div class="card-features ">
-                                                            <ul class="listnone">
-                                                                <li>@cc.CardDescription</li>
-                                                            </ul>
+                        var appNo = "CC" + UserCCApplyDetail.Id;
+                        <p> Your credit card application is submitted sucessfully. Your card application refference number is <b><i>@appNo </i></b> </p>
+                    }
+                    else if (Model.Count > 0)
+                    {
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="wrapper-content bg-white pinside40">
+                                        <div class="row">
+                                            @foreach (var cc in Model)
+                                            {
+                                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                                                    <div class="card-listing">
+                                                        <!-- card listing -->
+                                                        <div class="card-img">
+                                                            <a href="#">
+                                                                <img src="@cc.CardImageUrl" alt="MM - A Loan Company">
+                                                            </a>
                                                         </div>
-                                                        <div class="btn-group">
-                                                            <button onclick="InterestedFor(@cc.CardId,@UserCCApplyDetail.Id)" class="btn btn-default btn-sm">Select</button>
-                                                            <a href="/CreditCard/CardDetail/@cc.CardId" target="_blank" class="btn btn-info btn-sm">Read More</a>
-                                                        </div>
+                                                        <div class="card-content">
+                                                            <h3 class="card-name"><a href="#" class="title">@cc.CardName</a></h3>
+                                                            <div class="card-features ">
+                                                                <ul class="listnone">
+                                                                    <li>@cc.CardDescription</li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="btn-group">
+                                                                <button onclick="InterestedFor(@cc.CardId,@UserCCApplyDetail.Id)" class="btn btn-default btn-sm">Select</button>
+                                                                <a href="/CreditCard/CardDetail/@cc.CardId" target="_blank" class="btn btn-info btn-sm">Read More</a>
+                                                            </div>
 
+                                                        </div>
                                                     </div>
+                                                    <!-- /.card listing -->
                                                 </div>
-                                                <!-- /.card listing -->
-                                            </div>
-                                        }
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>}
+                        </div>}
                     else
                     {<p> We dint have any credit card avilable now for you.  </p>
                     }
