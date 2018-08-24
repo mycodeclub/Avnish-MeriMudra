@@ -599,6 +599,7 @@
     <Content Include="Views\LoanInfo\Car_Loan.cshtml" />
     <Content Include="Views\LoanInfo\Loan_Against_Property.cshtml" />
     <Content Include="Views\CreditCard\AvilableCreditCardsAsPerApplication.cshtml" />
+    <Content Include="Views\CreditCard\CreditCard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
