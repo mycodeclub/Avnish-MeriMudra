@@ -42,7 +42,6 @@ namespace MeriMudra.Controllers
                     avilableCityGroupId.Add(item.Key);
                 }
             }
-
             foreach (var cgId in avilableCityGroupId)
             {
                 avilableCardids.AddRange(db.CcEligibilityCriterias.Where(ec => ec.CityGroupId == cgId).Select(ec => ec.CardId).ToList());
@@ -67,12 +66,25 @@ namespace MeriMudra.Controllers
                     }
                 }
             }
-
             avilableCardids = avilableCardids.Distinct().ToList();
-
             foreach (var cardId in avilableCardids) avilableCreditCards.Add(db.CreditCards.Find(cardId));
             ViewBag.userCcApplication = userCcApplication;
             return View(avilableCreditCards);
+        }
+
+
+        public int InterestedFor(int CcApplicationId, int Cardid)
+        {
+            var updateFlag = 0;
+            var ccApplication = db.UserCCApplyDetail.Find(CcApplicationId);
+            if (ccApplication != null)
+            {
+                ccApplication.CreditCardId = Cardid;
+                db.Entry(ccApplication).State = System.Data.Entity.EntityState.Modified;
+                updateFlag = db.SaveChanges();
+            }
+            return updateFlag;
+
         }
     }
 }
