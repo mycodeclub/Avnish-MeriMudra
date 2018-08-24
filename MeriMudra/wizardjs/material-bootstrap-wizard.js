@@ -320,7 +320,8 @@ function formDataToJSON($formElement, isfinish) {
     //    convertedJSON[key] = value;
     //});
     var convertedJSON = JSON.stringify($formElement.serializeObject())
-    var FormActionURL = $("#baseURL").text() + "/Home/savestep";
+    var FormActionURL = $("#baseURL").text() + "/CreditCard/savestep";
+    var redirectUrl = $("#baseURL").text() + "/CreditCard/AvilableCreditCardsAsPerApplication";
     var Paramerter = {
         convertedJSON: convertedJSON,
         isfinish: isfinish,
@@ -338,7 +339,8 @@ function formDataToJSON($formElement, isfinish) {
             else if (isfinish == 1) {
                 eraseCookie("user_id");
                 $("#Id").val(0);
-                window.location.href = "http://merimudra.com";
+                //window.location.href = "http://merimudra.com";
+                window.location.href = redirectUrl + "/" + data;
             }
             // $("#htmlListOfProduct").html(data);
             // alert(data);

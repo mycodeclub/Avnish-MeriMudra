@@ -44,6 +44,7 @@ namespace MeriMudra.Controllers
             }
             foreach (var cgId in avilableCityGroupId)
             {
+                var sc = db.CcEligibilityCriterias.ToList();
                 avilableCardids.AddRange(db.CcEligibilityCriterias.Where(ec => ec.CityGroupId == cgId).Select(ec => ec.CardId).ToList());
                 var ecs = db.CcEligibilityCriterias.Where(ec => ec.CityGroupId == cgId).ToList();
                 foreach (var ec in ecs)

@@ -127,7 +127,7 @@
                                 <input type="hidden" name="Id" id="Id" value="0" />
                                 <div class="wizard-header">
                                     <h3 class="wizard-title">
-                                        Apply For Loan
+                                        Apply For Credit Card
                                     </h3>
                                     <h5>This information will let us know more about you.</h5>
                                 </div>
@@ -173,7 +173,7 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="Profile_Detail">
-                                        <input type="hidden" value="@ViewBag.id" name="LoanType" />
+                                        <input type="hidden" value="@ViewBag.id" name="CreditCardId" />
                                         <div class="row">
                                             @*<h4 class="info-text"> My existing credit cards are with</h4>*@
                                             <div class="col-sm-12">
@@ -210,16 +210,6 @@
                                                             <span class="material-input"></span>
                                                         </div>
                                                     </div>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            <i style="font-size: 1.2em;" class="fa fa-money"></i>
-                                                        </span>
-                                                        <div class="form-group label-floating is-empty">
-                                                            <label class="control-label">Intended loan amount</label>
-                                                            <input required name="Intended_loan_amount" onkeypress="return ValidateDecimal(event, this);" type="text" autocomplete="off" class="form-control">
-                                                            <span class="material-input"></span>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="input-group">
@@ -252,28 +242,25 @@
                                                             <span class="material-input"></span>
                                                         </div>
                                                     </div>
-                                                    
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            @*<i style="font-size: 1.8em;" class="fa fa-home"></i>*@
-                                                        </span>
-                                                        <div class="form-group label-floating is-focused">
-                                                            <label class="control-label">My city</label>
-                                                            <select required name="CityId" id="my_city" class="selectpicker show-tick form-control" data-live-search="true">
-                                                                @foreach (var item in Model.Citys)
-                                                                {
-                                                                    <option value="@item.Id">@item.Name</option>
-                                                                }
-                                                            </select>
-                                                            @*<input required name="" id="my_city" type="text" autocomplete="off" class="form-control">*@
-                                                            @*<input type="hidden" value="0" name="CityId" id="hdnCityId" />*@
-                                                            <span class="material-input"></span>
-                                                        </div>
-                                                    </div>
-                                                  
                                                 </div>
 
-                                                
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        @*<i style="font-size: 1.8em;" class="fa fa-home"></i>*@
+                                                    </span>
+                                                    <div class="form-group label-floating is-focused">
+                                                        <label class="control-label">My city</label>
+                                                        <select required name="CityId" id="my_city" class="selectpicker show-tick form-control" data-live-search="true">
+                                                            @foreach (var item in Model.Citys)
+                                                            {
+                                                                <option value="@item.Id">@item.Name</option>
+                                                            }
+                                                        </select>
+                                                        @*<input required name="" id="my_city" type="text" autocomplete="off" class="form-control">*@
+                                                        @*<input type="hidden" value="0" name="CityId" id="hdnCityId" />*@
+                                                        <span class="material-input"></span>
+                                                    </div>
+                                                </div>
 
 
 
@@ -376,7 +363,7 @@
     @*<script src="~/wizardjs/bootstrap.min.js" type="text/javascript"></script>*@
     <script src="~/wizardjs/jquery.bootstrap.js" type="text/javascript"></script>
     <script src="~/wizardjs/demo.js" type="text/javascript"></script>
-    <script src="~/wizardjs/material-bootstrap-wizard_Loan.js" type="text/javascript"></script>
+    <script src="~/wizardjs/material-bootstrap-wizard.js" type="text/javascript"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="~/wizardjs/jquery.validate.min.js" type="text/javascript"></script>
     <script src="~/wizardjs/jquery.form.js"></script>
@@ -403,7 +390,7 @@
                 $("#savings_bank_accounts #infoText").html("I have savings bank accounts with");
                 $("#savings_bank_accounts .choice").attr("data-toggle", "wizard-checkbox");
                 $("#savings_bank_accounts[name=job]").attr("type", "checkbox");
-                //$("#ComapanyName").removeAttr("placeholder");
+                // $("#ComapanyName").removeAttr("placeholder");
                 $("#Income").attr("placeholder", "My gross annual income is");
                 //$("#ComapanyName").val("");
                 //$("#ComapanyName").attr("readonly", true);
