@@ -194,12 +194,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\car.svg" />
-    <Content Include="images\cards\card-1.png" />
-    <Content Include="images\cards\card-2.png" />
-    <Content Include="images\cards\card-3.png" />
-    <Content Include="images\cards\card-4.png" />
-    <Content Include="images\cards\card-5.png" />
-    <Content Include="images\cards\card-6.png" />
     <Content Include="images\cd-top-arrow.svg" />
     <Content Include="images\credit-card.svg" />
     <Content Include="images\ft-logo.png" />
@@ -610,6 +604,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Users\" />
+    <Folder Include="images\cards\" />
     <Folder Include="images\other\" />
   </ItemGroup>
   <PropertyGroup>
