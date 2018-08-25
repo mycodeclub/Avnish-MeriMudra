@@ -44,11 +44,12 @@ namespace MeriMudra.Models
         [DisplayName("Apply Date")]
         public DateTime? CreatedDate { get; set; }
         public int CreditCardId { get; set; }
+        public string PanCard { get; set; }
         public UserCCApplyDetail()
         {
             Id = 0;
             EmployerType = true;
-            employed_radios = "";
+            PanCard= employed_radios = "";
             CompanyName = "";
             GrossIncomeOrNetSalary = 0;
             Name = "";
@@ -108,12 +109,13 @@ namespace MeriMudra.Models
         [DisplayName("Created On")]
         public DateTime? CreatedDate { get; set; }
         public int LoanType { get; set; }
+        public string PanCard { get; set; }
         public UserLoanApplyDetail()
         {
             Intended_loan_amount = 0;
             LoanType = Id = 0;
             EmployerType = true;
-            employed_radios = "";
+            PanCard= employed_radios = "";
             CompanyName = "";
             GrossIncomeOrNetSalary = 0;
             Name = "";
