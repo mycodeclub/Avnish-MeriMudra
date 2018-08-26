@@ -123,7 +123,32 @@
             <div class="card mb-3">
                 <div class="card-body">
                     <label class="fa fa-edit btn btn-outline-secondary float-right" onclick="location.href='/Admin/CreditCards/SaveCcEligibilityCriteria/@Model.CardId'"> Edit </label>
-                    SaveCcBorrowPrivilege credit card eligibility criteria
+
+                    <table class="table table-bordered" id="IncludededEligibilityCriteria">
+                        <thead>
+                            <tr>
+                                <th>City Group Name</th>
+                                <th>No Of Citys</th>
+                                <th>Min RTI</th>
+                                <th>Min Salary</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.EligibilityCriteria != null)
+                            {
+                                foreach (var ec in Model.EligibilityCriteria)
+                                {
+                                    <tr>
+                                        <td> @ec.CityGroup.GroupName  </td>
+                                        <td>  @ec.CityGroup.IncludedCitys.Count </td>
+                                        <td>  @ec.MinItr </td>
+                                        <td>  @ec.MinSalary </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+
                 </div>
             </div> <!-- eligibility criteria-->
         </div>
