@@ -546,6 +546,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ApplicationStatusMaster.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\BusinessPartnerProgramme.cs" />
     <Compile Include="Models\CcDetail.cs" />

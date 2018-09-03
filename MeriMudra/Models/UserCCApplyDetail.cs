@@ -45,11 +45,12 @@ namespace MeriMudra.Models
         public DateTime? CreatedDate { get; set; }
         public int CreditCardId { get; set; }
         public string PanCard { get; set; }
+        public int ApplicationStatusId { get; set; }
         public UserCCApplyDetail()
         {
             Id = 0;
             EmployerType = true;
-            PanCard= employed_radios = "";
+            PanCard = employed_radios = "";
             CompanyName = "";
             GrossIncomeOrNetSalary = 0;
             Name = "";
@@ -67,7 +68,7 @@ namespace MeriMudra.Models
             OTP = 0;
             isMobileNumberVerify = false;
             isEmailVerify = false;
-            isUserActive = false;
+            isUserActive = false; ApplicationStatusId = 1;
         }
 
     }
@@ -110,12 +111,13 @@ namespace MeriMudra.Models
         public DateTime? CreatedDate { get; set; }
         public int LoanType { get; set; }
         public string PanCard { get; set; }
+        public int ApplicationStatusId { get; set; }
         public UserLoanApplyDetail()
         {
             Intended_loan_amount = 0;
             LoanType = Id = 0;
             EmployerType = true;
-            PanCard= employed_radios = "";
+            PanCard = employed_radios = "";
             CompanyName = "";
             GrossIncomeOrNetSalary = 0;
             Name = "";
@@ -134,6 +136,7 @@ namespace MeriMudra.Models
             isMobileNumberVerify = false;
             isEmailVerify = false;
             isUserActive = false;
+            ApplicationStatusId = 1;
         }
     }
     public class detailsForApplyCard

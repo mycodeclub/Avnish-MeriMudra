@@ -22,5 +22,6 @@ namespace MeriMudra.Models
         public virtual DbSet<UserLoanApplyDetail> UserLoanApplyDetail { get; set; }
         public virtual DbSet<EligibilityCriteria> CcEligibilityCriterias { get; set; }
         public virtual DbSet<CityGroup> CityGroups { get; set; }
+        public virtual DbSet<ApplicationStatus> ApplicationStatus { get; set; }
     }
 }
