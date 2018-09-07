@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<MeriMudra.Models.UserLoanApplyDetail>
 
 @{
+    List<MeriMudra.Models.City> city = (List<MeriMudra.Models.City>)ViewData["city"];
     ViewBag.Title = "User credit card detail";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
@@ -63,8 +64,12 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CityName)
+                            <td>@{ 
+                                //int cityid = Convert.ToInt32(!string.IsNullOrEmpty(item.CityId) ? item.CityId : "0");
+                                string citName = (from c in city where c.Id == item.CityId select c.Name).FirstOrDefault();
+                                citName = string.IsNullOrEmpty(citName) ? item.CityName : citName;
+                                }
+                                @Html.DisplayFor(modelItem => citName)
                             </td>
                             <td>@Html.DisplayFor(modelItem => item.Intended_loan_amount)</td>
                             <td>

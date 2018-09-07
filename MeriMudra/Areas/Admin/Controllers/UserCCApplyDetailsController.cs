@@ -17,6 +17,7 @@ namespace MeriMudra.Areas.Admin.Controllers
         // GET: Admin/UserCCApplyDetails
         public ActionResult Index()
         {
+            ViewData["city"] = db.Citys.ToList();
             return View(db.UserCCApplyDetail.ToList());
         }
 

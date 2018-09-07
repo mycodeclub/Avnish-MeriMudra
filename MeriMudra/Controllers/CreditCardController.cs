@@ -30,8 +30,9 @@ namespace MeriMudra.Controllers
         }
 
         // Pass CreditCard Application Id
-        public ActionResult AvilableCreditCardsAsPerApplication(int? id)
+        public ActionResult AvilableCreditCardsAsPerApplication()
         {
+            string id = TempData["ApplyId"] == null ? null : Convert.ToString(TempData["ApplyId"]);
             var avilableCreditCards = new List<CreditCard> { };
             var avilableCardids = new List<int> { };
             var avilableCityGroupId = new List<int> { };
@@ -156,9 +157,10 @@ namespace MeriMudra.Controllers
                     var id = command.ExecuteScalar();
                     transaction.Commit();
                     connection.Close();
+                    TempData["ApplyId"] = id;
                     return Convert.ToInt32(id);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     transaction.Rollback();
                     connection.Close();

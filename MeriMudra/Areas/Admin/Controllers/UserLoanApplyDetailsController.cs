@@ -17,6 +17,7 @@ namespace MeriMudra.Areas.Admin.Controllers
         // GET: Admin/UserLoanApplyDetails
         public ActionResult Index()
         {
+            ViewData["city"] = db.Citys.ToList();
             return View(db.UserLoanApplyDetail.ToList());
         }
 
