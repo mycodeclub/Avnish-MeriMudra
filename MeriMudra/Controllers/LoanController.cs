@@ -80,6 +80,7 @@ namespace MeriMudra.Controllers
                     var id = command.ExecuteScalar();
                     transaction.Commit();
                     connection.Close();
+                    //TempData["ApplyId"] = id;
                     return Convert.ToInt32(id);
                 }
                 catch (Exception)

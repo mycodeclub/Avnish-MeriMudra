@@ -88,8 +88,8 @@ namespace MeriMudra.Models
         public DateTime? DOB { get; set; }
         [DisplayName("City")]
         public string CityName { get; set; }
-        [NotMapped]
-        public string CityId { get; set; }
+        
+        public int CityId { get; set; }
         [NotMapped]
         public string PinCode { get; set; }
         public string MobileNumber { get; set; }
@@ -123,7 +123,7 @@ namespace MeriMudra.Models
             Name = "";
             CreatedDate = DOB = DateTime.Now;
             CityName = "";
-            CityId = "";
+            CityId = 0;
             PinCode = "";
             MobileNumber = "";
             email = "";

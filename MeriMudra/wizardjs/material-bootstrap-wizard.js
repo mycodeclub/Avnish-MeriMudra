@@ -371,7 +371,8 @@ function formDataToJSON($formElement, isfinish) {
                 eraseCookie("user_id");
                 $("#Id").val(0);
                 //window.location.href = "http://merimudra.com";
-                window.location.href = redirectUrl + "/" + data;
+                //window.location.href = redirectUrl + "/" + data;
+                window.location.href = redirectUrl;
             }
             // $("#htmlListOfProduct").html(data);
             // alert(data);
