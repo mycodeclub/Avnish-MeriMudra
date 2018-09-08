@@ -3,12 +3,18 @@
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    List<MeriMudra.Models.ApplicationStatus> appStatus = ViewBag.ApplicationStatus;
+    List<MeriMudra.Models.City> citys = (List<MeriMudra.Models.City>)ViewData["city"];
+
+
 }
 
 <h2>Edit</h2>
 
 @using (Html.BeginForm())
 {
+    <input type="hidden" name="CreatedDate" value="@Model.CreatedDate">
+
     @Html.AntiForgeryToken()
     <div class="container-fluid">
         <div class="card">
@@ -19,10 +25,6 @@
                         <div class="col-md-6">
                             @Html.LabelFor(model => model.EmployerType, htmlAttributes: new { @for = "EmployerType" })
                             @Html.EditorFor(model => model.EmployerType)
-                            @*@if (Model.EmployerType == true)
-                                {<p>Self Employed</p> }
-                                else
-                                {<p>Employe</p>}*@
                             @Html.ValidationMessageFor(model => model.EmployerType, "", new { @class = "text-danger" })
                         </div>
                         <div class="col-md-6">
@@ -46,7 +48,6 @@
                             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                         </div>
                     </div>
-
                 </div>
                 <div class="form-group">
                     <div class="form-row">
@@ -57,7 +58,13 @@
                         </div>
                         <div class="col-md-6">
                             @Html.LabelFor(model => model.CityName, htmlAttributes: new { @class = "" })
-                            @Html.EditorFor(model => model.CityName, new { htmlAttributes = new { @class = "form-control" } })
+                            <select name="CityId" class="form-control">
+                                @foreach (var city in citys)
+                                {
+                                    string selected = (city.Id == Model.CityId) ? "selected" : string.Empty;
+                                    <option value="@city.Id" @selected>@city.Name</option>
+                                }
+                            </select>
                             @Html.ValidationMessageFor(model => model.CityName, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -124,7 +131,17 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-
+                            Application Status
+                            <div class="checkbox">
+                                <select class="form-control" name="ApplicationStatusId">
+                                    @foreach (var status in appStatus)
+                                    {
+                                        string selected = (status.StatusId == Model.ApplicationStatusId) ? "selected" : string.Empty;
+                                        <option selected value="@status.StatusId">@status.Status</option>
+                                    }
+                                </select>
+                                @Html.ValidationMessageFor(model => model.ApplicationStatusId, "", new { @class = "text-danger" })
+                            </div>
                         </div>
                     </div>
 

@@ -37,7 +37,7 @@ namespace MeriMudra.Controllers
             var avilableCardids = new List<int> { };
             var avilableCityGroupId = new List<int> { };
             if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            var userCcApplication = db.UserCCApplyDetail.Find(id);
+            var userCcApplication = db.UserCCApplyDetail.Find(Convert.ToInt32(id));
             if (userCcApplication == null) return HttpNotFound();
             var cGrp = (from cg in db.CityGroups select new { cg.GroupId, cg.CityIds }).AsEnumerable().Select(item => new KeyValuePair<int, string>(item.GroupId, item.CityIds)).ToList();
             foreach (var item in cGrp)
@@ -134,7 +134,7 @@ namespace MeriMudra.Controllers
                     command.Parameters.AddWithValue("@Name", userdata.Name);
                     command.Parameters.AddWithValue("@DOB", userdata.DOB);
                     command.Parameters.AddWithValue("@CityId", userdata.CityId);
-                    command.Parameters.AddWithValue("@CityName", userdata.CityName);
+                    command.Parameters.AddWithValue("@CityName", !string.IsNullOrEmpty(userdata.CityName) ? userdata.CityName : db.Citys.Find(userdata.CityId).Name);
                     command.Parameters.AddWithValue("@PinCode", userdata.PinCode);
                     command.Parameters.AddWithValue("@MobileNumber", userdata.MobileNumber);
                     command.Parameters.AddWithValue("@OTP", userdata.OTP);

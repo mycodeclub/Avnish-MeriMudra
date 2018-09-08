@@ -33,6 +33,7 @@ namespace MeriMudra.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ApplicationStatus = db.ApplicationStatus.Find(userCCApplyDetail.ApplicationStatusId);
             return View(userCCApplyDetail);
         }
 
@@ -55,7 +56,7 @@ namespace MeriMudra.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewData["city"] = db.Citys.ToList();
             return View(userCCApplyDetail);
         }
 
@@ -71,6 +72,8 @@ namespace MeriMudra.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ApplicationStatus = db.ApplicationStatus.ToList();
+            ViewData["city"] = db.Citys.ToList();
             return View(userCCApplyDetail);
         }
 
@@ -79,10 +82,11 @@ namespace MeriMudra.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,EmployerType,CompanyName,GrossIncomeOrNetSalary,Name,DOB,CityName,MobileNumber,email,CreditCardMaxLimit,OTP,isMobileNumberVerify,isEmailVerify,isUserActive")] UserCCApplyDetail userCCApplyDetail)
+        public ActionResult Edit([Bind(Include = "Id,EmployerType,CompanyName,GrossIncomeOrNetSalary,Name,DOB,CityId,CreatedDate,CityName,MobileNumber,email,CreditCardMaxLimit,OTP,isMobileNumberVerify,isEmailVerify,isUserActive,ApplicationStatusId")] UserCCApplyDetail userCCApplyDetail)
         {
             if (ModelState.IsValid)
             {
+                userCCApplyDetail.CityName = db.Citys.Find(userCCApplyDetail.CityId).Name;
                 db.Entry(userCCApplyDetail).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -113,7 +117,7 @@ namespace MeriMudra.Areas.Admin.Controllers
             UserCCApplyDetail userCCApplyDetail = db.UserCCApplyDetail.Find(id);
             db.UserCCApplyDetail.Remove(userCCApplyDetail);
             db.SaveChanges();
-           // return Redirect("Admin/UserCCAppyDetails/Index");
+            // return Redirect("Admin/UserCCAppyDetails/Index");
         }
 
         protected override void Dispose(bool disposing)
