@@ -33,3 +33,11 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.BankId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".nav-item").removeClass("active");
+            $("#banks").addClass("active");
+        });
+    </script>
+}

@@ -6,49 +6,85 @@
     int sNo = 0;
 }
 @Html.AntiForgeryToken()
-<h2>Cities List</h2>
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Cities</a>
+        </li>
+        <li class="breadcrumb-item active">List</li>
+    </ol>
+    <p>
+        <div class="col-md-2">
+            @Html.ActionLink("Add New City", "Create", new { }, new { @class = "btn btn-primary btn-block" })
+        </div>
+    </p>
+   
+    @*<input type="text" class="form-control" id="searchBarForCities" placeholder="Search for Cities.." title="Type in a name of city" style="display: initial;">*@
 
-@Html.DropDownList("StateId", states, new
-{ onchange = "document.location.href = '/Admin/Cities/Index?id=' + this.options[this.selectedIndex].value;",
-   @style = "display: initial;",
-   @class = "form-control"
-})
-&nbsp; &nbsp; &nbsp;
-<input type="text" class="form-control" id="searchBarForCities" placeholder="Search for Cities.." title="Type in a name of city" style="display: initial;">
-&nbsp; &nbsp; &nbsp;
-<input type="button" class="btn btn-default" onclick="document.location.href = '/Admin/Cities/Create'" value="Add New City" />
-<br />
-<br />
-<table class="table" id="tbl_cities">
-    <tr>
-        <th>
-            S. No.
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        sNo = sNo + 1;
-        <tr>
-            <td>
-                @sNo
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
-                <a href="#" data-toggle="modal" data-target="#exampleDeleteBox" onclick="addActionInConfirmBox('UserCCApplyDetails', 'Delete', @item.Id);">Delete</a>
-            </td>
-        </tr>
-    }
-</table>
-@section scripts {
+    <br />
+    <br />
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> List
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                @Html.DropDownList("StateId", states, new
+           {
+               onchange = "document.location.href = '/Admin/Cities/Index?id=' + this.options[this.selectedIndex].value;",
+               @style = "display: initial;margin:5px;",
+               @class = "form-control col-md-6"
+           })
+                <table class="table table-bordered dataTable" id="dataTable" data-export-title="test">
+                    <thead>
+                        <tr>
+                            <th>
+                                S. No.
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            sNo = sNo + 1;
+
+                            <tr>
+                                <td>
+                                    @sNo
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                    @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                                    <a href="#" data-toggle="modal" data-target="#exampleDeleteBox" onclick="addActionInConfirmBox('UserCCApplyDetails', 'Delete', @item.Id);">Delete</a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*@section scripts {
     <script>
         $(document).ready(function () { SearchInTable('tbl_cities', 'searchBarForCities'); });
+    </script>
+}*@
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".nav-item").removeClass("active");
+            $("#cities").addClass("active");
+        });
     </script>
 }

@@ -7,4 +7,11 @@
 @Html.Partial("CcBasicPartialView", Model)
 @Html.Partial("CcDetailPartialView", Model)
 @section scripts {
-    <script src="~/Areas/Admin/Scripts/ccVM.js"></script> }
+    <script src="~/Areas/Admin/Scripts/ccVM.js"></script> 
+    <script>
+        $(document).ready(function () {
+            $(".nav-item").removeClass("active");
+            $("#Credit-Cards").addClass("active");
+        });
+</script>
+    }

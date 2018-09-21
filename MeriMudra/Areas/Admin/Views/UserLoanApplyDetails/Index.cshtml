@@ -5,91 +5,45 @@
     ViewBag.Title = "User credit card detail";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-@Html.AntiForgeryToken()
 <div class="container-fluid">
-    <div class="card">
-        <div class="card-header">User Loan Apply Detail</div>
-
-        <div class="table-responsive">
-            <table class="table table-bordered dataTable table-responsive-sm" data-export-column="6" data-export-title="User credit card detail" id="dataTable_button">
-
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EmployerType)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.CompanyName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.GrossIncomeOrNetSalary)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.CityName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Intended_loan_amount)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.CreatedDate)
-
-                        </th>
-
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @if (item.EmployerType.GetValueOrDefault())
-                                {<label> Salaried</label>}
-                                else
-                                {<lable>Self-Employed</lable>}
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CompanyName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.GrossIncomeOrNetSalary)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>@{ 
-                                //int cityid = Convert.ToInt32(!string.IsNullOrEmpty(item.CityId) ? item.CityId : "0");
-                                string citName = (from c in city where c.Id == item.CityId select c.Name).FirstOrDefault();
-                                citName = string.IsNullOrEmpty(citName) ? item.CityName : citName;
-                                }
-                                @Html.DisplayFor(modelItem => citName)
-                            </td>
-                            <td>@Html.DisplayFor(modelItem => item.Intended_loan_amount)</td>
-                            <td>
-                                @{ string date = "";
-                                    if (item.CreatedDate.HasValue) { date = item.CreatedDate.Value.ToString("dd-MMM-yyyy"); } }
-                                @date
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                                @*@Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
-                                <a href="#" data-toggle="modal" data-target="#exampleDeleteBox" onclick="addActionInConfirmBox('UserLoanApplyDetails', 'Delete', @item.Id);">Delete</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-
-            </table>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Loan Applications</a>
+        </li>
+        <li class="breadcrumb-item active">List</li>
+    </ol>
+    <p>
+        <div class="col-md-2">
+            @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary btn-block" })
+            @Html.AntiForgeryToken()
+        </div>
+    </p>
+    <div class="form-group">
+        <div class="form-row">
+            <div class="col-md-3">
+                <div>
+                    <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc; width: 100%">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        <span></span> <i class="fa fa-caret-down"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> List
+        </div>
+        <div class="card-body">
+            <div id="prtView" export-controler="UserLoanApplyDetails" export-action="prtUserLoanApplyDetails"></div>
         </div>
     </div>
 </div>
-
-
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".nav-item").removeClass("active");
+            $("#Loan-Applications").addClass("active");
+        });
+    </script>
+}
