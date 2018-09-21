@@ -5,69 +5,79 @@
     ViewBag.Title = "User credit card detail";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-@Html.AntiForgeryToken()
 <div class="container-fluid">
-    <div class="card">
-        <div class="card-header">User Loan Apply Detail</div>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Loan Applications</a>
+        </li>
+        <li class="breadcrumb-item active">List</li>
+    </ol>
+    <p>
+        <div class="col-md-2">
+            @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary btn-block" })
+            @Html.AntiForgeryToken()
+        </div>
+    </p>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fa fa-table"></i> List
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered dataTable table-responsive-sm" data-export-column="6" data-export-title="User credit card detail" id="dataTable_button">
 
-        <div class="table-responsive">
-            <table class="table table-bordered dataTable table-responsive-sm" data-export-column="6" data-export-title="User credit card detail" id="dataTable_button">
-
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.EmployerType)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.CompanyName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.GrossIncomeOrNetSalary)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.CityName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Intended_loan_amount)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.CreatedDate)
-
-                        </th>
-
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+                    <thead>
                         <tr>
-                            <td>
-                                @if (item.EmployerType.GetValueOrDefault())
-                                {<label> Salaried</label>}
-                                else
-                                {<lable>Self-Employed</lable>}
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CompanyName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.GrossIncomeOrNetSalary)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>@{ 
-                                //int cityid = Convert.ToInt32(!string.IsNullOrEmpty(item.CityId) ? item.CityId : "0");
-                                string citName = (from c in city where c.Id == item.CityId select c.Name).FirstOrDefault();
-                                citName = string.IsNullOrEmpty(citName) ? item.CityName : citName;
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployerType)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CompanyName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.GrossIncomeOrNetSalary)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CityName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Intended_loan_amount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreatedDate)
+
+                            </th>
+
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @if (item.EmployerType.GetValueOrDefault())
+                                    {<label> Salaried</label>}
+                                    else
+                                    {<lable>Self-Employed</lable>}
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CompanyName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.GrossIncomeOrNetSalary)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @{
+                                    //int cityid = Convert.ToInt32(!string.IsNullOrEmpty(item.CityId) ? item.CityId : "0");
+                                    string citName = (from c in city where c.Id == item.CityId select c.Name).FirstOrDefault();
+                                    citName = string.IsNullOrEmpty(citName) ? item.CityName : citName;
                                 }
                                 @Html.DisplayFor(modelItem => citName)
                             </td>
@@ -84,12 +94,19 @@
                                 <a href="#" data-toggle="modal" data-target="#exampleDeleteBox" onclick="addActionInConfirmBox('UserLoanApplyDetails', 'Delete', @item.Id);">Delete</a>
                             </td>
                         </tr>
-                    }
-                </tbody>
+                                    }
+                    </tbody>
 
-            </table>
+                </table>
+            </div>
         </div>
     </div>
 </div>
-
-
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".nav-item").removeClass("active");
+            $("#Loan-Applications").addClass("active");
+        });
+    </script>
+}

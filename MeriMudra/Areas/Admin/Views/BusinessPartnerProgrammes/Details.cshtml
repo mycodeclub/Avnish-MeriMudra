@@ -80,3 +80,11 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".nav-item").removeClass("active");
+            $("#BP-Programmes").addClass("active");
+        });
+    </script>
+}

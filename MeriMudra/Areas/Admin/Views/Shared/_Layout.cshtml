@@ -29,52 +29,52 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <li class="nav-item" id="dashboard" data-toggle="tooltip" data-placement="right" title="Dashboard">
                     <a class="nav-link" href="/Admin/Home/dashboard">
                         @*<i class="fa fa-fw fa-dashboard"></i>*@
                         <span class="nav-link-text">Dashboard</span>
                     </a>
                 </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                <li class="nav-item" id="banks" data-toggle="tooltip" data-placement="right" title="Charts">
                     <a class="nav-link" href="/Admin/Banks/Index">
                         @*<i class="fa fa-fw fa-area-chart"></i>*@
                         <span class="nav-link-text">Banks</span>
                     </a>
                 </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                <li class="nav-item" id="cities" data-toggle="tooltip" data-placement="right" title="Charts">
                     <a class="nav-link" href="/Admin/Cities/Index">
                         @*<i class="fa fa-fw fa-area-chart"></i>*@
                         <span class="nav-link-text">Cities</span>
                     </a>
                 </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                <li class="nav-item" id="city-groups" data-toggle="tooltip" data-placement="right" title="Charts">
                     <a class="nav-link" href="/Admin/CityGroups/Index">
                         @*<i class="fa fa-fw fa-area-chart"></i>*@
                         <span class="nav-link-text">City Groups</span>
                     </a>
                 </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                <li class="nav-item" id="BP-Programmes" data-toggle="tooltip" data-placement="right" title="Charts">
                     <a class="nav-link" href="/Admin/BusinessPartnerProgrammes/Index">
                         @*<i class="fa fa-fw fa-area-chart"></i>*@
                         <span class="nav-link-text">BP Programmes</span>
                     </a>
                 </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                <li class="nav-item" id="Credit-Cards" data-toggle="tooltip" data-placement="right" title="Charts">
                     <a class="nav-link" href="/Admin/CreditCards/Index">
                         @*<i class="fa fa-fw fa-credit-card"></i>*@
                         <span class="nav-link-text">Credit Cards</span>
                     </a>
                 </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                <li class="nav-item" id="CC-Applications" data-toggle="tooltip" data-placement="right" title="Charts">
                     <a class="nav-link" href="/Admin/UserCCApplyDetails/Index">
                         @*<i class="fa fa-fw fa-user-circle-o"></i>*@
-                        <span class="nav-link-text">CC Applcations</span>
+                        <span class="nav-link-text">CC Applications</span>
                     </a>
                 </li>
-                <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+                <li class="nav-item" id="Loan-Applications" data-toggle="tooltip" data-placement="right" title="Charts">
                     <a class="nav-link" href="/Admin/UserLoanApplyDetails/Index">
                         @*<i class="fa fa-fw fa-user-circle-o"></i>*@
-                        <span class="nav-link-text">Loan Applcations</span>
+                        <span class="nav-link-text">Loan Applications</span>
                     </a>
                 </li>
                 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
@@ -258,7 +258,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleDeleteBoxLabel">Ready to Leave?</h5>
+                        <h5 class="modal-title" id="exampleDeleteBoxLabel">Ready to delete?</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -298,7 +298,8 @@
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+        <script src="~/wizardjs/bbootstrap-datepicker.js"></script>
+        <link href="~/wizardjs/bbotstrap-datepicker.css" rel="stylesheet" />
         @RenderSection("scripts", required: false)
     </div>
     <script>

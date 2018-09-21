@@ -33,6 +33,7 @@ namespace MeriMudra.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewData["city"] = db.Citys.ToList();
             ViewBag.ApplicationStatus = db.ApplicationStatus.Find(userCCApplyDetail.ApplicationStatusId);
             return View(userCCApplyDetail);
         }
@@ -40,6 +41,8 @@ namespace MeriMudra.Areas.Admin.Controllers
         // GET: Admin/UserCCApplyDetails/Create
         public ActionResult Create()
         {
+            ViewBag.ApplicationStatus = db.ApplicationStatus.ToList();
+            ViewData["city"] = db.Citys.ToList();
             return View();
         }
 
@@ -48,7 +51,7 @@ namespace MeriMudra.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,EmployerType,CompanyName,GrossIncomeOrNetSalary,Name,DOB,CityName,MobileNumber,email,CreditCardMaxLimit,OTP,isMobileNumberVerify,isEmailVerify,isUserActive")] UserCCApplyDetail userCCApplyDetail)
+        public ActionResult Create([Bind(Include = "Id,EmployerType,CompanyName,GrossIncomeOrNetSalary,Name,DOB,CityName,MobileNumber,email,CreditCardMaxLimit,OTP,isMobileNumberVerify,isEmailVerify,isUserActive,ApplicationStatusId")] UserCCApplyDetail userCCApplyDetail)
         {
             if (ModelState.IsValid)
             {
@@ -56,6 +59,7 @@ namespace MeriMudra.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ApplicationStatus = db.ApplicationStatus.ToList();
             ViewData["city"] = db.Citys.ToList();
             return View(userCCApplyDetail);
         }
@@ -91,6 +95,8 @@ namespace MeriMudra.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ApplicationStatus = db.ApplicationStatus.ToList();
+            ViewData["city"] = db.Citys.ToList();
             return View(userCCApplyDetail);
         }
 
