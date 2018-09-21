@@ -1,13 +1,15 @@
 ﻿@model MeriMudra.Models.UserLoanApplyDetail
 
 @{
+    List<MeriMudra.Models.City> city = (List<MeriMudra.Models.City>)ViewData["city"];
     ViewBag.Title = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    MeriMudra.Models.ApplicationStatus appStatus = ViewBag.ApplicationStatus;
 }
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">User Loan Apply Detail</div>
-       
+
         <div class="card-body">
             <div class="form-horizontal">
                 <div class="form-group">
@@ -42,13 +44,17 @@
                         </div>
                         <div class="col-md-3">
                             @Html.DisplayNameFor(model => model.DOB):<span class="text-muted large">
-                                @Html.Raw(Convert.ToDateTime(Model.DOB).ToString("dd/MM/yyyy"))
+                                @Html.Raw(Convert.ToDateTime(Model.DOB).ToString("MM/dd/yyyy").Replace("-", "/"))
                             </span>
 
                         </div>
                         <div class="col-md-3">
                             @Html.DisplayNameFor(model => model.CityName):<span class="text-muted large">
-                                @Html.DisplayFor(model => model.CityName)
+                                @{
+                                    string cityName = (from c in city where c.Id == Model.CityId select c.Name).FirstOrDefault();
+
+                                }
+                                @Html.DisplayFor(modelItem => cityName)
                             </span>
                         </div>
                     </div>
@@ -86,7 +92,7 @@
                         </div>
                         <div class="col-md-3">
                             User Active:<span class="text-muted large">
-                                @Html.Raw(Model.isUserActive ? "YES" : "NO")
+                                @Html.Raw(Model.isUserActive ? "Active" : "Not Active")
                             </span>
                         </div>
                     </div>
@@ -99,6 +105,9 @@
                             </span>
                         </div>
                         <div class="col-md-3">
+                            Application Status:<span class="text-muted large">
+                                @Html.Raw(appStatus.Status)
+                            </span>
                         </div>
                         <div class="col-md-3">
                         </div>
@@ -116,3 +125,12 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".nav-item").removeClass("active");
+            $("#Loan-Applications").addClass("active");
+        });
+    </script>
+}

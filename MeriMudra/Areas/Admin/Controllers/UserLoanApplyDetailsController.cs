@@ -33,12 +33,16 @@ namespace MeriMudra.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewData["city"] = db.Citys.ToList();
+            ViewBag.ApplicationStatus = db.ApplicationStatus.Find(userLoanApplyDetail.ApplicationStatusId);
             return View(userLoanApplyDetail);
         }
 
         // GET: Admin/UserLoanApplyDetails/Create
         public ActionResult Create()
         {
+            ViewBag.ApplicationStatus = db.ApplicationStatus.ToList();
+            ViewData["city"] = db.Citys.ToList();
             return View();
         }
 
@@ -47,7 +51,7 @@ namespace MeriMudra.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,EmployerType,CompanyName,GrossIncomeOrNetSalary,Name,DOB,CityName,MobileNumber,email,CreditCardMaxLimit,OTP,isMobileNumberVerify,isEmailVerify,isUserActive,Intended_loan_amount")] UserLoanApplyDetail userLoanApplyDetail)
+        public ActionResult Create([Bind(Include = "Id,EmployerType,CompanyName,GrossIncomeOrNetSalary,Name,DOB,CityName,MobileNumber,email,CreditCardMaxLimit,OTP,isMobileNumberVerify,isEmailVerify,isUserActive,Intended_loan_amount,ApplicationStatusId")] UserLoanApplyDetail userLoanApplyDetail)
         {
             if (ModelState.IsValid)
             {
@@ -55,7 +59,8 @@ namespace MeriMudra.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.ApplicationStatus = db.ApplicationStatus.ToList();
+            ViewData["city"] = db.Citys.ToList();
             return View(userLoanApplyDetail);
         }
 
@@ -71,6 +76,8 @@ namespace MeriMudra.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.ApplicationStatus = db.ApplicationStatus.ToList();
+            ViewData["city"] = db.Citys.ToList();
             return View(userLoanApplyDetail);
         }
 
@@ -79,7 +86,7 @@ namespace MeriMudra.Areas.Admin.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,EmployerType,CompanyName,GrossIncomeOrNetSalary,Name,DOB,CityName,MobileNumber,email,CreditCardMaxLimit,OTP,isMobileNumberVerify,isEmailVerify,isUserActive,Intended_loan_amount")] UserLoanApplyDetail userLoanApplyDetail)
+        public ActionResult Edit([Bind(Include = "Id,EmployerType,CompanyName,GrossIncomeOrNetSalary,Name,DOB,CityName,MobileNumber,email,CreditCardMaxLimit,OTP,isMobileNumberVerify,isEmailVerify,isUserActive,Intended_loan_amount,ApplicationStatusId")] UserLoanApplyDetail userLoanApplyDetail)
         {
             if (ModelState.IsValid)
             {
@@ -87,6 +94,8 @@ namespace MeriMudra.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ApplicationStatus = db.ApplicationStatus.ToList();
+            ViewData["city"] = db.Citys.ToList();
             return View(userLoanApplyDetail);
         }
 

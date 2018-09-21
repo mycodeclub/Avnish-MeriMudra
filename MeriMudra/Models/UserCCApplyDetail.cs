@@ -15,10 +15,12 @@ namespace MeriMudra.Models
         public bool? EmployerType { get; set; }
         [NotMapped]
         public string employed_radios { get; set; }
+        [DisplayName("Company Name")]
         public string CompanyName { get; set; }
         [DisplayName("Total Income")]
         public decimal? GrossIncomeOrNetSalary { get; set; }
         public string Name { get; set; }
+        [DisplayName("Date Of Birth")]
         public DateTime? DOB { get; set; }
         [DisplayName("City")]
         public string CityName { get; set; }
@@ -32,14 +34,18 @@ namespace MeriMudra.Models
         public string email { get; set; }
         public List<string> AccountWith { get; set; }
         public List<string> CreditCardWith { get; set; }
+        [DisplayName("Credit Card Max Limit")]
         public decimal? CreditCardMaxLimit { get; set; }
         [NotMapped]
         public string CurrentOrPrevLoan { get; set; }
         [NotMapped]
         public bool? _CurrentOrPrevLoan { get; set; }
         public int OTP { get; set; }
+        [DisplayName("Mobile Number Status")]
         public bool isMobileNumberVerify { get; set; }
+        [DisplayName("Email Status")]
         public bool isEmailVerify { get; set; }
+        [DisplayName("User Status")]
         public bool isUserActive { get; set; }
         [DisplayName("Apply Date")]
         public DateTime? CreatedDate { get; set; }
@@ -77,37 +83,45 @@ namespace MeriMudra.Models
     {
         [Key]
         public int Id { get; set; }
-
+        [DisplayName("Employer Type")]
         public bool? EmployerType { get; set; }
         [NotMapped]
         public string employed_radios { get; set; }
+        [DisplayName("Company Name")]
         public string CompanyName { get; set; }
-        [DisplayName("Income")]
+        [DisplayName("Total Income")]
         public decimal? GrossIncomeOrNetSalary { get; set; }
         public string Name { get; set; }
+        [DisplayName("Date Of Birth")]
         public DateTime? DOB { get; set; }
         [DisplayName("City")]
         public string CityName { get; set; }
-        
+
         public int CityId { get; set; }
         [NotMapped]
         public string PinCode { get; set; }
+        [DisplayName("Mobile")]
         public string MobileNumber { get; set; }
+        [DisplayName("Email")]
         public string email { get; set; }
         public List<string> AccountWith { get; set; }
         public List<string> CreditCardWith { get; set; }
+        [DisplayName("Credit Card Max Limit")]
         public decimal? CreditCardMaxLimit { get; set; }
         [NotMapped]
         public string CurrentOrPrevLoan { get; set; }
         [NotMapped]
         public bool? _CurrentOrPrevLoan { get; set; }
         public int OTP { get; set; }
+        [DisplayName("Mobile Number Status")]
         public bool isMobileNumberVerify { get; set; }
+        [DisplayName("Email Status")]
         public bool isEmailVerify { get; set; }
+        [DisplayName("User Status")]
         public bool isUserActive { get; set; }
-        [DisplayName("Amount")]
+        [DisplayName("Intended loan amount")]
         public decimal? Intended_loan_amount { get; set; }
-        [DisplayName("Created On")]
+        [DisplayName("Apply Date")]
         public DateTime? CreatedDate { get; set; }
         public int LoanType { get; set; }
         public string PanCard { get; set; }
