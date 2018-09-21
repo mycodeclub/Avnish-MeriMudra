@@ -5,10 +5,20 @@
 }
 @Html.AntiForgeryToken()
 <div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Banks</a>
+        </li>
+        <li class="breadcrumb-item active">List</li>
+    </ol>
+    <p>
+        <div class="col-md-2">
+            @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary btn-block" })
+        </div>
+    </p>
     <div class="card mb-3">
         <div class="card-header">
             <i class="fa fa-table"></i> List
-            @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary btn-block col-md-2 float-right" })
         </div>
         <div class="card-body">
             <div class="table-responsive">
