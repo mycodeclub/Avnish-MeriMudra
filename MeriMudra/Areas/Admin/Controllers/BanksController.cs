@@ -45,42 +45,20 @@ namespace MeriMudra.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "BankId,Name,LogoUrl")] Bank bank)
+        public ActionResult Create([Bind(Include = "BankId,Name")] Bank bank)
         {
             if (ModelState.IsValid)
             {
-                if (!string.IsNullOrEmpty(bank.LogoUrl) || (bank.BankLogoUpload != null && bank.BankLogoUpload.ContentLength > 0))
+                if (db.Banks.Any(b => b.Name == bank.Name))
                 {
-                    if ((bank.BankLogoUpload != null && bank.BankLogoUpload.ContentLength > 0))
-                    {
-                        if (!validImageFormets.Contains(bank.BankLogoUpload?.FileName.Split('.').Last()))
-                        {
-                            ModelState.AddModelError("CardImageUpload", "Upload Card Image in a valid image format, allowed formats are : " + validImageFormets);
-                            return View(bank);
-                        }
-                        else
-                        {
-                            bank.LogoUrl = SaveImageAndGetUrl(bank.BankLogoUpload);
-                        }
-                    }
-                    bank.LogoUrl = SaveImageAndGetUrl(bank.BankLogoUpload);
+                    ModelState.AddModelError("Name", "Given Bank Name is already exist in DB. Please try with different name");
+                }
+                else
+                {
                     db.Banks.Add(bank);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                else
-                {
-                    ModelState.AddModelError("BankLogoUpload", "This field is required");
-                    return View(bank);
-                }
-
-
-
-
-                bank.LogoUrl = SaveImageAndGetUrl(bank.BankLogoUpload);
-                db.Banks.Add(bank);
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
             return View(bank);
         }
@@ -146,7 +124,7 @@ namespace MeriMudra.Areas.Admin.Controllers
             Bank bank = db.Banks.Find(id);
             db.Banks.Remove(bank);
             db.SaveChanges();
-           // return RedirectToAction("Index");
+            // return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
