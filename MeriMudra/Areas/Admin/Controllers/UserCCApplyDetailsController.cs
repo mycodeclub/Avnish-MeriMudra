@@ -28,12 +28,15 @@ namespace MeriMudra.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UserCCApplyDetail userCCApplyDetail = db.UserCCApplyDetail.Find(id);
+            var userCCApplyDetail = db.UserCCApplyDetail.Find(id);
+            if (!string.IsNullOrEmpty(userCCApplyDetail.AccountWith))
+            {
+                userCCApplyDetail.AccountWithIdList = (from b in db.Banks.Where(b => userCCApplyDetail.AccountWith.Contains(b.BankId.ToString())).ToList() select b.Name).ToList();
+            }
             if (userCCApplyDetail == null)
             {
                 return HttpNotFound();
             }
-            ViewData["city"] = db.Citys.ToList();
             ViewBag.ApplicationStatus = db.ApplicationStatus.Find(userCCApplyDetail.ApplicationStatusId);
             return View(userCCApplyDetail);
         }
