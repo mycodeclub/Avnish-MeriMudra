@@ -25,11 +25,8 @@ namespace MeriMudra.Areas.Admin.Controllers
         {
             DateTime fromDate;
             DateTime toDate;
-            if (string.IsNullOrEmpty(fromdate) && string.IsNullOrEmpty(todate))
-            {
-                fromdate = DateTime.Now.AddYears(-5).ToString();
-                todate = DateTime.Now.ToString();
-            }
+            if (string.IsNullOrEmpty(fromdate)) fromdate = new DateTime(2018, 01, 01).ToString();
+            if (string.IsNullOrEmpty(todate)) todate = DateTime.Now.ToString();
             fromDate = Convert.ToDateTime(DateTime.ParseExact(fromdate, "MM/dd/yyyy", CultureInfo.InvariantCulture));
             toDate = Convert.ToDateTime(DateTime.ParseExact(todate, "MM/dd/yyyy", CultureInfo.InvariantCulture));
             var data = (from a in db.UserCCApplyDetail.ToList() where a.CreatedDate >= fromDate && a.CreatedDate <= Convert.ToDateTime(toDate) select a);
@@ -44,11 +41,8 @@ namespace MeriMudra.Areas.Admin.Controllers
         {
             DateTime fromDate;
             DateTime toDate;
-            if (string.IsNullOrEmpty(fromdate) && string.IsNullOrEmpty(todate))
-            {
-                fromdate = DateTime.Now.AddYears(-5).ToString();
-                todate = DateTime.Now.ToString();
-            }
+            if (string.IsNullOrEmpty(fromdate)) fromdate = new DateTime(2018, 01, 01).ToString();
+            if (string.IsNullOrEmpty(todate)) todate = DateTime.Now.ToString();
             fromDate = Convert.ToDateTime(DateTime.ParseExact(fromdate, "MM/dd/yyyy", CultureInfo.InvariantCulture));
             toDate = Convert.ToDateTime(DateTime.ParseExact(todate, "MM/dd/yyyy", CultureInfo.InvariantCulture));
             var data = (from a in db.UserLoanApplyDetail.ToList() where a.CreatedDate >= Convert.ToDateTime(fromDate) && a.CreatedDate <= Convert.ToDateTime(toDate) select a);
@@ -61,7 +55,14 @@ namespace MeriMudra.Areas.Admin.Controllers
         [HttpPost]
         public PartialViewResult prtBusinessPartnerProgrammes(string fromdate, string todate)
         {
-            var data = (from a in db.BusinessPartnerProgrammes.ToList() where a.CreatedDate >= Convert.ToDateTime(fromdate) && a.CreatedDate <= Convert.ToDateTime(todate) select a);
+            DateTime fromDate;
+            DateTime toDate;
+            if (string.IsNullOrEmpty(fromdate)) fromdate = new DateTime(2018, 01, 01).ToString();
+            if (string.IsNullOrEmpty(todate)) todate = DateTime.Now.ToString();
+            fromDate = Convert.ToDateTime(DateTime.ParseExact(fromdate, "MM/dd/yyyy", CultureInfo.InvariantCulture));
+            toDate = Convert.ToDateTime(DateTime.ParseExact(todate, "MM/dd/yyyy", CultureInfo.InvariantCulture));
+
+            var data = (from a in db.BusinessPartnerProgrammes.ToList() where a.CreatedDate >= Convert.ToDateTime(fromDate) && a.CreatedDate <= Convert.ToDateTime(toDate) select a);
             return PartialView(data);
         }
 
