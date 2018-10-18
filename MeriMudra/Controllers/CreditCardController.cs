@@ -139,7 +139,7 @@ namespace MeriMudra.Controllers
                     command.Parameters.AddWithValue("@MobileNumber", userdata.MobileNumber);
                     command.Parameters.AddWithValue("@OTP", userdata.OTP);
                     command.Parameters.AddWithValue("@email", userdata.email);
-                    string accountWith = string.Join(",", userdata.AccountWith);
+                    string accountWith = string.Join(",", userdata.AccountWithIdList);
                     accountWith = accountWith.Length > 4 ? accountWith.Substring(4, accountWith.Length - 4) : "";
                     string CreditCardWith = string.Join(",", userdata.CreditCardWith);
                     CreditCardWith = CreditCardWith.Length > 4 ? CreditCardWith.Substring(4, CreditCardWith.Length - 4) : "";

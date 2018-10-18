@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<MeriMudra.Models.City>
-
 @{
     List<SelectListItem> states = ViewBag.StateList;
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -9,20 +8,15 @@
 <div class="container-fluid">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Cities</a>
+            <a href="#">Banks</a>
         </li>
         <li class="breadcrumb-item active">List</li>
     </ol>
     <p>
         <div class="col-md-2">
-            @Html.ActionLink("Add New City", "Create", new { }, new { @class = "btn btn-primary btn-block" })
+            @Html.ActionLink("Create New", "Create", new { }, new { @class = "btn btn-primary btn-block" })
         </div>
     </p>
-   
-    @*<input type="text" class="form-control" id="searchBarForCities" placeholder="Search for Cities.." title="Type in a name of city" style="display: initial;">*@
-
-    <br />
-    <br />
     <div class="card mb-3">
         <div class="card-header">
             <i class="fa fa-table"></i> List
@@ -73,13 +67,6 @@
         </div>
     </div>
 </div>
-
-
-@*@section scripts {
-    <script>
-        $(document).ready(function () { SearchInTable('tbl_cities', 'searchBarForCities'); });
-    </script>
-}*@
 @section scripts {
     <script>
         $(document).ready(function () {

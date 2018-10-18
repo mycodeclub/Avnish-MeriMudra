@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 namespace MeriMudra.Models
 {
     [Table("UserCCApplyDetail")]
     public class UserCCApplyDetail
     {
+        private MmDbContext db = new MmDbContext();
         [Key]
         public int Id { get; set; }
 
@@ -32,7 +34,9 @@ namespace MeriMudra.Models
         public string MobileNumber { get; set; }
         [DisplayName("Email")]
         public string email { get; set; }
-        public List<string> AccountWith { get; set; }
+        public List<string> AccountWithIdList { get; set; }
+        public string AccountWith { get; set; }
+
         public List<string> CreditCardWith { get; set; }
         [DisplayName("Credit Card Max Limit")]
         public decimal? CreditCardMaxLimit { get; set; }
@@ -54,6 +58,8 @@ namespace MeriMudra.Models
         public int ApplicationStatusId { get; set; }
         public UserCCApplyDetail()
         {
+
+
             Id = 0;
             EmployerType = true;
             PanCard = employed_radios = "";
@@ -66,7 +72,9 @@ namespace MeriMudra.Models
             PinCode = "";
             MobileNumber = "";
             email = "";
-            AccountWith = new List<string>();
+
+            AccountWithIdList = new List<string>();
+
             CreditCardWith = new List<string>();
             CreditCardMaxLimit = 0;
             CurrentOrPrevLoan = "";

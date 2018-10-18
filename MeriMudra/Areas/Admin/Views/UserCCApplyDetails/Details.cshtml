@@ -1,5 +1,4 @@
 ﻿@model MeriMudra.Models.UserCCApplyDetail
-
 @{
     List<MeriMudra.Models.City> city = (List<MeriMudra.Models.City>)ViewData["city"];
     ViewBag.Title = "Details";
@@ -8,7 +7,6 @@
     List<MeriMudra.Models.Bank> banks = (List<MeriMudra.Models.Bank>)ViewData["Banks"];
     List<MeriMudra.Models.CreditCard> CreditCards = (List<MeriMudra.Models.CreditCard>)ViewData["CreditCards"];
 }
-
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">User Credit Card Apply Detail</div>
@@ -17,7 +15,6 @@
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-3">
-
                             @Html.DisplayNameFor(model => model.EmployerType)
                             :<span class="text-muted large">
                                 @Html.Raw(Model.isMobileNumberVerify ? "Salaried" : "Self-employed")
@@ -36,7 +33,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-3">
@@ -48,15 +44,10 @@
                             @Html.DisplayNameFor(model => model.DOB):<span class="text-muted large">
                                 @Html.Raw(Convert.ToDateTime(Model.DOB).ToString("MM/dd/yyyy").Replace("-", "/"))
                             </span>
-
                         </div>
                         <div class="col-md-3">
                             @Html.DisplayNameFor(model => model.CityName):<span class="text-muted large">
-                                @{
-                                    string cityName = (from c in city where c.Id == Model.CityId select c.Name).FirstOrDefault();
-
-                                }
-                                @Html.DisplayFor(modelItem => cityName)
+                                @Html.DisplayFor(modelItem => Model.CityName)
                             </span>
                         </div>
                     </div>
@@ -138,6 +129,27 @@
                                 @Html.Raw(appStatus.Status)
                             </span>
                         </div>
+                        <div class="col-md-3">
+                            Existing Account With: <span class="text-muted large">
+                                <ol>
+                                    @foreach (var bank in Model.AccountWithIdList)
+                                    {
+                                        <li> @Html.Raw(bank)</li>
+                                    }
+                                </ol>
+                            </span>
+                        </div>  <div class="col-md-3">
+                            Current Or Previous Loan: <span class="text-muted large">
+                                <ol>
+                                    @if (Model._CurrentOrPrevLoan == true)
+                                    {
+                                        <p>Yes</p> }
+                                    else
+                                    {
+                                        <p>No</p>}
+                                </ol>
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -145,7 +157,6 @@
                         <div class="col-md-6" style="padding-right:0;padding-left:0;">
                             <div class="col-md-2" style="padding-right:0;padding-left:0;">
                                 @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-block" })
-
                             </div>
                         </div>
                         <div class="col-md-6" style="padding-right:0;padding-left:0;float:right;">

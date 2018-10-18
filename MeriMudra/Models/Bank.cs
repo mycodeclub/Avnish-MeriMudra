@@ -11,8 +11,9 @@ namespace MeriMudra.Models
     [Table("Bank")]
     public class Bank
     {
-        [DisplayName("Bank")]
+        [DisplayName("Id")]
         public int BankId { get; set; }
+        [DisplayName("Bank Name")]
         public string Name { get; set; }
         [DisplayName("Bank Logo Url")]
         public string LogoUrl { get; set; }
