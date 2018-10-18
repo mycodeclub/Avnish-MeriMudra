@@ -4,6 +4,8 @@
     ViewBag.Title = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     MeriMudra.Models.ApplicationStatus appStatus = ViewBag.ApplicationStatus;
+    List<MeriMudra.Models.Bank> banks = (List<MeriMudra.Models.Bank>)ViewData["Banks"];
+    List<MeriMudra.Models.CreditCard> CreditCards = (List<MeriMudra.Models.CreditCard>)ViewData["CreditCards"];
 }
 <div class="container-fluid">
     <div class="card">
@@ -72,6 +74,38 @@
                 <div class="form-group">
                     <div class="form-row">
                         <div class="col-md-3">
+                            @Html.LabelFor(model => model._CreditCardWith, htmlAttributes: new { @class = "" })
+                            @{
+                                var CreditCardWith = Model._CreditCardWith.Split(',');
+
+                                <span class="text-muted large">:
+                                    @foreach (var item in CreditCards)
+                                    {
+                                        @Html.Raw(CreditCardWith.Any(s => s.Equals(item.CardId.ToString())) ? item.CardName+", " : "")
+                                    }
+                                </span>
+                            }
+                        </div>
+                        <div class="col-md-3">
+                            @Html.LabelFor(model => model._AccountWith, htmlAttributes: new { @class = "" })
+                            @{
+                                var AccountWith = Model._AccountWith.Split(',');
+                                <span class="text-muted large">:
+                                    @foreach (var item in banks)
+                                    {
+                                         @Html.Raw(AccountWith.Any(s => s.Equals(item.BankId.ToString())) ? item.Name+", " : "")
+                                    }
+                                </span>
+                            }
+                        </div>
+                        <div class="col-md-3">
+                           
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-3">
                             Mobile Number Verified:<span class="text-muted large">
                                 @Html.Raw(Model.isMobileNumberVerify ? "Yes" : "No")
                             </span>
@@ -118,14 +152,25 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-6" style="padding-right:0;padding-left:0;">
+                            <div class="col-md-2" style="padding-right:0;padding-left:0;">
+                                @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary btn-block" })
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding-right:0;padding-left:0;float:right;">
+                            <div class="col-md-2" style="padding-right:0;padding-left:0;float:right;">
+                                @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-primary btn-block" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
-</div><p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
-
+</div>
 @section scripts {
     <script>
         $(document).ready(function () {

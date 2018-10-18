@@ -74,15 +74,22 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-2" style="padding-right:0;padding-left:0;">
-                        <input type="submit" value="Create" class="btn btn-primary btn-block" />
+                    <div class="form-row">
+                        <div class="col-md-6" style="padding-right:0;padding-left:0;">
+                            <div class="col-md-2" style="padding-right:0;padding-left:0;">
+                                <input type="submit" value="Create" class="btn btn-primary btn-block">
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="padding-right:0;padding-left:0;float:right;">
+                            <div class="col-md-2" style="padding-right:0;padding-left:0;float:right;">
+                                @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-primary btn-block" })
+                            </div>
+                        </div>
                     </div>
                 </div>
+                
             }
 
-            <div>
-                @Html.ActionLink("Back to List", "Index")
-            </div>
 
         </div>
     </div>

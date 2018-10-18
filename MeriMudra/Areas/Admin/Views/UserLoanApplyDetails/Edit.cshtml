@@ -5,16 +5,23 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     List<MeriMudra.Models.ApplicationStatus> appStatus = ViewBag.ApplicationStatus;
     List<MeriMudra.Models.City> citys = (List<MeriMudra.Models.City>)ViewData["city"];
+    List<MeriMudra.Models.Bank> banks = (List<MeriMudra.Models.Bank>)ViewData["Banks"];
+    List<MeriMudra.Models.CreditCard> CreditCards = (List<MeriMudra.Models.CreditCard>)ViewData["CreditCards"];
 }
 
 <!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
     <title>Edit</title>
-</head>
-<body>
+
+<style>
+    .dropdown-toggle {
+        color: #333 !important;
+        background-color: #fff !important;
+        border-color: #ccc !important;
+        border: 1px solid #b6b3b3 !important;
+        border-radius: 4px !important;
+    }
+</style>
     @using (Html.BeginForm())
     {<input type="hidden" name="CreatedDate" value="@Model.CreatedDate">
         @Html.AntiForgeryToken()
@@ -142,6 +149,35 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col-md-6">
+                                @Html.LabelFor(model => model._CreditCardWith, htmlAttributes: new { @class = "" })
+                                @{
+                                    var CreditCardWith = Model._CreditCardWith.Split(',');
+                                    <select id="token" name="CreditCardWith" class="selectpicker form-control" multiple data-live-search="false">
+                                        @foreach (var item in CreditCards)
+                                        {
+                                            <option @Html.Raw(CreditCardWith.Any(s => s.Equals(item.CardId.ToString())) ? "selected" : "") value="@item.CardId">@item.CardName</option>
+                                        }
+                                    </select>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                @Html.LabelFor(model => model._AccountWith, htmlAttributes: new { @class = "" })
+                                @{
+                                    var AccountWith = Model._AccountWith.Split(',');
+                                    <select id="tokens" name="CreditCardWith" class="selectpicker form-control" multiple data-live-search="false">
+                                        @foreach (var item in banks)
+                                        {
+                                            <option @Html.Raw(AccountWith.Any(s => s.Equals(item.BankId.ToString())) ? "selected" : "") value="@item.BankId">@item.Name</option>
+                                        }
+                                    </select>
+                                }
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-6">
                                     @Html.LabelFor(model => model.Intended_loan_amount, htmlAttributes: new { @class = "" })
                                     @Html.EditorFor(model => model.Intended_loan_amount, new { htmlAttributes = new { @class = "form-control" } })
                                     @Html.ValidationMessageFor(model => model.Intended_loan_amount, "", new { @class = "text-danger" })
@@ -180,22 +216,26 @@
 
                     </div>
                     <div class="form-group">
-                        <div class="col-md-2" style="padding-right:0;padding-left:0;">
-                            <input type="submit" value="Update" class="btn btn-primary btn-block">
+                        <div class="form-row">
+                            <div class="col-md-6" style="padding-right:0;padding-left:0;">
+                                <div class="col-md-2" style="padding-right:0;padding-left:0;">
+                                    <input type="submit" value="Update" class="btn btn-primary btn-block">
+                                </div>
+                            </div>
+                            <div class="col-md-6" style="padding-right:0;padding-left:0;float:right;">
+                                <div class="col-md-2" style="padding-right:0;padding-left:0;float:right;">
+                                    @Html.ActionLink("Back to List", "Index", new { }, new { @class = "btn btn-primary btn-block" })
+                                </div>
+                            </div>
                         </div>
                     </div>
+                   
                 </div>
             </div>
         </div>
       
     }
-    
-    <div>
-        @Html.ActionLink("Back to List", "Index")
-    </div>
-</body>
-</html>
-
+   
 @section scripts {
     <script>
         $(document).ready(function () {

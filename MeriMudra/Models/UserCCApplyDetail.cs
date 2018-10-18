@@ -127,6 +127,12 @@ namespace MeriMudra.Models
         public bool isEmailVerify { get; set; }
         [DisplayName("User Status")]
         public bool isUserActive { get; set; }
+        [DisplayName("Credit Card With")]
+        [Column("CreditCardWith")]
+        public string _CreditCardWith { get; set; }
+        [DisplayName("Accoun tWith")]
+        [Column("AccountWith")]
+        public string _AccountWith { get; set; }
         [DisplayName("Intended loan amount")]
         public decimal? Intended_loan_amount { get; set; }
         [DisplayName("Apply Date")]
