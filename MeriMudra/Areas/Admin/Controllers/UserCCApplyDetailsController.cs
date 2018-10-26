@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MeriMudra.Common;
 using MeriMudra.Models;
 
 namespace MeriMudra.Areas.Admin.Controllers
@@ -14,6 +15,7 @@ namespace MeriMudra.Areas.Admin.Controllers
     {
         private MmDbContext db = new MmDbContext();
 
+        private Logging log = new Logging();
         // GET: Admin/UserCCApplyDetails
         public ActionResult Index()
         {
@@ -58,8 +60,10 @@ namespace MeriMudra.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var start = DateTime.Now;
                 db.UserCCApplyDetail.Add(userCCApplyDetail);
                 db.SaveChanges();
+                log.DbCallLog("UserCCApplyDetailsController", "CreatePost", (DateTime.Now - start).ToString(), "Time taken to save CC");
                 return RedirectToAction("Index");
             }
             ViewBag.ApplicationStatus = db.ApplicationStatus.ToList();

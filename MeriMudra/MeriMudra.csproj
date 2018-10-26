@@ -549,6 +549,7 @@
     <Compile Include="Areas\Admin\Controllers\UserLoanApplyDetailsController.cs" />
     <Compile Include="Areas\Admin\Models\User.cs" />
     <Compile Include="Class\sendsms.cs" />
+    <Compile Include="Common\Logging.cs" />
     <Compile Include="Controllers\BusinessPartnerProgrammesController.cs" />
     <Compile Include="Controllers\CreditCardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
