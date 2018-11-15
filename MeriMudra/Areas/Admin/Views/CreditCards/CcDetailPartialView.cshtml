@@ -25,19 +25,22 @@
                 <div class="card-body">
                     <label class="fa fa-edit btn btn-outline-secondary float-right" onclick="location.href='/Admin/CreditCards/SaveCcBenefitsAndFeature/@Model.CardId'"> Edit </label>
                     <ol>
-                        @for (int i = 0; i < Model._BenefitsAndFeature.Count; i++)
-                        {
-                            <li>
-                                <b> @Model._BenefitsAndFeature[i].HeadingText</b>
-                                <ul>
-                                    @for (int j = 0; j < Model._BenefitsAndFeature[i].Points.Count; j++)
+                        @{
+                            var bf = Model._BenefitsAndFeature.GroupBy(b => b.HeadingText);
+                            foreach (var item in bf)
+                            {
+                                <li>
+                                    <b> @item.Key</b>
+                                    <ul>
+                                        @foreach (var row in item.ToList()) 
+                                        {
+                                             <li>@row.Point</li>
+                                        }
+                                    </ul>
+                                </li>
 
-                                    {
-                                        <li>@Model._BenefitsAndFeature[i].Points[j]</li>
-                                    }
-                                </ul>
-                            </li>
-                        }
+                                }
+                            }
                     </ol>
                 </div>
             </div>   <!--BENEFITS & FEATURES-->

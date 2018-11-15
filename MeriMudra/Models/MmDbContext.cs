@@ -16,12 +16,14 @@ namespace MeriMudra.Models
         public virtual DbSet<CreditCard> CreditCards { get; set; }
         public virtual DbSet<CcDetail> CcDetails { get; set; }
         public virtual DbSet<CcInfoSectionMaster> CcInfoSectionMasters { get; set; }
-        public virtual DbSet<Areas.Admin.Models.User> UserLogin { get; set; }
+        public virtual DbSet<Areas.Admin.Models.User>  Users  { get; set; }
         public virtual DbSet<Company> Companys { get; set; }
         public virtual DbSet<UserCCApplyDetail> UserCCApplyDetail { get; set; }
         public virtual DbSet<UserLoanApplyDetail> UserLoanApplyDetail { get; set; }
         public virtual DbSet<EligibilityCriteria> CcEligibilityCriterias { get; set; }
         public virtual DbSet<CityGroup> CityGroups { get; set; }
         public virtual DbSet<ApplicationStatus> ApplicationStatus { get; set; }
+
+        public virtual DbSet<BenefitsAndFeature> BenefitsAndFeatures { get; set; }
     }
 }
