@@ -24,7 +24,7 @@ namespace MeriMudra.Models.ViewModels
                 Value = x.BankId.ToString(),
                 Text = x.Name,
             }).ToList();
-            _BenefitsAndFeature = new List<BenefitsAndFeature>() { new BenefitsAndFeature() { HeadingText = string.Empty, Points = new List<string>(), } };
+            // _BenefitsAndFeature = new List<BenefitsAndFeature>() { new BenefitsAndFeature() { HeadingText = string.Empty, Points = new List<string>(), } };
             _RedeemReward = new List<RedeemReward>() { new RedeemReward() { HeadingText = string.Empty, Points = new List<string>(), } };
             _FeesAndCharge = new List<FeesAndCharge>() { new FeesAndCharge() { HeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
             _BorrowPrivilege = new List<BorrowPrivilege>() { new BorrowPrivilege() { HeadingText = string.Empty, SubHeadingText = string.Empty, Points = new List<KeyValuePair<string, string>>(), } };
@@ -36,12 +36,12 @@ namespace MeriMudra.Models.ViewModels
             var cCard = db.CreditCards.Where(cc => cc.CardId == CardId).SingleOrDefault();
             BankId = cCard.BankId;
             this.CardId = cCard.CardId;
-            BanksSelectList = db.Banks.Select(x => new SelectListItem
-            {
-                Value = x.BankId.ToString(),
-                Text = x.Name,
-                Selected = (x.BankId == BankId) ? true : false,
-            }).ToList();
+            //BanksSelectList = db.Banks.Select(x => new SelectListItem
+            //{
+            //    Value = x.BankId.ToString(),
+            //    Text = x.Name,
+            //    Selected = (x.BankId == BankId) ? true : false,
+            //}).ToList();
             CardName = cCard.CardName;
             CardDescription = cCard.CardDescription;
             CardImageUrl = cCard.CardImageUrl;
@@ -56,12 +56,13 @@ namespace MeriMudra.Models.ViewModels
             {
                 ReasonsToGetThisCard.Add(r.Point);
             }
-            foreach (var bf in CcDetail.Where(ccd => ccd.CcInfoSectionMaster.CcInfoSectionMasterId == 2))
-            {
-                if (_BenefitsAndFeature.Count == 0 || _BenefitsAndFeature.Last().HeadingText != bf.Heading)
-                { _BenefitsAndFeature.Add(new BenefitsAndFeature() { HeadingText = bf.Heading, Points = new List<string>() { bf.Point } }); }
-                else _BenefitsAndFeature.LastOrDefault().Points.Add(bf.Point);
-            }
+            _BenefitsAndFeature = db.BenefitsAndFeatures.Where(b => b.CardId == CardId).ToList();
+            //foreach (var bf in CcDetail.Where(ccd => ccd.CcInfoSectionMaster.CcInfoSectionMasterId == 2))
+            //{
+            //    if (_BenefitsAndFeature.Count == 0 || _BenefitsAndFeature.Last().HeadingText != bf.Heading)
+            //    { _BenefitsAndFeature.Add(new BenefitsAndFeature() { HeadingText = bf.Heading, Points = new List<string>() { bf.Point } }); }
+            //    else _BenefitsAndFeature.LastOrDefault().Points.Add(bf.Point);
+            //}
             foreach (var bf in CcDetail.Where(ccd => ccd.CcInfoSectionMaster.CcInfoSectionMasterId == 3))
             {
                 if (_FeesAndCharge.Count == 0 || _FeesAndCharge.Last().HeadingText != bf.Heading)
@@ -153,15 +154,15 @@ namespace MeriMudra.Models.ViewModels
             if (CardId == 0) CardId = db.CreditCards.Max(ccc => (int)ccc.CardId);
             return CardId;
         }
-        private bool SaveBenefitsAndFeature()
-        {
-            db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == CardId && ccd.CcInfoSectionMasterId == 2).ToList());
-            foreach (var benefit in _BenefitsAndFeature)
-                if (benefit.Points != null && benefit.Points.Any())
-                    foreach (var point in benefit.Points)
-                        db.CcDetails.Add(new CcDetail() { CardId = CardId, CcInfoSectionMasterId = 2, Heading = benefit.HeadingText, Point = point });
-            return db.SaveChanges() > 0 ? true : false;
-        }
+        //private bool SaveBenefitsAndFeature()
+        //{
+        //    db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == CardId && ccd.CcInfoSectionMasterId == 2).ToList());
+        //    foreach (var benefit in _BenefitsAndFeature)
+        //        if (benefit.Points != null && benefit.Points.Any())
+        //            foreach (var point in benefit.Points)
+        //                db.CcDetails.Add(new CcDetail() { CardId = CardId, CcInfoSectionMasterId = 2, Heading = benefit.HeadingText, Point = point });
+        //    return db.SaveChanges() > 0 ? true : false;
+        //}
         private bool SaveRedeemReward()
         {
             db.CcDetails.RemoveRange(db.CcDetails.Where(ccd => ccd.CardId == CardId && ccd.CcInfoSectionMasterId == 4).ToList());
@@ -195,7 +196,7 @@ namespace MeriMudra.Models.ViewModels
             switch (section)
             {
                 case CcInfoSection.BenefitsAndFeatures:
-                    restult = SaveBenefitsAndFeature();
+                    //  restult = SaveBenefitsAndFeature();
                     break;
                 case CcInfoSection.FeesAndCharges:
                     restult = SaveCcFeesAndCharges();
